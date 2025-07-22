@@ -1,0 +1,1 @@
+signal OnSwitchState(entity_ref entity, asset_ref<StateBase> state);

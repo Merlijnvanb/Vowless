@@ -1,0 +1,6 @@
+enum GameState
+{
+    PREBATTLE,
+    BATTLE,
+    POSTBATTLE,
+}

@@ -1,0 +1,9 @@
+input 
+{
+    FPVector2 MoveDir;
+    FPVector2 LookDir;
+    
+    button Block;
+    button Attack;
+    button Turn;
+}

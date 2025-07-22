@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db5e9ff291c881408da2fb51a4b6069, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/GameAssets/GameConfig
+    Guid:
+      Value: 296760859057579570
+  BaseRonin:
+    Id:
+      Value: 1482107196972320669
+  BaseConstants:
+    Id:
+      Value: 299644897576287749
+  StartingState:
+    Id:
+      Value: 436676437927294919
+  StageWidth:
+    RawValue: 655360
+  MaxDistance:
+    RawValue: 327680
+  StartDistance:
+    RawValue: 131072
+  PreBattleTimeFrames: 180
+  BattleTimeFrames: 0
+  PostBattleTimeFrames: 300

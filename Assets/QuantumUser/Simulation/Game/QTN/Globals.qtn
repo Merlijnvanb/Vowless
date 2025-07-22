@@ -1,0 +1,10 @@
+global // Mutable global data
+{
+    entity_ref Ronin1;
+    entity_ref Ronin2;
+    
+    GameState GameState;
+    FrameTimer GameTimer;
+    
+    bool ParseInputs;
+}

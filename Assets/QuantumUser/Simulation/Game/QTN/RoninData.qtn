@@ -1,0 +1,10 @@
+component RoninData
+{
+    asset_ref<RoninConstants> Constants;
+    
+    FPVector2 Position;
+    int FacingSign;
+    
+    asset_ref<StateBase> CurrentState;
+    int StateFrame;
+}
