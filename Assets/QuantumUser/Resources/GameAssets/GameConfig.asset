@@ -19,12 +19,18 @@ MonoBehaviour:
   BaseRonin:
     Id:
       Value: 1482107196972320669
-  BaseConstants:
+  BaseRoninConstants:
     Id:
       Value: 299644897576287749
-  StartingState:
+  StartingRoninState:
     Id:
       Value: 436676437927294919
+  BaseSaberConstants:
+    Id:
+      Value: 484503194619320672
+  StartingSaberState:
+    Id:
+      Value: 499849281164139343
   StageWidth:
     RawValue: 655360
   MaxDistance:

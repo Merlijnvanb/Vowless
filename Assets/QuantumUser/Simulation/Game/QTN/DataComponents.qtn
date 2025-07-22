@@ -1,0 +1,28 @@
+component PlayerData
+{
+    player_ref PlayerRef;
+    
+    array<Input>[60] InputHistory;
+    int InputHeadIndex;
+}
+
+component RoninData
+{
+    asset_ref<RoninConstants> Constants;
+    
+    FPVector2 Position;
+    int FacingSign;
+    
+    asset_ref<RoninStateBase> CurrentState;
+    int StateFrame;
+}
+
+component SaberData
+{
+    asset_ref<SaberConstants> Constants;
+    
+    FPVector2 Direction;
+
+    asset_ref<SaberStateBase> CurrentState;
+    int StateFrame;
+}

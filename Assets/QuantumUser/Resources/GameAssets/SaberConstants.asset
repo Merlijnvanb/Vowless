@@ -9,15 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3362f754d115414e83a5a7bffa6b3ee, type: 3}
-  m_Name: Walk
+  m_Script: {fileID: 11500000, guid: ca16873e417e469695a73b53fcd7cd12, type: 3}
+  m_Name: SaberConstants
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Resources/GameAssets/States/Walk
+    Path: QuantumUser/Resources/GameAssets/SaberConstants
     Guid:
-      Value: 389968709553779405
-  AlwaysCancelable: 1
-  ForwardWalkSpeed:
-    RawValue: 13107
-  BackwardWalkSpeed:
-    RawValue: 6554
+      Value: 484503194619320672
+  States:
+    IdleDirection: {fileID: 11400000, guid: e3b6f36df6d975e42a8ec6ca4a765f54, type: 2}

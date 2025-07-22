@@ -11,7 +11,7 @@
                     "type": "Value",
                     "id": "2390ddd6-2e74-43a3-89bd-d88bcad11c08",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -142,59 +142,15 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "2D Vector",
-                    "id": "dbed5cfe-87ab-483b-9b28-11412de66c71",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "d947a50e-07c2-400f-81f1-e2a0cde2ac7b",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "NormalizeVector2",
-                    "groups": "",
+                    "processors": "",
+                    "groups": ";KBM",
                     "action": "Look",
-                    "isComposite": true,
+                    "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "71b47756-f978-419f-bb38-7cbf99234c1a",
-                    "path": "<Mouse>/delta/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KBM",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "dea47ac4-04db-4f15-9084-f3869196f23a",
-                    "path": "<Mouse>/delta/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KBM",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "3ac846be-84fc-4837-99b2-14f66c45e1ec",
-                    "path": "<Mouse>/delta/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KBM",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "10556479-71cb-4ba1-8aa2-3576c8640f94",
-                    "path": "<Mouse>/delta/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KBM",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }

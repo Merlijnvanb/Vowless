@@ -2,7 +2,7 @@ namespace Quantum
 {  
     using Photon.Deterministic;  
   
-    public unsafe class WalkState : StateBase
+    public unsafe class WalkState : RoninStateBase
     {
         public FP ForwardWalkSpeed;
         public FP BackwardWalkSpeed;
@@ -23,7 +23,7 @@ namespace Quantum
             
             var nextState = GetNextState(frame, entity);
             if (nextState != this)
-                frame.Signals.OnSwitchState(entity, nextState);
+                frame.Signals.OnSwitchRoninState(entity, nextState);
         }
 
         private void ApplyMovement(Frame frame, EntityRef entity)

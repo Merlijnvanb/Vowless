@@ -3,14 +3,23 @@ namespace Quantum
     using Photon.Deterministic;
     using UnityEngine.Scripting;
     
-    public abstract unsafe class StateBase : AssetObject
+    public abstract unsafe class RoninStateBase : AssetObject
     {
         public bool AlwaysCancelable = false;
-        
-        public virtual void EnterState(Frame frame, EntityRef entity) {}
-        public virtual void UpdateState(Frame frame, EntityRef entity) {}
 
-        public virtual StateBase GetNextState(Frame frame, EntityRef entity)
+        public virtual void EnterState(Frame frame, EntityRef entity)
+        {
+            var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
+            ronin->StateFrame = 0;
+        }
+
+        public virtual void UpdateState(Frame frame, EntityRef entity)
+        {
+            var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
+            ronin->StateFrame++;
+        }
+
+        protected virtual RoninStateBase GetNextState(Frame frame, EntityRef entity)
         {
             var player = frame.Unsafe.GetPointer<PlayerData>(entity);
             var input = InputUtils.GetInput(player);

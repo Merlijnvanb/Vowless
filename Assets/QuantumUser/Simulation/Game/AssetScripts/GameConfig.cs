@@ -5,8 +5,12 @@ namespace Quantum
     public class GameConfig : AssetObject // Immutable global data
     {
         public AssetRef<EntityPrototype> BaseRonin;
-        public AssetRef<RoninConstants> BaseConstants;
-        public AssetRef<StateBase> StartingState;
+        
+        public AssetRef<RoninConstants> BaseRoninConstants;
+        public AssetRef<RoninStateBase> StartingRoninState;
+        
+        public AssetRef<SaberConstants> BaseSaberConstants;
+        public AssetRef<SaberStateBase> StartingSaberState;
         
         public FP StageWidth = 10;
         public FP MaxDistance = 5;

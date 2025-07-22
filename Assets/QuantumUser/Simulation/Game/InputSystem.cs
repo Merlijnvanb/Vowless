@@ -23,6 +23,7 @@ namespace Quantum
             public EntityRef Entity;
             public PlayerData* Player;
             public RoninData* Ronin;
+            public SaberData* Saber;
         }
     }
 }

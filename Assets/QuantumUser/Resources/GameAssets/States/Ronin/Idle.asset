@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Idle
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Resources/GameAssets/States/Idle
+    Path: QuantumUser/Resources/GameAssets/States/Ronin/Idle
     Guid:
       Value: 436676437927294919
   AlwaysCancelable: 1

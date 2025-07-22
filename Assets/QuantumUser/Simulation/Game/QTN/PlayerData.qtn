@@ -1,7 +1,0 @@
-component PlayerData
-{
-    player_ref PlayerRef;
-    
-    array<Input>[60] InputHistory;
-    int InputHeadIndex;
-}

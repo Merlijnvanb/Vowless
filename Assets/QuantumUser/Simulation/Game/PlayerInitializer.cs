@@ -8,22 +8,32 @@ namespace Quantum
     {
         public override void OnInit(Frame frame)
         {
-            for (int i = 1; i < 3; i++)
+            for (int i = 1; i <= 2; i++)
             {
                 var config = frame.FindAsset<GameConfig>(frame.RuntimeConfig.GameConfig);
                 var roninEntity = frame.Create(frame.FindAsset(config.BaseRonin));
                 
-                var ronin = frame.Unsafe.GetPointer<RoninData>(roninEntity);
                 var player = frame.Unsafe.GetPointer<PlayerData>(roninEntity);
+                
+                player->InputHeadIndex = -1;
+                
+                
+                var ronin = frame.Unsafe.GetPointer<RoninData>(roninEntity);
 
                 ronin->Position = i == 1
                     ? new FPVector2(-(config.StartDistance / 2), 0)
                     : new FPVector2(config.StartDistance / 2, 0);
                 ronin->FacingSign = i == 1 ? 1 : -1;
-                ronin->CurrentState = config.StartingState;
+                ronin->CurrentState = config.StartingRoninState;
                 ronin->StateFrame = 0;
+                
+                
+                var saber = frame.Unsafe.GetPointer<SaberData>(roninEntity);
 
-                player->InputHeadIndex = -1;
+                saber->Direction = i == 1 ? new FPVector2(1, 0) : new FPVector2(-1, 0);
+                saber->CurrentState = config.StartingSaberState;
+                saber->StateFrame = 0;
+                
 
                 if (i == 1)
                     frame.Global->Ronin1 = roninEntity;
@@ -39,12 +49,23 @@ namespace Quantum
 
             var config = frame.FindAsset<GameConfig>(frame.RuntimeConfig.GameConfig);
             var roninEntity = player._index == 1 ? frame.Global->Ronin1 : frame.Global->Ronin2;
+            
+            
             var playerData = frame.Unsafe.GetPointer<PlayerData>(roninEntity);
-            var roninData = frame.Unsafe.GetPointer<RoninData>(roninEntity);
-            var constants = frame.FindAsset<RoninConstants>(config.BaseConstants);
-
+            
             playerData->PlayerRef = player;
-            roninData->Constants = constants;
+            
+            
+            var roninData = frame.Unsafe.GetPointer<RoninData>(roninEntity);
+            var roninConstants = frame.FindAsset<RoninConstants>(config.BaseRoninConstants);
+
+            roninData->Constants = roninConstants;
+            
+            
+            var saberData = frame.Unsafe.GetPointer<SaberData>(roninEntity);
+            var saberConstants = frame.FindAsset<SaberConstants>(config.BaseSaberConstants);
+            
+            saberData->Constants = saberConstants;
         }
     }
 }

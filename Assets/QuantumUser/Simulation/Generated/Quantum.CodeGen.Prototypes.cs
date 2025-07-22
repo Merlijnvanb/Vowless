@@ -95,7 +95,7 @@ namespace Quantum.Prototypes {
     public AssetRef<RoninConstants> Constants;
     public FPVector2 Position;
     public Int32 FacingSign;
-    public AssetRef<StateBase> CurrentState;
+    public AssetRef<RoninStateBase> CurrentState;
     public Int32 StateFrame;
     partial void MaterializeUser(Frame frame, ref Quantum.RoninData result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
@@ -107,6 +107,27 @@ namespace Quantum.Prototypes {
         result.Constants = this.Constants;
         result.Position = this.Position;
         result.FacingSign = this.FacingSign;
+        result.CurrentState = this.CurrentState;
+        result.StateFrame = this.StateFrame;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.SaberData))]
+  public unsafe partial class SaberDataPrototype : ComponentPrototype<Quantum.SaberData> {
+    public AssetRef<SaberConstants> Constants;
+    public FPVector2 Direction;
+    public AssetRef<SaberStateBase> CurrentState;
+    public Int32 StateFrame;
+    partial void MaterializeUser(Frame frame, ref Quantum.SaberData result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.SaberData component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.SaberData result, in PrototypeMaterializationContext context = default) {
+        result.Constants = this.Constants;
+        result.Direction = this.Direction;
         result.CurrentState = this.CurrentState;
         result.StateFrame = this.StateFrame;
         MaterializeUser(frame, ref result, in context);

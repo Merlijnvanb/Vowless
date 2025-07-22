@@ -701,7 +701,7 @@ namespace Quantum {
     [FieldOffset(0)]
     public Int32 FacingSign;
     [FieldOffset(16)]
-    public AssetRef<StateBase> CurrentState;
+    public AssetRef<RoninStateBase> CurrentState;
     [FieldOffset(4)]
     public Int32 StateFrame;
     public override readonly Int32 GetHashCode() {
@@ -724,13 +724,47 @@ namespace Quantum {
         FPVector2.Serialize(&p->Position, serializer);
     }
   }
-  public unsafe partial interface ISignalOnSwitchState : ISignal {
-    void OnSwitchState(Frame f, EntityRef entity, AssetRef<StateBase> state);
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct SaberData : Quantum.IComponent {
+    public const Int32 SIZE = 40;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(8)]
+    public AssetRef<SaberConstants> Constants;
+    [FieldOffset(24)]
+    public FPVector2 Direction;
+    [FieldOffset(16)]
+    public AssetRef<SaberStateBase> CurrentState;
+    [FieldOffset(0)]
+    public Int32 StateFrame;
+    public override readonly Int32 GetHashCode() {
+      unchecked { 
+        var hash = 11173;
+        hash = hash * 31 + Constants.GetHashCode();
+        hash = hash * 31 + Direction.GetHashCode();
+        hash = hash * 31 + CurrentState.GetHashCode();
+        hash = hash * 31 + StateFrame.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (SaberData*)ptr;
+        serializer.Stream.Serialize(&p->StateFrame);
+        AssetRef.Serialize(&p->Constants, serializer);
+        AssetRef.Serialize(&p->CurrentState, serializer);
+        FPVector2.Serialize(&p->Direction, serializer);
+    }
+  }
+  public unsafe partial interface ISignalOnSwitchRoninState : ISignal {
+    void OnSwitchRoninState(Frame f, EntityRef entity, AssetRef<RoninStateBase> state);
+  }
+  public unsafe partial interface ISignalOnSwitchSaberState : ISignal {
+    void OnSwitchSaberState(Frame f, EntityRef entity, AssetRef<SaberStateBase> state);
   }
   public static unsafe partial class Constants {
   }
   public unsafe partial class Frame {
-    private ISignalOnSwitchState[] _ISignalOnSwitchStateSystems;
+    private ISignalOnSwitchRoninState[] _ISignalOnSwitchRoninStateSystems;
+    private ISignalOnSwitchSaberState[] _ISignalOnSwitchSaberStateSystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
     }
@@ -742,7 +776,8 @@ namespace Quantum {
     }
     partial void InitGen() {
       Initialize(this, this.SimulationConfig.Entities, 256);
-      _ISignalOnSwitchStateSystems = BuildSignalsArray<ISignalOnSwitchState>();
+      _ISignalOnSwitchRoninStateSystems = BuildSignalsArray<ISignalOnSwitchRoninState>();
+      _ISignalOnSwitchSaberStateSystems = BuildSignalsArray<ISignalOnSwitchSaberState>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       BuildSignalsArrayOnComponentAdded<CharacterController2D>();
@@ -779,6 +814,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.PlayerData>();
       BuildSignalsArrayOnComponentAdded<Quantum.RoninData>();
       BuildSignalsArrayOnComponentRemoved<Quantum.RoninData>();
+      BuildSignalsArrayOnComponentAdded<Quantum.SaberData>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.SaberData>();
       BuildSignalsArrayOnComponentAdded<Transform2D>();
       BuildSignalsArrayOnComponentRemoved<Transform2D>();
       BuildSignalsArrayOnComponentAdded<Transform2DVertical>();
@@ -809,12 +846,21 @@ namespace Quantum {
       Physics3D.Init(_globals->PhysicsState3D.MapStaticCollidersState.TrackedMap);
     }
     public unsafe partial struct FrameSignals {
-      public void OnSwitchState(EntityRef entity, AssetRef<StateBase> state) {
-        var array = _f._ISignalOnSwitchStateSystems;
+      public void OnSwitchRoninState(EntityRef entity, AssetRef<RoninStateBase> state) {
+        var array = _f._ISignalOnSwitchRoninStateSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.OnSwitchState(_f, entity, state);
+            s.OnSwitchRoninState(_f, entity, state);
+          }
+        }
+      }
+      public void OnSwitchSaberState(EntityRef entity, AssetRef<SaberStateBase> state) {
+        var array = _f._ISignalOnSwitchSaberStateSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnSwitchSaberState(_f, entity, state);
           }
         }
       }
@@ -902,6 +948,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(QueryOptions), 2);
       typeRegistry.Register(typeof(RNGSession), RNGSession.SIZE);
       typeRegistry.Register(typeof(Quantum.RoninData), Quantum.RoninData.SIZE);
+      typeRegistry.Register(typeof(Quantum.SaberData), Quantum.SaberData.SIZE);
       typeRegistry.Register(typeof(Shape2D), Shape2D.SIZE);
       typeRegistry.Register(typeof(Shape3D), Shape3D.SIZE);
       typeRegistry.Register(typeof(SpringJoint), SpringJoint.SIZE);
@@ -913,10 +960,11 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 2)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 3)
         .AddBuiltInComponents()
         .Add<Quantum.PlayerData>(Quantum.PlayerData.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.RoninData>(Quantum.RoninData.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.SaberData>(Quantum.SaberData.Serialize, null, null, ComponentFlags.None)
         .Finish();
     }
     [Preserve()]
