@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b2bb2bfea1450da617ff5ebf12b201, type: 3}
+  m_Name: FwHigh
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/GameAssets/States/Attacks/FwHigh
+    Guid:
+      Value: 518535444204870123
+  AlwaysCancelable: 0
+  Height: 2
+  Range:
+    RawValue: 52429
+  StartupFrames: 15
+  ActiveFrames: 2
+  RecoveryFrames: 10

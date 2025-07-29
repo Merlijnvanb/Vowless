@@ -30,7 +30,12 @@ namespace Quantum
                 
                 var saber = frame.Unsafe.GetPointer<SaberData>(roninEntity);
 
-                saber->Direction = i == 1 ? new FPVector2(1, 0) : new FPVector2(-1, 0);
+                var directionData = new SaberDirectionData()
+                {
+                    Id = SaberDirection.FwMid,
+                    Vector = new FPVector2(1, 0)
+                };
+                saber->Direction = directionData;
                 saber->CurrentState = config.StartingSaberState;
                 saber->StateFrame = 0;
                 
@@ -64,6 +69,7 @@ namespace Quantum
             
             var saberData = frame.Unsafe.GetPointer<SaberData>(roninEntity);
             var saberConstants = frame.FindAsset<SaberConstants>(config.BaseSaberConstants);
+            saberConstants.InitData();
             
             saberData->Constants = saberConstants;
         }

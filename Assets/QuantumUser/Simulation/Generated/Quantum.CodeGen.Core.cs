@@ -49,10 +49,30 @@ namespace Quantum {
   using RuntimeInitializeOnLoadMethodAttribute = UnityEngine.RuntimeInitializeOnLoadMethodAttribute;
   #endif //;
   
+  public enum AttackHeight : int {
+    Low,
+    Mid,
+    High,
+  }
+  public enum CombatResultType : int {
+    Whiff,
+    Deflected,
+    Blocked,
+    Clashed,
+    Hit,
+  }
   public enum GameState : int {
-    PREBATTLE,
-    BATTLE,
-    POSTBATTLE,
+    PreBattle,
+    Battle,
+    PostBattle,
+  }
+  public enum SaberDirection : int {
+    FwLow,
+    FwMid,
+    FwHigh,
+    BwLow,
+    BwMid,
+    BwHigh,
   }
   [System.FlagsAttribute()]
   public enum InputButtons : int {
@@ -518,6 +538,74 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct CombatContext {
+    public const Int32 SIZE = 40;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(32)]
+    public EntityRef Entity;
+    [FieldOffset(4)]
+    public QBoolean IsAttacking;
+    [FieldOffset(0)]
+    public QBoolean IsAttackActive;
+    [FieldOffset(16)]
+    public AssetRef<AttackStateBase> AttackState;
+    [FieldOffset(8)]
+    public QBoolean IsDeflecting;
+    [FieldOffset(24)]
+    public AssetRef<SaberStateBase> SaberState;
+    public override readonly Int32 GetHashCode() {
+      unchecked { 
+        var hash = 2207;
+        hash = hash * 31 + Entity.GetHashCode();
+        hash = hash * 31 + IsAttacking.GetHashCode();
+        hash = hash * 31 + IsAttackActive.GetHashCode();
+        hash = hash * 31 + AttackState.GetHashCode();
+        hash = hash * 31 + IsDeflecting.GetHashCode();
+        hash = hash * 31 + SaberState.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (CombatContext*)ptr;
+        QBoolean.Serialize(&p->IsAttackActive, serializer);
+        QBoolean.Serialize(&p->IsAttacking, serializer);
+        QBoolean.Serialize(&p->IsDeflecting, serializer);
+        AssetRef.Serialize(&p->AttackState, serializer);
+        AssetRef.Serialize(&p->SaberState, serializer);
+        EntityRef.Serialize(&p->Entity, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct CombatResult {
+    public const Int32 SIZE = 32;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(0)]
+    public CombatResultType Type;
+    [FieldOffset(16)]
+    public EntityRef Attacker;
+    [FieldOffset(24)]
+    public EntityRef Defender;
+    [FieldOffset(8)]
+    public AssetRef<AttackStateBase> AttackState;
+    public override readonly Int32 GetHashCode() {
+      unchecked { 
+        var hash = 331;
+        hash = hash * 31 + (Int32)Type;
+        hash = hash * 31 + Attacker.GetHashCode();
+        hash = hash * 31 + Defender.GetHashCode();
+        hash = hash * 31 + AttackState.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (CombatResult*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->Type);
+        AssetRef.Serialize(&p->AttackState, serializer);
+        EntityRef.Serialize(&p->Attacker, serializer);
+        EntityRef.Serialize(&p->Defender, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Input {
     public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
@@ -568,6 +656,29 @@ namespace Quantum {
         Button.Serialize(&p->Turn, serializer);
         FPVector2.Serialize(&p->LookDir, serializer);
         FPVector2.Serialize(&p->MoveDir, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  [Serializable()]
+  public unsafe partial struct SaberDirectionData {
+    public const Int32 SIZE = 24;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(0)]
+    public SaberDirection Id;
+    [FieldOffset(8)]
+    public FPVector2 Vector;
+    public override readonly Int32 GetHashCode() {
+      unchecked { 
+        var hash = 4259;
+        hash = hash * 31 + (Int32)Id;
+        hash = hash * 31 + Vector.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (SaberDirectionData*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->Id);
+        FPVector2.Serialize(&p->Vector, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -692,15 +803,17 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct RoninData : Quantum.IComponent {
-    public const Int32 SIZE = 40;
+    public const Int32 SIZE = 48;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
+    [FieldOffset(16)]
     public AssetRef<RoninConstants> Constants;
-    [FieldOffset(24)]
+    [FieldOffset(32)]
     public FPVector2 Position;
     [FieldOffset(0)]
     public Int32 FacingSign;
-    [FieldOffset(16)]
+    [FieldOffset(8)]
+    public QBoolean Turned;
+    [FieldOffset(24)]
     public AssetRef<RoninStateBase> CurrentState;
     [FieldOffset(4)]
     public Int32 StateFrame;
@@ -710,6 +823,7 @@ namespace Quantum {
         hash = hash * 31 + Constants.GetHashCode();
         hash = hash * 31 + Position.GetHashCode();
         hash = hash * 31 + FacingSign.GetHashCode();
+        hash = hash * 31 + Turned.GetHashCode();
         hash = hash * 31 + CurrentState.GetHashCode();
         hash = hash * 31 + StateFrame.GetHashCode();
         return hash;
@@ -719,6 +833,7 @@ namespace Quantum {
         var p = (RoninData*)ptr;
         serializer.Stream.Serialize(&p->FacingSign);
         serializer.Stream.Serialize(&p->StateFrame);
+        QBoolean.Serialize(&p->Turned, serializer);
         AssetRef.Serialize(&p->Constants, serializer);
         AssetRef.Serialize(&p->CurrentState, serializer);
         FPVector2.Serialize(&p->Position, serializer);
@@ -726,12 +841,12 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct SaberData : Quantum.IComponent {
-    public const Int32 SIZE = 40;
+    public const Int32 SIZE = 48;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(8)]
     public AssetRef<SaberConstants> Constants;
     [FieldOffset(24)]
-    public FPVector2 Direction;
+    public SaberDirectionData Direction;
     [FieldOffset(16)]
     public AssetRef<SaberStateBase> CurrentState;
     [FieldOffset(0)]
@@ -751,7 +866,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->StateFrame);
         AssetRef.Serialize(&p->Constants, serializer);
         AssetRef.Serialize(&p->CurrentState, serializer);
-        FPVector2.Serialize(&p->Direction, serializer);
+        Quantum.SaberDirectionData.Serialize(&p->Direction, serializer);
     }
   }
   public unsafe partial interface ISignalOnSwitchRoninState : ISignal {
@@ -760,11 +875,35 @@ namespace Quantum {
   public unsafe partial interface ISignalOnSwitchSaberState : ISignal {
     void OnSwitchSaberState(Frame f, EntityRef entity, AssetRef<SaberStateBase> state);
   }
+  public unsafe partial interface ISignalOnHit : ISignal {
+    void OnHit(Frame f, EntityRef entity, AssetRef<AttackStateBase> attack);
+  }
+  public unsafe partial interface ISignalOnReceivedHit : ISignal {
+    void OnReceivedHit(Frame f, EntityRef entity, AssetRef<AttackStateBase> attack);
+  }
+  public unsafe partial interface ISignalOnDeflected : ISignal {
+    void OnDeflected(Frame f, EntityRef entity, AssetRef<AttackStateBase> attack);
+  }
+  public unsafe partial interface ISignalOnReceivedDeflected : ISignal {
+    void OnReceivedDeflected(Frame f, EntityRef entity, AssetRef<AttackStateBase> attack);
+  }
+  public unsafe partial interface ISignalOnClashed : ISignal {
+    void OnClashed(Frame f, EntityRef entity, AssetRef<AttackStateBase> attack);
+  }
+  public unsafe partial interface ISignalOnRoninDeath : ISignal {
+    void OnRoninDeath(Frame f, EntityRef entity);
+  }
   public static unsafe partial class Constants {
   }
   public unsafe partial class Frame {
     private ISignalOnSwitchRoninState[] _ISignalOnSwitchRoninStateSystems;
     private ISignalOnSwitchSaberState[] _ISignalOnSwitchSaberStateSystems;
+    private ISignalOnHit[] _ISignalOnHitSystems;
+    private ISignalOnReceivedHit[] _ISignalOnReceivedHitSystems;
+    private ISignalOnDeflected[] _ISignalOnDeflectedSystems;
+    private ISignalOnReceivedDeflected[] _ISignalOnReceivedDeflectedSystems;
+    private ISignalOnClashed[] _ISignalOnClashedSystems;
+    private ISignalOnRoninDeath[] _ISignalOnRoninDeathSystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
     }
@@ -778,6 +917,12 @@ namespace Quantum {
       Initialize(this, this.SimulationConfig.Entities, 256);
       _ISignalOnSwitchRoninStateSystems = BuildSignalsArray<ISignalOnSwitchRoninState>();
       _ISignalOnSwitchSaberStateSystems = BuildSignalsArray<ISignalOnSwitchSaberState>();
+      _ISignalOnHitSystems = BuildSignalsArray<ISignalOnHit>();
+      _ISignalOnReceivedHitSystems = BuildSignalsArray<ISignalOnReceivedHit>();
+      _ISignalOnDeflectedSystems = BuildSignalsArray<ISignalOnDeflected>();
+      _ISignalOnReceivedDeflectedSystems = BuildSignalsArray<ISignalOnReceivedDeflected>();
+      _ISignalOnClashedSystems = BuildSignalsArray<ISignalOnClashed>();
+      _ISignalOnRoninDeathSystems = BuildSignalsArray<ISignalOnRoninDeath>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       BuildSignalsArrayOnComponentAdded<CharacterController2D>();
@@ -864,6 +1009,60 @@ namespace Quantum {
           }
         }
       }
+      public void OnHit(EntityRef entity, AssetRef<AttackStateBase> attack) {
+        var array = _f._ISignalOnHitSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnHit(_f, entity, attack);
+          }
+        }
+      }
+      public void OnReceivedHit(EntityRef entity, AssetRef<AttackStateBase> attack) {
+        var array = _f._ISignalOnReceivedHitSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnReceivedHit(_f, entity, attack);
+          }
+        }
+      }
+      public void OnDeflected(EntityRef entity, AssetRef<AttackStateBase> attack) {
+        var array = _f._ISignalOnDeflectedSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnDeflected(_f, entity, attack);
+          }
+        }
+      }
+      public void OnReceivedDeflected(EntityRef entity, AssetRef<AttackStateBase> attack) {
+        var array = _f._ISignalOnReceivedDeflectedSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnReceivedDeflected(_f, entity, attack);
+          }
+        }
+      }
+      public void OnClashed(EntityRef entity, AssetRef<AttackStateBase> attack) {
+        var array = _f._ISignalOnClashedSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnClashed(_f, entity, attack);
+          }
+        }
+      }
+      public void OnRoninDeath(EntityRef entity) {
+        var array = _f._ISignalOnRoninDeathSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnRoninDeath(_f, entity);
+          }
+        }
+      }
     }
   }
   public unsafe partial class Statics {
@@ -874,6 +1073,7 @@ namespace Quantum {
     static partial void RegisterSimulationTypesGen(TypeRegistry typeRegistry) {
       typeRegistry.Register(typeof(AssetGuid), AssetGuid.SIZE);
       typeRegistry.Register(typeof(AssetRef), AssetRef.SIZE);
+      typeRegistry.Register(typeof(Quantum.AttackHeight), 4);
       typeRegistry.Register(typeof(Quantum.BitSet1024), Quantum.BitSet1024.SIZE);
       typeRegistry.Register(typeof(Quantum.BitSet128), Quantum.BitSet128.SIZE);
       typeRegistry.Register(typeof(Quantum.BitSet2048), Quantum.BitSet2048.SIZE);
@@ -886,6 +1086,9 @@ namespace Quantum {
       typeRegistry.Register(typeof(CharacterController2D), CharacterController2D.SIZE);
       typeRegistry.Register(typeof(CharacterController3D), CharacterController3D.SIZE);
       typeRegistry.Register(typeof(ColorRGBA), ColorRGBA.SIZE);
+      typeRegistry.Register(typeof(Quantum.CombatContext), Quantum.CombatContext.SIZE);
+      typeRegistry.Register(typeof(Quantum.CombatResult), Quantum.CombatResult.SIZE);
+      typeRegistry.Register(typeof(Quantum.CombatResultType), 4);
       typeRegistry.Register(typeof(ComponentPrototypeRef), ComponentPrototypeRef.SIZE);
       typeRegistry.Register(typeof(ComponentTypeRef), ComponentTypeRef.SIZE);
       typeRegistry.Register(typeof(DistanceJoint), DistanceJoint.SIZE);
@@ -949,6 +1152,8 @@ namespace Quantum {
       typeRegistry.Register(typeof(RNGSession), RNGSession.SIZE);
       typeRegistry.Register(typeof(Quantum.RoninData), Quantum.RoninData.SIZE);
       typeRegistry.Register(typeof(Quantum.SaberData), Quantum.SaberData.SIZE);
+      typeRegistry.Register(typeof(Quantum.SaberDirection), 4);
+      typeRegistry.Register(typeof(Quantum.SaberDirectionData), Quantum.SaberDirectionData.SIZE);
       typeRegistry.Register(typeof(Shape2D), Shape2D.SIZE);
       typeRegistry.Register(typeof(Shape3D), Shape3D.SIZE);
       typeRegistry.Register(typeof(SpringJoint), SpringJoint.SIZE);
@@ -970,10 +1175,13 @@ namespace Quantum {
     [Preserve()]
     public static void EnsureNotStrippedGen() {
       FramePrinter.EnsureNotStripped();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.AttackHeight>();
       FramePrinter.EnsurePrimitiveNotStripped<CallbackFlags>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.CombatResultType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameState>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
       FramePrinter.EnsurePrimitiveNotStripped<QueryOptions>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.SaberDirection>();
     }
   }
 }

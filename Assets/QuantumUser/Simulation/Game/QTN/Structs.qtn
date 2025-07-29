@@ -1,0 +1,27 @@
+[Serializable]
+struct SaberDirectionData
+{
+    SaberDirection Id;
+    FPVector2 Vector;
+}
+
+struct CombatResult
+{
+    CombatResultType Type;
+    entity_ref Attacker;
+    entity_ref Defender; // yea yea its shit var name is just silly little jokey joke
+    
+    asset_ref<AttackStateBase> AttackState;
+}
+
+struct CombatContext
+{
+    entity_ref Entity;
+    
+    bool IsAttacking;
+    bool IsAttackActive;
+    asset_ref<AttackStateBase> AttackState;
+    
+    bool IsDeflecting;
+    asset_ref<SaberStateBase> SaberState;
+}

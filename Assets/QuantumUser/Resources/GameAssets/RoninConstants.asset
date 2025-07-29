@@ -16,6 +16,16 @@ MonoBehaviour:
     Path: QuantumUser/Resources/GameAssets/RoninConstants
     Guid:
       Value: 299644897576287749
+  PushRange:
+    RawValue: 16384
   States:
     IdleState: {fileID: 11400000, guid: f2e91eda63ed7714f9266e8817e3de00, type: 2}
     WalkState: {fileID: 11400000, guid: 0a1416e7322beb24382eb5089d6b6eef, type: 2}
+    TurningState: {fileID: 11400000, guid: 7f910661f18834640b0cfad228042ed0, type: 2}
+  Attacks:
+    ForwardHigh: {fileID: 11400000, guid: 5d2e9d3ed917c2546baac2219411b731, type: 2}
+    ForwardMid: {fileID: 11400000, guid: 1b41de263193de44781b90d6a831c562, type: 2}
+    ForwardLow: {fileID: 11400000, guid: af24d3c20b253b142800d721b623c5aa, type: 2}
+    BackwardHigh: {fileID: 11400000, guid: 1aaaf7afc9ad0934ba987638df184d16, type: 2}
+    BackwardMid: {fileID: 11400000, guid: 808d32a6dc932214caac24a9453b4f43, type: 2}
+    BackwardLow: {fileID: 11400000, guid: ab701cf89f3e42e4d8103015f5b50721, type: 2}

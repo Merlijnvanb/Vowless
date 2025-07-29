@@ -49,6 +49,44 @@ namespace Quantum.Prototypes.Unity {
   using RuntimeInitializeOnLoadMethodAttribute = UnityEngine.RuntimeInitializeOnLoadMethodAttribute;
   #endif //;
   
+  [System.SerializableAttribute()]
+  public unsafe partial class CombatContextPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.CombatContextPrototype> {
+    public Quantum.QuantumEntityPrototype Entity;
+    public QBoolean IsAttacking;
+    public QBoolean IsAttackActive;
+    public AssetRef<AttackStateBase> AttackState;
+    public QBoolean IsDeflecting;
+    public AssetRef<SaberStateBase> SaberState;
+    partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.CombatContextPrototype prototype);
+    public override Quantum.Prototypes.CombatContextPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.CombatContextPrototype();
+      converter.Convert(this.Entity, out result.Entity);
+      converter.Convert(this.IsAttacking, out result.IsAttacking);
+      converter.Convert(this.IsAttackActive, out result.IsAttackActive);
+      converter.Convert(this.AttackState, out result.AttackState);
+      converter.Convert(this.IsDeflecting, out result.IsDeflecting);
+      converter.Convert(this.SaberState, out result.SaberState);
+      ConvertUser(converter, ref result);
+      return result;
+    }
+  }
+  [System.SerializableAttribute()]
+  public unsafe partial class CombatResultPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.CombatResultPrototype> {
+    public Quantum.QEnum32<CombatResultType> Type;
+    public Quantum.QuantumEntityPrototype Attacker;
+    public Quantum.QuantumEntityPrototype Defender;
+    public AssetRef<AttackStateBase> AttackState;
+    partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.CombatResultPrototype prototype);
+    public override Quantum.Prototypes.CombatResultPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.CombatResultPrototype();
+      converter.Convert(this.Type, out result.Type);
+      converter.Convert(this.Attacker, out result.Attacker);
+      converter.Convert(this.Defender, out result.Defender);
+      converter.Convert(this.AttackState, out result.AttackState);
+      ConvertUser(converter, ref result);
+      return result;
+    }
+  }
 }
 #pragma warning restore 0109
 #pragma warning restore 1591

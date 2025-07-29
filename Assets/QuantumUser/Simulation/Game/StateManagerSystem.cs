@@ -4,7 +4,9 @@ namespace Quantum
     using UnityEngine.Scripting;
 
     [Preserve]
-    public unsafe class StateManagerSystem : SystemMainThreadFilter<StateManagerSystem.Filter>, ISignalOnSwitchRoninState, ISignalOnSwitchSaberState
+    public unsafe class StateManagerSystem : SystemMainThreadFilter<StateManagerSystem.Filter>, 
+        ISignalOnSwitchRoninState, ISignalOnSwitchSaberState, 
+        ISignalOnHit, ISignalOnReceivedHit, ISignalOnDeflected, ISignalOnReceivedDeflected, ISignalOnClashed
     {
         public override void Update(Frame frame, ref Filter filter)
         {
@@ -30,14 +32,13 @@ namespace Quantum
 
         public void OnSwitchRoninState(Frame frame, EntityRef entity, AssetRef<RoninStateBase> state)
         {
-            Log.Debug("entity: " + entity + ", state: " + frame.FindAsset<RoninStateBase>(state).name);
-            
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            
             ronin->CurrentState = state;
             
             var stateAsset = frame.FindAsset<RoninStateBase>(state);
             stateAsset.EnterState(frame, entity);
+            
+            Log.Debug("Ronin state of " + entity + " switched to: " + stateAsset.name);
         }
 
         public void OnSwitchSaberState(Frame frame, EntityRef entity, AssetRef<SaberStateBase> state)
@@ -47,6 +48,34 @@ namespace Quantum
             
             var stateAsset = frame.FindAsset<SaberStateBase>(state);
             stateAsset.EnterState(frame, entity);
+            
+            Log.Debug("Saber state of " + entity + " switched to: " + stateAsset.name);
+        }
+
+        public void OnHit(Frame frame, EntityRef entity, AssetRef<AttackStateBase> attack)
+        {
+            Log.Debug(entity + " landed an attack");
+        }
+
+        public void OnReceivedHit(Frame frame, EntityRef entity, AssetRef<AttackStateBase> attack)
+        {
+            Log.Debug(entity + " got hit");
+            frame.Signals.OnRoninDeath(entity);
+        }
+
+        public void OnDeflected(Frame frame, EntityRef entity, AssetRef<AttackStateBase> attack)
+        {
+            Log.Debug(entity + " had their attack deflected");
+        }
+
+        public void OnReceivedDeflected(Frame frame, EntityRef entity, AssetRef<AttackStateBase> attack)
+        {
+            Log.Debug(entity + " deflected an attack");
+        }
+
+        public void OnClashed(Frame frame, EntityRef entity, AssetRef<AttackStateBase> attack)
+        {
+            Log.Debug(entity + "'s attack clashed");
         }
 
         public struct Filter

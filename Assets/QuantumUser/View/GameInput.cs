@@ -23,12 +23,21 @@ namespace Quantum
         {
             i.MoveDir = Inputs.Movement.action.ReadValue<Vector2>().ToFPVector2();
             i.LookDir = Inputs.Look.action.ReadValue<Vector2>().ToFPVector2();
+            
+            if (DebugVectorsEnabled)
+                LogVectors(i);
 
             i.Attack = Inputs.Attack.action.IsPressed();
             i.Block = Inputs.Block.action.IsPressed();
             i.Turn = Inputs.Turn.action.IsPressed();
 
             return i;
+        }
+        
+        private void LogVectors(Quantum.Input i)
+        {
+            Debug.Log("MoveDir: " + i.MoveDir);
+            Debug.Log("LookDir: " + i.LookDir);
         }
     }
 }

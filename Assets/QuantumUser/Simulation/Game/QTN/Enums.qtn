@@ -1,6 +1,32 @@
 enum GameState
 {
-    PREBATTLE,
-    BATTLE,
-    POSTBATTLE,
+    PreBattle,
+    Battle,
+    PostBattle,
+}
+
+enum SaberDirection
+{
+    FwLow,
+    FwMid,
+    FwHigh,
+    BwLow,
+    BwMid,
+    BwHigh,
+}
+
+enum AttackHeight
+{
+    Low,
+    Mid,
+    High,
+}
+
+enum CombatResultType
+{
+    Whiff,
+    Deflected,
+    Blocked,
+    Clashed,
+    Hit
 }

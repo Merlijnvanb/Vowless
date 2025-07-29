@@ -18,6 +18,6 @@ MonoBehaviour:
       Value: 389968709553779405
   AlwaysCancelable: 1
   ForwardWalkSpeed:
-    RawValue: 13107
+    RawValue: 196608
   BackwardWalkSpeed:
-    RawValue: 6554
+    RawValue: 163840

@@ -157,7 +157,7 @@
                     "id": "49453d27-06a6-45db-bebd-35dabdccf005",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "NormalizeVector2",
+                    "processors": "",
                     "groups": ";Controller",
                     "action": "Look",
                     "isComposite": false,

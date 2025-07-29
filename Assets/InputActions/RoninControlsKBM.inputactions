@@ -142,15 +142,59 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "d947a50e-07c2-400f-81f1-e2a0cde2ac7b",
-                    "path": "<Mouse>/delta",
+                    "name": "2D Vector",
+                    "id": "7fe08b14-b258-4e70-af71-98548cc7f65a",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "ScaleVector2(x=0.01,y=0.01)",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "fa4b0831-cac7-40b4-b403-f49d4c92cd2b",
+                    "path": "<Mouse>/delta/up",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KBM",
                     "action": "Look",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "930e5e9b-dc5d-4a58-a274-c015fbecb26f",
+                    "path": "<Mouse>/delta/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KBM",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "ce8341fa-dbbb-4c5d-b4e7-75925f705aea",
+                    "path": "<Mouse>/delta/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KBM",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "6e650871-4567-4f83-9499-98ef2b3a189d",
+                    "path": "<Mouse>/delta/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KBM",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

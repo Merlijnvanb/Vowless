@@ -12,6 +12,7 @@ component RoninData
     
     FPVector2 Position;
     int FacingSign;
+    bool Turned;
     
     asset_ref<RoninStateBase> CurrentState;
     int StateFrame;
@@ -21,7 +22,7 @@ component SaberData
 {
     asset_ref<SaberConstants> Constants;
     
-    FPVector2 Direction;
+    SaberDirectionData Direction;
 
     asset_ref<SaberStateBase> CurrentState;
     int StateFrame;

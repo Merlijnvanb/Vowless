@@ -50,6 +50,38 @@ namespace Quantum.Prototypes {
   #endif //;
   
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.CombatContext))]
+  public unsafe class CombatContextPrototype : StructPrototype {
+    public MapEntityId Entity;
+    public QBoolean IsAttacking;
+    public QBoolean IsAttackActive;
+    public AssetRef<AttackStateBase> AttackState;
+    public QBoolean IsDeflecting;
+    public AssetRef<SaberStateBase> SaberState;
+    public void Materialize(Frame frame, ref Quantum.CombatContext result, in PrototypeMaterializationContext context = default) {
+        PrototypeValidator.FindMapEntity(this.Entity, in context, out result.Entity);
+        result.IsAttacking = this.IsAttacking;
+        result.IsAttackActive = this.IsAttackActive;
+        result.AttackState = this.AttackState;
+        result.IsDeflecting = this.IsDeflecting;
+        result.SaberState = this.SaberState;
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.CombatResult))]
+  public unsafe class CombatResultPrototype : StructPrototype {
+    public Quantum.QEnum32<CombatResultType> Type;
+    public MapEntityId Attacker;
+    public MapEntityId Defender;
+    public AssetRef<AttackStateBase> AttackState;
+    public void Materialize(Frame frame, ref Quantum.CombatResult result, in PrototypeMaterializationContext context = default) {
+        result.Type = this.Type;
+        PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
+        PrototypeValidator.FindMapEntity(this.Defender, in context, out result.Defender);
+        result.AttackState = this.AttackState;
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.Input))]
   public unsafe partial class InputPrototype : StructPrototype {
     public FPVector2 MoveDir;
@@ -95,6 +127,7 @@ namespace Quantum.Prototypes {
     public AssetRef<RoninConstants> Constants;
     public FPVector2 Position;
     public Int32 FacingSign;
+    public QBoolean Turned;
     public AssetRef<RoninStateBase> CurrentState;
     public Int32 StateFrame;
     partial void MaterializeUser(Frame frame, ref Quantum.RoninData result, in PrototypeMaterializationContext context);
@@ -107,6 +140,7 @@ namespace Quantum.Prototypes {
         result.Constants = this.Constants;
         result.Position = this.Position;
         result.FacingSign = this.FacingSign;
+        result.Turned = this.Turned;
         result.CurrentState = this.CurrentState;
         result.StateFrame = this.StateFrame;
         MaterializeUser(frame, ref result, in context);
@@ -116,7 +150,7 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.SaberData))]
   public unsafe partial class SaberDataPrototype : ComponentPrototype<Quantum.SaberData> {
     public AssetRef<SaberConstants> Constants;
-    public FPVector2 Direction;
+    public Quantum.Prototypes.SaberDirectionDataPrototype Direction;
     public AssetRef<SaberStateBase> CurrentState;
     public Int32 StateFrame;
     partial void MaterializeUser(Frame frame, ref Quantum.SaberData result, in PrototypeMaterializationContext context);
@@ -127,9 +161,21 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Quantum.SaberData result, in PrototypeMaterializationContext context = default) {
         result.Constants = this.Constants;
-        result.Direction = this.Direction;
+        this.Direction.Materialize(frame, ref result.Direction, in context);
         result.CurrentState = this.CurrentState;
         result.StateFrame = this.StateFrame;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.SaberDirectionData))]
+  public unsafe partial class SaberDirectionDataPrototype : StructPrototype {
+    public Quantum.QEnum32<SaberDirection> Id;
+    public FPVector2 Vector;
+    partial void MaterializeUser(Frame frame, ref Quantum.SaberDirectionData result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.SaberDirectionData result, in PrototypeMaterializationContext context = default) {
+        result.Id = this.Id;
+        result.Vector = this.Vector;
         MaterializeUser(frame, ref result, in context);
     }
   }

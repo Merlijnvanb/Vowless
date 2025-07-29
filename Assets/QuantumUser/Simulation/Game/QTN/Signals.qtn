@@ -1,2 +1,12 @@
 signal OnSwitchRoninState(entity_ref entity, asset_ref<RoninStateBase> state);
 signal OnSwitchSaberState(entity_ref entity, asset_ref<SaberStateBase> state);
+
+signal OnHit(entity_ref entity, asset_ref<AttackStateBase> attack);
+signal OnReceivedHit(entity_ref entity, asset_ref<AttackStateBase> attack);
+
+signal OnDeflected(entity_ref entity, asset_ref<AttackStateBase> attack);
+signal OnReceivedDeflected(entity_ref entity, asset_ref<AttackStateBase> attack);
+
+signal OnClashed(entity_ref entity, asset_ref<AttackStateBase> attack);
+
+signal OnRoninDeath(entity_ref entity);
