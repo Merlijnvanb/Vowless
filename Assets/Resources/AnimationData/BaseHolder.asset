@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbe1352d950f84d89e711fd3cf967d, type: 3}
+  m_Name: BaseHolder
+  m_EditorClassIdentifier: 
+  SaberAnimations:
+  - {fileID: 11400000, guid: 2e62468cf6541264dbe0e3c38ca087d5, type: 2}
+  - {fileID: 11400000, guid: da46298c56c04cf4d8a2fbce7d44eb68, type: 2}
+  - {fileID: 11400000, guid: 4b48e0a7b6b488d4dbd520754c66db02, type: 2}
+  - {fileID: 11400000, guid: a41bc44559799294699816202ae34688, type: 2}
+  - {fileID: 11400000, guid: 403498eef116f244d9ec21913f093815, type: 2}
+  - {fileID: 11400000, guid: 6849a7e53b1081740ae40d88a2976956, type: 2}
+  - {fileID: 11400000, guid: 0571e10e1d3296145a2a15e605ac6ce1, type: 2}
+  - {fileID: 11400000, guid: fc284014245158e49a7bc48505536114, type: 2}
+  - {fileID: 11400000, guid: ac2436eb7e1b73248a8bd98ac2f93b74, type: 2}
+  - {fileID: 11400000, guid: dacf52e562910a5428612753c0bf798b, type: 2}
+  - {fileID: 11400000, guid: 0f683d456473c094090c84bf5f41811a, type: 2}
+  - {fileID: 11400000, guid: fa040b61e786f71409b59505919eb88e, type: 2}
+  RoninAnimations: []
+  AttackAnimations: []

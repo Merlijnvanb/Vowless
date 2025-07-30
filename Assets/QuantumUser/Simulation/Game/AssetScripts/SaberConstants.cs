@@ -11,6 +11,7 @@ namespace Quantum
         {
             public Holding Holding;
             public Attacking Attacking;
+            public BlockStun BlockStun;
         }
 
         public StateData States;

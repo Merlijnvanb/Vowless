@@ -12,11 +12,7 @@ namespace Quantum
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             
             ronin->StateFrame = 0;
-
-            ronin->Turned = !ronin->Turned;
             ronin->FacingSign *= -1;
-            
-            SetSaberState(frame, entity);
         }
 
         public override void UpdateState(Frame frame, EntityRef entity)

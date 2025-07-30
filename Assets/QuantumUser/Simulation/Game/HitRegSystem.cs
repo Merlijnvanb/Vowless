@@ -87,6 +87,9 @@ namespace Quantum
             if (!cAttacker.IsAttacking)
                 return result;
 
+            if (attRonin->HasHit)
+                return result;
+            
             var attAttackState = frame.FindAsset(cAttacker.AttackState);
 
             if (!cAttacker.IsAttackActive)
@@ -97,18 +100,19 @@ namespace Quantum
 
             result.Type = CombatResultType.Hit;
             result.AttackState = attAttackState;
+            attRonin->HasHit = true;
             
             var defSaberState = frame.FindAsset(cDefender.SaberState);
             var defSaber = frame.Unsafe.GetPointer<SaberData>(cDefender.Entity);
-            
-            if (defSaberState is Holding)
+
+            if (defSaberState.BlockType == SaberBlockType.Deflect)
             {
                 bool deflected = false;
                 
                 switch (attAttackState.Height)
                 {
                     case AttackHeight.High:
-                        if (!defRonin->Turned)
+                        if (defRonin->TargetingSign == defRonin->FacingSign)
                         {
                             deflected = defSaber->Direction.Id == SaberDirection.FwHigh;
                         }
@@ -120,7 +124,7 @@ namespace Quantum
                         break;
                     
                     case AttackHeight.Mid:
-                        if (!defRonin->Turned)
+                        if (defRonin->TargetingSign == defRonin->FacingSign)
                         {
                             deflected = defSaber->Direction.Id == SaberDirection.FwMid;
                         }
@@ -132,7 +136,7 @@ namespace Quantum
                         break;
                     
                     case AttackHeight.Low:
-                        if (!defRonin->Turned)
+                        if (defRonin->TargetingSign == defRonin->FacingSign)
                         {
                             deflected = defSaber->Direction.Id == SaberDirection.FwLow;
                         }

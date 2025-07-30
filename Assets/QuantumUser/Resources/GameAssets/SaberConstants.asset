@@ -19,6 +19,7 @@ MonoBehaviour:
   States:
     Holding: {fileID: 11400000, guid: e3b6f36df6d975e42a8ec6ca4a765f54, type: 2}
     Attacking: {fileID: 11400000, guid: 27eda4541330e584cbad977ba2229d4a, type: 2}
+    BlockStun: {fileID: 11400000, guid: 27b0d31a9e18696468d8e90c885b972e, type: 2}
   _directions:
   - Id: 0
     Vector:

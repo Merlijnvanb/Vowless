@@ -13,7 +13,6 @@ namespace Quantum
 
             var pos = ronin.Position.ToUnityVector2();
             var rot = ronin.FacingSign > 0 ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0);
-            //if (ronin.Turned) rot *= Quaternion.Euler(0, 180, 0);
             Body.SetPositionAndRotation(pos, rot);
         }
     }

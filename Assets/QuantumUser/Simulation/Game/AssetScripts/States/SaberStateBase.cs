@@ -6,6 +6,8 @@ namespace Quantum
     
     public abstract unsafe class SaberStateBase : AssetObject
     {
+        public SaberBlockType BlockType;
+        
         public virtual void EnterState(Frame frame, EntityRef entity)
         {
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);

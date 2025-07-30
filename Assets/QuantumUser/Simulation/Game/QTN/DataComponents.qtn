@@ -11,11 +11,12 @@ component RoninData
     asset_ref<RoninConstants> Constants;
     
     FPVector2 Position;
+    int TargetingSign;
     int FacingSign;
-    bool Turned;
     
     asset_ref<RoninStateBase> CurrentState;
     int StateFrame;
+    bool HasHit;
 }
 
 component SaberData

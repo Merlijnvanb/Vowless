@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946ac1cb74b20ae4d9b5b07a5d3e82a8, type: 3}
+  m_Name: HoldingFL
+  m_EditorClassIdentifier: 
+  ID: 2
+  Frames:
+  - HiltMesh: {fileID: 8056416749879733619, guid: 1e988050ae33822468bf314118140763, type: 3}
+    BladeMesh: {fileID: 6242571243062787403, guid: 1e988050ae33822468bf314118140763, type: 3}
+    ActiveLength: 0
+  Loop: 0

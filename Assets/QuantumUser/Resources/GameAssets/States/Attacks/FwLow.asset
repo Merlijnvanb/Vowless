@@ -23,3 +23,4 @@ MonoBehaviour:
   StartupFrames: 10
   ActiveFrames: 5
   RecoveryFrames: 5
+  ReceivedBlockStun: 10

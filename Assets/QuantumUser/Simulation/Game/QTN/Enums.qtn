@@ -15,6 +15,13 @@ enum SaberDirection
     BwHigh,
 }
 
+enum SaberBlockType
+{
+    None,
+    Deflect,
+    Block,
+}
+
 enum AttackHeight
 {
     Low,

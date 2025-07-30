@@ -66,6 +66,11 @@ namespace Quantum {
     Battle,
     PostBattle,
   }
+  public enum SaberBlockType : int {
+    None,
+    Deflect,
+    Block,
+  }
   public enum SaberDirection : int {
     FwLow,
     FwMid,
@@ -809,23 +814,26 @@ namespace Quantum {
     public AssetRef<RoninConstants> Constants;
     [FieldOffset(32)]
     public FPVector2 Position;
+    [FieldOffset(8)]
+    public Int32 TargetingSign;
     [FieldOffset(0)]
     public Int32 FacingSign;
-    [FieldOffset(8)]
-    public QBoolean Turned;
     [FieldOffset(24)]
     public AssetRef<RoninStateBase> CurrentState;
     [FieldOffset(4)]
     public Int32 StateFrame;
+    [FieldOffset(12)]
+    public QBoolean HasHit;
     public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 5387;
         hash = hash * 31 + Constants.GetHashCode();
         hash = hash * 31 + Position.GetHashCode();
+        hash = hash * 31 + TargetingSign.GetHashCode();
         hash = hash * 31 + FacingSign.GetHashCode();
-        hash = hash * 31 + Turned.GetHashCode();
         hash = hash * 31 + CurrentState.GetHashCode();
         hash = hash * 31 + StateFrame.GetHashCode();
+        hash = hash * 31 + HasHit.GetHashCode();
         return hash;
       }
     }
@@ -833,7 +841,8 @@ namespace Quantum {
         var p = (RoninData*)ptr;
         serializer.Stream.Serialize(&p->FacingSign);
         serializer.Stream.Serialize(&p->StateFrame);
-        QBoolean.Serialize(&p->Turned, serializer);
+        serializer.Stream.Serialize(&p->TargetingSign);
+        QBoolean.Serialize(&p->HasHit, serializer);
         AssetRef.Serialize(&p->Constants, serializer);
         AssetRef.Serialize(&p->CurrentState, serializer);
         FPVector2.Serialize(&p->Position, serializer);
@@ -1151,6 +1160,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(QueryOptions), 2);
       typeRegistry.Register(typeof(RNGSession), RNGSession.SIZE);
       typeRegistry.Register(typeof(Quantum.RoninData), Quantum.RoninData.SIZE);
+      typeRegistry.Register(typeof(Quantum.SaberBlockType), 4);
       typeRegistry.Register(typeof(Quantum.SaberData), Quantum.SaberData.SIZE);
       typeRegistry.Register(typeof(Quantum.SaberDirection), 4);
       typeRegistry.Register(typeof(Quantum.SaberDirectionData), Quantum.SaberDirectionData.SIZE);
@@ -1181,6 +1191,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameState>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
       FramePrinter.EnsurePrimitiveNotStripped<QueryOptions>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.SaberBlockType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.SaberDirection>();
     }
   }

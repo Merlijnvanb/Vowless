@@ -9,7 +9,7 @@ struct CombatResult
 {
     CombatResultType Type;
     entity_ref Attacker;
-    entity_ref Defender; // yea yea its shit var name is just silly little jokey joke
+    entity_ref Defender;
     
     asset_ref<AttackStateBase> AttackState;
 }

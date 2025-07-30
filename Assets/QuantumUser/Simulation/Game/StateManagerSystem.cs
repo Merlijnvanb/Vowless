@@ -71,6 +71,13 @@ namespace Quantum
         public void OnReceivedDeflected(Frame frame, EntityRef entity, AssetRef<AttackStateBase> attack)
         {
             Log.Debug(entity + " deflected an attack");
+            
+            var saber = frame.Unsafe.GetPointer<SaberData>(entity);
+            var saberConstants = frame.FindAsset(saber->Constants);
+            var attackAsset = frame.FindAsset(attack);
+            
+            OnSwitchSaberState(frame, entity, saberConstants.States.BlockStun);
+            saber->StateFrame = attackAsset.ReceivedBlockStun;
         }
 
         public void OnClashed(Frame frame, EntityRef entity, AssetRef<AttackStateBase> attack)

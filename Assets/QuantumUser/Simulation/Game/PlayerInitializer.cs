@@ -23,9 +23,11 @@ namespace Quantum
                 ronin->Position = i == 1
                     ? new FPVector2(-(config.StartDistance / 2), 0)
                     : new FPVector2(config.StartDistance / 2, 0);
+                ronin->TargetingSign = i == 1 ? 1 : -1;
                 ronin->FacingSign = i == 1 ? 1 : -1;
                 ronin->CurrentState = config.StartingRoninState;
                 ronin->StateFrame = 0;
+                ronin->HasHit = false;
                 
                 
                 var saber = frame.Unsafe.GetPointer<SaberData>(roninEntity);

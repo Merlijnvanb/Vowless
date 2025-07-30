@@ -11,8 +11,6 @@ namespace Quantum
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
             ronin->StateFrame = 0;
-            
-            SetSaberState(frame, entity);
         }
 
         public virtual void UpdateState(Frame frame, EntityRef entity)
@@ -71,17 +69,6 @@ namespace Quantum
                 return constants.States.WalkState;
 
             return constants.States.IdleState;
-        }
-
-        protected virtual void SetSaberState(Frame frame, EntityRef entity)
-        {
-            var saber = frame.Unsafe.GetPointer<SaberData>(entity);
-            var constants = frame.FindAsset<SaberConstants>(saber->Constants);
-
-            var state = constants.States.Holding;
-            
-            if (saber->CurrentState != state)
-                frame.Signals.OnSwitchSaberState(entity, state);
         }
     }
 }

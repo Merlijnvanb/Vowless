@@ -126,10 +126,11 @@ namespace Quantum.Prototypes {
   public unsafe partial class RoninDataPrototype : ComponentPrototype<Quantum.RoninData> {
     public AssetRef<RoninConstants> Constants;
     public FPVector2 Position;
+    public Int32 TargetingSign;
     public Int32 FacingSign;
-    public QBoolean Turned;
     public AssetRef<RoninStateBase> CurrentState;
     public Int32 StateFrame;
+    public QBoolean HasHit;
     partial void MaterializeUser(Frame frame, ref Quantum.RoninData result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.RoninData component = default;
@@ -139,10 +140,11 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref Quantum.RoninData result, in PrototypeMaterializationContext context = default) {
         result.Constants = this.Constants;
         result.Position = this.Position;
+        result.TargetingSign = this.TargetingSign;
         result.FacingSign = this.FacingSign;
-        result.Turned = this.Turned;
         result.CurrentState = this.CurrentState;
         result.StateFrame = this.StateFrame;
+        result.HasHit = this.HasHit;
         MaterializeUser(frame, ref result, in context);
     }
   }

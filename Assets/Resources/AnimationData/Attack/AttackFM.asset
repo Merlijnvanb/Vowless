@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946ac1cb74b20ae4d9b5b07a5d3e82a8, type: 3}
+  m_Name: AttackFM
+  m_EditorClassIdentifier: 
+  ID: 10
+  Frames:
+  - HiltMesh: {fileID: -2936012350668460331, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
+    BladeMesh: {fileID: -8843007639180049688, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
+    ActiveLength: 12
+  - HiltMesh: {fileID: -4674530270220448480, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
+    BladeMesh: {fileID: -2442532875171306840, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
+    ActiveLength: 2
+  - HiltMesh: {fileID: 7528145228768845329, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
+    BladeMesh: {fileID: -1346600214002410953, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
+    ActiveLength: 8
+  Loop: 0
