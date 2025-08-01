@@ -19,8 +19,12 @@ MonoBehaviour:
   AlwaysCancelable: 0
   Height: 2
   Range:
-    RawValue: 65536
+    RawValue: 114688
   StartupFrames: 25
   ActiveFrames: 2
   RecoveryFrames: 10
+  TurnCancelWindows:
+  - StartEndFrame:
+      X: 10
+      Y: 27
   ReceivedBlockStun: 10

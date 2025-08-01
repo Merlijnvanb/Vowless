@@ -22,6 +22,8 @@ MonoBehaviour:
     IdleState: {fileID: 11400000, guid: f2e91eda63ed7714f9266e8817e3de00, type: 2}
     WalkState: {fileID: 11400000, guid: 0a1416e7322beb24382eb5089d6b6eef, type: 2}
     TurningState: {fileID: 11400000, guid: 7f910661f18834640b0cfad228042ed0, type: 2}
+    TurningStateForward: {fileID: 11400000, guid: e143092e923543d4787ebc6ddfacf8a2, type: 2}
+    TurningStateBackward: {fileID: 11400000, guid: 4579e1037989d5b4b9e4fa2f2a9d53d0, type: 2}
   Attacks:
     ForwardHigh: {fileID: 11400000, guid: 5d2e9d3ed917c2546baac2219411b731, type: 2}
     ForwardMid: {fileID: 11400000, guid: 1b41de263193de44781b90d6a831c562, type: 2}

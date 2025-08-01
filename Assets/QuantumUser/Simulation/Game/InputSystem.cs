@@ -12,7 +12,7 @@ namespace Quantum
             
             player->InputHeadIndex = (player->InputHeadIndex + 1) % player->InputHistory.Length;
 
-            if (!frame.Global->ParseInputs)
+            if (!frame.Global->ParseInputs || !player->PlayerRef.IsValid)
                 player->InputHistory[player->InputHeadIndex] = new Input();
             else
                 player->InputHistory[player->InputHeadIndex] = *frame.GetPlayerInput(player->PlayerRef);

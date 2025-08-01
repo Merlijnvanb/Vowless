@@ -1077,11 +1077,11 @@ MonoBehaviour:
   LocalPlayers:
   - PlayerAvatar:
       Id:
-        Value: 0
+        Value: 1482107196972320669
     PlayerNickname: 
   - PlayerAvatar:
       Id:
-        Value: 0
+        Value: 1482107196972320669
     PlayerNickname: 
   MaxPlayerCount: 2
   SimulationSpeedMultiplier: 1

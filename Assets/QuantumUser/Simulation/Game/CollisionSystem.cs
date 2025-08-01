@@ -11,7 +11,7 @@ namespace Quantum
             var ronin1 = frame.Unsafe.GetPointer<RoninData>(frame.Global->Ronin1);
             var ronin2 = frame.Unsafe.GetPointer<RoninData>(frame.Global->Ronin2);
             
-            RoninCollision(frame, ronin1, ronin2);
+            if (!ronin1->IgnoreCollision && !ronin2->IgnoreCollision) RoninCollision(frame, ronin1, ronin2);
         }
 
         private void RoninCollision(Frame frame, RoninData* r1, RoninData* r2)

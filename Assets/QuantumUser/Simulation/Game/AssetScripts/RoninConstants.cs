@@ -12,6 +12,8 @@ namespace Quantum
             public IdleState IdleState;
             public WalkState WalkState;
             public TurningState TurningState;
+            public TurningStateForward TurningStateForward;
+            public TurningStateBackward TurningStateBackward;
         }
 
         [System.Serializable]

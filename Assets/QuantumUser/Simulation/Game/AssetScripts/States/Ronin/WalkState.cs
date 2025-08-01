@@ -12,7 +12,7 @@ namespace Quantum
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
             ronin->StateFrame++;
             
-            ApplyMovement(frame, entity);
+            ApplyWalk(frame, entity);
             
             if (AlwaysCancelable)
             {
@@ -22,11 +22,10 @@ namespace Quantum
             }
         }
 
-        private void ApplyMovement(Frame frame, EntityRef entity)
+        private void ApplyWalk(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            var player = frame.Unsafe.GetPointer<PlayerData>(entity);
-            var input = InputUtils.GetInput(player);
+            var input = InputUtils.GetInput(frame, entity);
 
             var signedDir = ronin->FacingSign * input.MoveDir.X;
             var moveSpeed = signedDir > 0 ? ForwardWalkSpeed : BackwardWalkSpeed;

@@ -27,7 +27,7 @@ namespace Quantum
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             
             var constants = frame.FindAsset(saber->Constants);
-            var input = InputUtils.GetInput(player);
+            var input = InputUtils.GetInput(frame, entity);
 
             if (input.LookDir != FPVector2.Zero && input.LookDir.Magnitude > constants.InputMagnitudeThreshold)
             {

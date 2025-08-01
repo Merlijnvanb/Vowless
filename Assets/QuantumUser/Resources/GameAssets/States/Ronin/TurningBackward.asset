@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a737b5e704f92a409474ffab54e5f17, type: 3}
+  m_Name: TurningBackward
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/GameAssets/States/Ronin/TurningBackward
+    Guid:
+      Value: 333480446786550238
+  AlwaysCancelable: 0
+  TurnCancelWindows: []
+  Movements:
+  - StartEndFrame:
+      X: 0
+      Y: 5
+    MoveVector:
+      X:
+        RawValue: -327680
+      Y:
+        RawValue: 0
+  Duration: 20

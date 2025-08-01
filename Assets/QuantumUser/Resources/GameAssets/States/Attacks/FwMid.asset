@@ -23,4 +23,8 @@ MonoBehaviour:
   StartupFrames: 12
   ActiveFrames: 2
   RecoveryFrames: 8
+  TurnCancelWindows:
+  - StartEndFrame:
+      X: 5
+      Y: 22
   ReceivedBlockStun: 10

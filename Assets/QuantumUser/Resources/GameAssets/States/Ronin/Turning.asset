@@ -17,4 +17,6 @@ MonoBehaviour:
     Guid:
       Value: 297583085050058086
   AlwaysCancelable: 0
-  Duration: 5
+  TurnCancelWindows: []
+  Movements: []
+  Duration: 10

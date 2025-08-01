@@ -10,6 +10,8 @@ namespace Quantum
         public int StartupFrames;
         public int ActiveFrames;
         public int RecoveryFrames;
+        
+        
 
         public int ReceivedBlockStun;
 
@@ -31,7 +33,28 @@ namespace Quantum
         public override void UpdateState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
+            var rConstants =  frame.FindAsset(ronin->Constants);
             ronin->StateFrame++;
+            
+            var input = InputUtils.GetInput(frame, entity);
+            if (input.Turn.WasPressed)
+            {
+                foreach (var window in TurnCancelWindows)
+                {
+                    if (ronin->StateFrame >= window.StartEndFrame.X && ronin->StateFrame < window.StartEndFrame.Y)
+                    {
+                        frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningState);
+                
+                        var saber = frame.Unsafe.GetPointer<SaberData>(entity);
+                        var saberConstants = frame.FindAsset(saber->Constants);
+            
+                        if (saber->CurrentState != saberConstants.States.Holding)
+                        {
+                            frame.Signals.OnSwitchSaberState(entity, saberConstants.States.Holding);
+                        }
+                    }
+                }
+            }
             
             var totalFrames = StartupFrames + ActiveFrames + RecoveryFrames;
             if (ronin->StateFrame > totalFrames)

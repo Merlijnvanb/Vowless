@@ -13,6 +13,7 @@ component RoninData
     FPVector2 Position;
     int TargetingSign;
     int FacingSign;
+    bool IgnoreCollision;
     
     asset_ref<RoninStateBase> CurrentState;
     int StateFrame;

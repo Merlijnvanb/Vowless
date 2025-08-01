@@ -808,17 +808,19 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct RoninData : Quantum.IComponent {
-    public const Int32 SIZE = 48;
+    public const Int32 SIZE = 56;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
+    [FieldOffset(24)]
     public AssetRef<RoninConstants> Constants;
-    [FieldOffset(32)]
+    [FieldOffset(40)]
     public FPVector2 Position;
     [FieldOffset(8)]
     public Int32 TargetingSign;
     [FieldOffset(0)]
     public Int32 FacingSign;
-    [FieldOffset(24)]
+    [FieldOffset(16)]
+    public QBoolean IgnoreCollision;
+    [FieldOffset(32)]
     public AssetRef<RoninStateBase> CurrentState;
     [FieldOffset(4)]
     public Int32 StateFrame;
@@ -831,6 +833,7 @@ namespace Quantum {
         hash = hash * 31 + Position.GetHashCode();
         hash = hash * 31 + TargetingSign.GetHashCode();
         hash = hash * 31 + FacingSign.GetHashCode();
+        hash = hash * 31 + IgnoreCollision.GetHashCode();
         hash = hash * 31 + CurrentState.GetHashCode();
         hash = hash * 31 + StateFrame.GetHashCode();
         hash = hash * 31 + HasHit.GetHashCode();
@@ -843,6 +846,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->StateFrame);
         serializer.Stream.Serialize(&p->TargetingSign);
         QBoolean.Serialize(&p->HasHit, serializer);
+        QBoolean.Serialize(&p->IgnoreCollision, serializer);
         AssetRef.Serialize(&p->Constants, serializer);
         AssetRef.Serialize(&p->CurrentState, serializer);
         FPVector2.Serialize(&p->Position, serializer);

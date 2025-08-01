@@ -128,6 +128,7 @@ namespace Quantum.Prototypes {
     public FPVector2 Position;
     public Int32 TargetingSign;
     public Int32 FacingSign;
+    public QBoolean IgnoreCollision;
     public AssetRef<RoninStateBase> CurrentState;
     public Int32 StateFrame;
     public QBoolean HasHit;
@@ -142,6 +143,7 @@ namespace Quantum.Prototypes {
         result.Position = this.Position;
         result.TargetingSign = this.TargetingSign;
         result.FacingSign = this.FacingSign;
+        result.IgnoreCollision = this.IgnoreCollision;
         result.CurrentState = this.CurrentState;
         result.StateFrame = this.StateFrame;
         result.HasHit = this.HasHit;
