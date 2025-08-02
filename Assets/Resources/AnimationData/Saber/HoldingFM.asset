@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 1
   Frames:
-  - HiltMesh: {fileID: 1852583384611581334, guid: 0929efd16e3a58c41992eadb54bca56f, type: 3}
+  - HiltTransform: {fileID: -7570473082258599523, guid: 0929efd16e3a58c41992eadb54bca56f, type: 3}
+    HiltMesh: {fileID: 1852583384611581334, guid: 0929efd16e3a58c41992eadb54bca56f, type: 3}
     BladeMesh: {fileID: -8516031981381312880, guid: 0929efd16e3a58c41992eadb54bca56f, type: 3}
     ActiveLength: 0
   Loop: 0

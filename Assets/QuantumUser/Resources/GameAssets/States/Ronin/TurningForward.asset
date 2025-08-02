@@ -29,26 +29,34 @@ MonoBehaviour:
         RawValue: 0
   - StartEndFrame:
       X: 6
-      Y: 10
+      Y: 20
     MoveVector:
       X:
-        RawValue: 327680
+        RawValue: 524288
       Y:
         RawValue: 0
   - StartEndFrame:
-      X: 11
-      Y: 15
+      X: 21
+      Y: 23
     MoveVector:
       X:
         RawValue: 196608
       Y:
         RawValue: 0
   - StartEndFrame:
-      X: 16
-      Y: 20
+      X: 24
+      Y: 25
     MoveVector:
       X:
-        RawValue: 65536
+        RawValue: 131072
       Y:
         RawValue: 0
-  Duration: 20
+  - StartEndFrame:
+      X: 26
+      Y: 30
+    MoveVector:
+      X:
+        RawValue: 16384
+      Y:
+        RawValue: 0
+  Duration: 30

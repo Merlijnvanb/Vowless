@@ -126,6 +126,7 @@ namespace Quantum.Prototypes {
   public unsafe partial class RoninDataPrototype : ComponentPrototype<Quantum.RoninData> {
     public AssetRef<RoninConstants> Constants;
     public FPVector2 Position;
+    public FPVector2 Velocity;
     public Int32 TargetingSign;
     public Int32 FacingSign;
     public QBoolean IgnoreCollision;
@@ -141,6 +142,7 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref Quantum.RoninData result, in PrototypeMaterializationContext context = default) {
         result.Constants = this.Constants;
         result.Position = this.Position;
+        result.Velocity = this.Velocity;
         result.TargetingSign = this.TargetingSign;
         result.FacingSign = this.FacingSign;
         result.IgnoreCollision = this.IgnoreCollision;

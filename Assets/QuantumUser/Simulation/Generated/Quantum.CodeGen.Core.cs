@@ -808,12 +808,14 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct RoninData : Quantum.IComponent {
-    public const Int32 SIZE = 56;
+    public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(24)]
     public AssetRef<RoninConstants> Constants;
     [FieldOffset(40)]
     public FPVector2 Position;
+    [FieldOffset(56)]
+    public FPVector2 Velocity;
     [FieldOffset(8)]
     public Int32 TargetingSign;
     [FieldOffset(0)]
@@ -831,6 +833,7 @@ namespace Quantum {
         var hash = 5387;
         hash = hash * 31 + Constants.GetHashCode();
         hash = hash * 31 + Position.GetHashCode();
+        hash = hash * 31 + Velocity.GetHashCode();
         hash = hash * 31 + TargetingSign.GetHashCode();
         hash = hash * 31 + FacingSign.GetHashCode();
         hash = hash * 31 + IgnoreCollision.GetHashCode();
@@ -850,6 +853,7 @@ namespace Quantum {
         AssetRef.Serialize(&p->Constants, serializer);
         AssetRef.Serialize(&p->CurrentState, serializer);
         FPVector2.Serialize(&p->Position, serializer);
+        FPVector2.Serialize(&p->Velocity, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]

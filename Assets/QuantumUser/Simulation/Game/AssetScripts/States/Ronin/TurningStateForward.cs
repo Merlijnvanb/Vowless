@@ -12,7 +12,6 @@ namespace Quantum
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             
             ronin->StateFrame = 0;
-            ronin->FacingSign *= -1;
             ronin->IgnoreCollision = true;
         }
 
@@ -26,6 +25,7 @@ namespace Quantum
             if (ronin->StateFrame > Duration)
             {
                 ronin->IgnoreCollision = false;
+                ronin->FacingSign *= -1;
                 
                 var nextState = GetNextState(frame, entity);
                 if (nextState != this)

@@ -43,7 +43,12 @@ namespace Quantum
                 {
                     if (ronin->StateFrame >= window.StartEndFrame.X && ronin->StateFrame < window.StartEndFrame.Y)
                     {
-                        frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningState);
+                        if (input.MoveDir.X == ronin->FacingSign)
+                            frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningStateForward);
+                        else if (input.MoveDir.X == -ronin->FacingSign)
+                            frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningStateBackward);
+                        else
+                            frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningState);
                 
                         var saber = frame.Unsafe.GetPointer<SaberData>(entity);
                         var saberConstants = frame.FindAsset(saber->Constants);

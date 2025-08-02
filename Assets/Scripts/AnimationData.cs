@@ -34,6 +34,7 @@ public enum AnimationID
 [System.Serializable]
 public struct FrameData
 {
+    public Transform HiltTransform;
     public Mesh HiltMesh;
     public Mesh BladeMesh;
     public int ActiveLength;

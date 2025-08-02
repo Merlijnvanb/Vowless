@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 10
   Frames:
-  - HiltMesh: {fileID: -2936012350668460331, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
-    BladeMesh: {fileID: -8843007639180049688, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
+  - HiltTransform: {fileID: 134627036371952810, guid: 2117093ffa2e1f84baa432892fd3ce18, type: 3}
+    HiltMesh: {fileID: -2936012350668460331, guid: 2117093ffa2e1f84baa432892fd3ce18, type: 3}
+    BladeMesh: {fileID: -8843007639180049688, guid: 2117093ffa2e1f84baa432892fd3ce18, type: 3}
     ActiveLength: 12
-  - HiltMesh: {fileID: -4674530270220448480, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
-    BladeMesh: {fileID: -2442532875171306840, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
+  - HiltTransform: {fileID: 8456908611335351419, guid: 2117093ffa2e1f84baa432892fd3ce18, type: 3}
+    HiltMesh: {fileID: -4674530270220448480, guid: 2117093ffa2e1f84baa432892fd3ce18, type: 3}
+    BladeMesh: {fileID: -2442532875171306840, guid: 2117093ffa2e1f84baa432892fd3ce18, type: 3}
     ActiveLength: 2
-  - HiltMesh: {fileID: 7528145228768845329, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
-    BladeMesh: {fileID: -1346600214002410953, guid: e801d0ab063158d4bab736cae1d3c773, type: 3}
+  - HiltTransform: {fileID: 6604992063906411742, guid: 2117093ffa2e1f84baa432892fd3ce18, type: 3}
+    HiltMesh: {fileID: 7528145228768845329, guid: 2117093ffa2e1f84baa432892fd3ce18, type: 3}
+    BladeMesh: {fileID: -1346600214002410953, guid: 2117093ffa2e1f84baa432892fd3ce18, type: 3}
     ActiveLength: 8
   Loop: 0

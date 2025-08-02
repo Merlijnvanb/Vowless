@@ -52,7 +52,7 @@ namespace Quantum
                 if (ronin->StateFrame >= data.StartEndFrame.X && ronin->StateFrame < data.StartEndFrame.Y)
                 {
                     ronin->Position += new FPVector2(
-                        data.MoveVector.X * ronin->TargetingSign * frame.DeltaTime, 
+                        data.MoveVector.X * ronin->FacingSign * frame.DeltaTime, 
                         data.MoveVector.Y * frame.DeltaTime);
                 }
             }
@@ -96,10 +96,10 @@ namespace Quantum
             //     // return block
             if (input.Turn.WasPressed)
             {
-                if ((int)input.MoveDir.X == ronin->TargetingSign)
+                if ((int)input.MoveDir.X == ronin->FacingSign)
                     return constants.States.TurningStateForward;
                 
-                if ((int)input.MoveDir.X == -ronin->TargetingSign)
+                if ((int)input.MoveDir.X == -ronin->FacingSign)
                     return constants.States.TurningStateBackward;
                 
                 return constants.States.TurningState;

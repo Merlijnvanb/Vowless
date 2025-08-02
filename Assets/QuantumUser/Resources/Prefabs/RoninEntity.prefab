@@ -137,7 +137,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 572233894535685987}
   - {fileID: 1073572053436368855}
   m_Father: {fileID: 2764658168729158878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -171,7 +170,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 572233894535685987}
   m_Father: {fileID: 2277950264125174177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2054461694114402595
@@ -1312,8 +1312,15 @@ MonoBehaviour:
         RawValue: 0
       Y:
         RawValue: 0
+    Velocity:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
     TargetingSign: 0
     FacingSign: 0
+    IgnoreCollision:
+      Value: 0
     CurrentState:
       Id:
         Value: 0
@@ -1388,6 +1395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HiltMeshFilter: {fileID: 2054461694114402595}
   BladeMeshFilter: {fileID: 1244497157067270774}
+  HiltTransform: {fileID: 1073572053436368855}
   AnimationHolder: {fileID: 11400000, guid: afb555d7241a9eb41895f2156690f843, type: 2}
 --- !u!1 &6008970828228290686
 GameObject:
@@ -1415,12 +1423,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6008970828228290686}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2277950264125174177}
+  m_Father: {fileID: 1073572053436368855}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1244497157067270774
 MeshFilter:

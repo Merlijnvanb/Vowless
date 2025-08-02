@@ -26,6 +26,7 @@ namespace Quantum
                 ronin->Position = i == 1
                     ? new FPVector2(-(config.StartDistance / 2), 0)
                     : new FPVector2(config.StartDistance / 2, 0);
+                ronin->Velocity = FPVector2.Zero;
                 ronin->TargetingSign = i == 1 ? 1 : -1;
                 ronin->FacingSign = i == 1 ? 1 : -1;
                 ronin->IgnoreCollision = false;

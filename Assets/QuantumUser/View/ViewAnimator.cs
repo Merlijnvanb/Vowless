@@ -7,6 +7,7 @@ namespace Quantum
     {
         public MeshFilter HiltMeshFilter;
         public MeshFilter BladeMeshFilter;
+        public Transform HiltTransform;
         
         public AnimDataHolder AnimationHolder;
 
@@ -83,14 +84,15 @@ namespace Quantum
             }
 
             var frame = currentSaberAnim.Frames[frameIndex];
-            SetMeshes(frame.HiltMesh, frame.BladeMesh);
+            SetMeshes(frame.HiltMesh, frame.BladeMesh, frame.HiltTransform);
         }
 
 
-        private void SetMeshes(Mesh hiltMesh, Mesh bladeMesh)
+        private void SetMeshes(Mesh hiltMesh, Mesh bladeMesh, Transform hiltTransform)
         {
             HiltMeshFilter.sharedMesh = hiltMesh;
             BladeMeshFilter.sharedMesh = bladeMesh;
+            HiltTransform.SetLocalPositionAndRotation(hiltTransform.localPosition, hiltTransform.localRotation);
         }
 
         private AnimationID GetSaberAnimationID(RoninData ronin, SaberData saber)

@@ -11,8 +11,11 @@ component RoninData
     asset_ref<RoninConstants> Constants;
     
     FPVector2 Position;
+    FPVector2 Velocity;
+    
     int TargetingSign;
     int FacingSign;
+    
     bool IgnoreCollision;
     
     asset_ref<RoninStateBase> CurrentState;
