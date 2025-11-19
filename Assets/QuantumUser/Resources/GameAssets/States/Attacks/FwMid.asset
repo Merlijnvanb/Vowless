@@ -16,15 +16,50 @@ MonoBehaviour:
     Path: QuantumUser/Resources/GameAssets/States/Attacks/FwMid
     Guid:
       Value: 385278573926430743
+  Duration: 60
   AlwaysCancelable: 0
-  Height: 1
-  Range:
-    RawValue: 131072
-  StartupFrames: 12
-  ActiveFrames: 2
-  RecoveryFrames: 8
+  CanSwitchTarget: 0
   TurnCancelWindows:
   - StartEndFrame:
       X: 5
-      Y: 22
-  ReceivedBlockStun: 10
+      Y: 60
+    CancelCost:
+      RawValue: 0
+  Movements: []
+  HurtBoxes:
+  - UseBaseRect: 1
+    Rect:
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      WidthHeight:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+    AlwaysActive: 1
+    StartEndFrame:
+      X: 0
+      Y: 0
+  Height: 1
+  HitBoxes:
+  - Rect:
+      Position:
+        X:
+          RawValue: 72090
+        Y:
+          RawValue: 54067
+      WidthHeight:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 16384
+    StartEndFrame:
+      X: 24
+      Y: 25
+  ReceivedBlockStun: 20
+  TurnAround: 0
+  EndingDirection: 4
+  AnimationID: 10

@@ -31,9 +31,48 @@ enum AttackHeight
 
 enum CombatResultType
 {
-    Whiff,
+    None,
     Deflected,
     Blocked,
     Clashed,
     Hit
+}
+
+enum AnimationID
+{
+    //SABER
+    HoldingFwHigh,
+    HoldingFwMid,
+    HoldingFwLow,
+    HoldingBwHigh,
+    HoldingBwMid,
+    HoldingBwLow,
+    
+    //RONIN
+    Idle,
+    Walking,
+    Turning,
+    
+    //ATTACK
+    AttackFwHigh,
+    AttackFwMid,
+    AttackFwLow,
+    AttackBwHigh,
+    AttackBwMid,
+    AttackBwLow,
+    
+    AttackTurnedFwHigh,
+    AttackTurnedFwMid,
+    AttackTurnedFwLow,
+    AttackTurnedBwHigh,
+    AttackTurnedBwMid,
+    AttackTurnedBwLow,
+    
+    //BLOCKSTUN
+    BlockStunFwHigh,
+    BlockStunFwMid,
+    BlockStunFwLow,
+    BlockStunBwHigh,
+    BlockStunBwMid,
+    BlockStunBwLow
 }

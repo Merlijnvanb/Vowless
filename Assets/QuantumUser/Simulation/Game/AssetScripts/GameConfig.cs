@@ -16,6 +16,11 @@ namespace Quantum
         [Header("Saber Setup")]
         public AssetRef<SaberConstants> BaseSaberConstants;
         public AssetRef<SaberStateBase> StartingSaberState;
+        public SaberConstants.SaberDirectionEditorData BaseSaberDirection;
+
+        [Header("Ronin Base Values")] 
+        public FP BaseDevotion = 50;
+        public FP DevotionMax = 100;
         
         [Header("Stage Settings")]
         public FP StageWidth = 10;

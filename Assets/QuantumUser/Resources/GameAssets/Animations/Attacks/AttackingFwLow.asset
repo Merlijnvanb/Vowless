@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66aedc9045e35cc4499c5abf8842804f, type: 3}
+  m_Name: AttackingFwLow
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/GameAssets/Animations/Attacks/AttackingFwLow
+    Guid:
+      Value: 287197235062946490
+  ID: 11
+  Frames:
+  - Position:
+      X:
+        RawValue: 17367
+      Y:
+        RawValue: 41484
+      Z:
+        RawValue: -33882
+    Rotation:
+      X:
+        RawValue: 4296839
+      Y:
+        RawValue: 22068548
+      Z:
+        RawValue: 10869319
+    PoleLPosition:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 0
+    PoleRPosition:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 0
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
+    StartEndFrame:
+      X: 1
+      Y: 23
+  - Position:
+      X:
+        RawValue: 42336
+      Y:
+        RawValue: 47316
+      Z:
+        RawValue: -8912
+    Rotation:
+      X:
+        RawValue: 4169184
+      Y:
+        RawValue: -1956708
+      Z:
+        RawValue: -8073433
+    PoleLPosition:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 0
+    PoleRPosition:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 0
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
+    StartEndFrame:
+      X: 24
+      Y: 25
+  - Position:
+      X:
+        RawValue: 33488
+      Y:
+        RawValue: 62783
+      Z:
+        RawValue: 22020
+    Rotation:
+      X:
+        RawValue: 4125009
+      Y:
+        RawValue: -1380714
+      Z:
+        RawValue: -2979323
+    PoleLPosition:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 0
+    PoleRPosition:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 0
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
+    StartEndFrame:
+      X: 26
+      Y: 60
+  IsLoop: 0

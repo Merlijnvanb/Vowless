@@ -15,7 +15,10 @@ MonoBehaviour:
   ID: 1
   Frames:
   - HiltTransform: {fileID: -7570473082258599523, guid: 0929efd16e3a58c41992eadb54bca56f, type: 3}
+    UseBaseHilt: 0
+    UseBaseBlade: 0
     HiltMesh: {fileID: 1852583384611581334, guid: 0929efd16e3a58c41992eadb54bca56f, type: 3}
     BladeMesh: {fileID: -8516031981381312880, guid: 0929efd16e3a58c41992eadb54bca56f, type: 3}
-    ActiveLength: 0
-  Loop: 0
+    TicksActive: 1
+  Loop: 1
+  TotalDuration: 1

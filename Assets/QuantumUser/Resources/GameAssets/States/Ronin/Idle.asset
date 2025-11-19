@@ -16,4 +16,25 @@ MonoBehaviour:
     Path: QuantumUser/Resources/GameAssets/States/Ronin/Idle
     Guid:
       Value: 436676437927294919
+  Duration: 0
   AlwaysCancelable: 1
+  CanSwitchTarget: 1
+  TurnCancelWindows: []
+  Movements: []
+  HurtBoxes:
+  - UseBaseRect: 1
+    Rect:
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      WidthHeight:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+    AlwaysActive: 1
+    StartEndFrame:
+      X: 0
+      Y: 0

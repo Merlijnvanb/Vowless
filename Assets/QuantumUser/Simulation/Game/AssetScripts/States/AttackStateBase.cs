@@ -4,16 +4,20 @@ namespace Quantum
 
     public unsafe class AttackStateBase : RoninStateBase
     {
+        [System.Serializable]
+        public struct HitBoxData
+        {
+            public BoxRect Rect;
+            public IntVector2 StartEndFrame;
+        }
+        
         public AttackHeight Height;
-        public FP Range;
-
-        public int StartupFrames;
-        public int ActiveFrames;
-        public int RecoveryFrames;
-        
-        
-
+        public HitBoxData[] HitBoxes;
         public int ReceivedBlockStun;
+        public bool TurnAround;
+        public SaberDirection EndingDirection;
+        
+        public AnimationID AnimationID;
 
         public override void EnterState(Frame frame, EntityRef entity)
         {
@@ -23,6 +27,11 @@ namespace Quantum
             
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             var saberConstants = frame.FindAsset(saber->Constants);
+
+            if (saberConstants.DirectionData.TryGetValue(EndingDirection, out var newDir))
+            {
+                saber->Direction = newDir;
+            }
 
             if (saber->CurrentState != saberConstants.States.Attacking)
             {
@@ -36,12 +45,15 @@ namespace Quantum
             var rConstants =  frame.FindAsset(ronin->Constants);
             ronin->StateFrame++;
             
+            var saber = frame.Unsafe.GetPointer<SaberData>(entity);
+            var saberConstants = frame.FindAsset(saber->Constants);
+            
             var input = InputUtils.GetInput(frame, entity);
             if (input.Turn.WasPressed)
             {
                 foreach (var window in TurnCancelWindows)
                 {
-                    if (ronin->StateFrame >= window.StartEndFrame.X && ronin->StateFrame < window.StartEndFrame.Y)
+                    if (ronin->StateFrame >= window.StartEndFrame.X && ronin->StateFrame <= window.StartEndFrame.Y)
                     {
                         if (input.MoveDir.X == ronin->FacingSign)
                             frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningStateForward);
@@ -49,9 +61,6 @@ namespace Quantum
                             frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningStateBackward);
                         else
                             frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningState);
-                
-                        var saber = frame.Unsafe.GetPointer<SaberData>(entity);
-                        var saberConstants = frame.FindAsset(saber->Constants);
             
                         if (saber->CurrentState != saberConstants.States.Holding)
                         {
@@ -60,15 +69,34 @@ namespace Quantum
                     }
                 }
             }
-            
-            var totalFrames = StartupFrames + ActiveFrames + RecoveryFrames;
-            if (ronin->StateFrame > totalFrames)
+
+            if (input.Attack.WasPressed)
             {
+                if (ronin->HasHit)
+                {
+                    if (TurnAround)
+                    {
+                        ronin->FacingSign *= -1;
+                    }
+                    
+                    var nextState = GetNextState(frame, entity);
+                    if (nextState is AttackStateBase)
+                    {
+                        frame.Signals.OnSwitchRoninState(entity, nextState);
+                        frame.Signals.OnSwitchSaberState(entity, saberConstants.States.Attacking);
+                    }
+                }
+            }
+            
+            if (ronin->StateFrame > Duration)
+            {
+                if (TurnAround)
+                {
+                    ronin->FacingSign *= -1;
+                }
+                
                 var nextState = GetNextState(frame, entity);
                 frame.Signals.OnSwitchRoninState(entity, nextState);
-                
-                var saber = frame.Unsafe.GetPointer<SaberData>(entity);
-                var saberConstants = frame.FindAsset(saber->Constants);
             
                 if (saber->CurrentState != saberConstants.States.Holding)
                 {
@@ -77,11 +105,11 @@ namespace Quantum
             }
         }
 
-        public virtual bool IsActive(Frame frame, EntityRef entity)
-        {
-            var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            
-            return ronin->StateFrame > StartupFrames && ronin->StateFrame <= StartupFrames + ActiveFrames;
-        }
+        // public virtual bool IsActive(Frame frame, EntityRef entity)
+        // {
+        //     var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
+        //     
+        //     return ronin->StateFrame > StartupFrames && ronin->StateFrame <= StartupFrames + ActiveFrames;
+        // }
     }
 }

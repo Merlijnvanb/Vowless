@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66aedc9045e35cc4499c5abf8842804f, type: 3}
+  m_Name: HoldingFwLow
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/GameAssets/Animations/HoldingFwLow
+    Guid:
+      Value: 330701598882265816
+  ID: 2
+  Frames:
+  - Position:
+      X:
+        RawValue: 32768
+      Y:
+        RawValue: 54067
+      Z:
+        RawValue: 27197
+    Rotation:
+      X:
+        RawValue: -3932160
+      Y:
+        RawValue: -12451840
+      Z:
+        RawValue: 12648448
+    StartEndFrame:
+      X: 1
+      Y: 1
+  IsLoop: 1

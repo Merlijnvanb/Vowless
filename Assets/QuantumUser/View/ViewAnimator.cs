@@ -3,152 +3,144 @@ namespace Quantum
     using UnityEngine;
     using System.Collections.Generic;
 
+    public enum AnimType
+    {
+        Saber,
+        Ronin
+    }
+
     public class ViewAnimator : QuantumEntityViewComponent<IQuantumViewContext>
     {
         public MeshFilter HiltMeshFilter;
         public MeshFilter BladeMeshFilter;
-        public Transform HiltTransform;
+        public Transform SaberTransform;
+        public Transform PoleLTransform;
+        public Transform PoleRTransform;
         
-        public AnimDataHolder AnimationHolder;
+        public Transform BladeStartTransform;
+        public Transform BladeEndTransform;
+        
+        public Mesh BaseHiltMesh;
+        public Mesh BaseBladeMesh;
 
-        private Dictionary<AnimationID, AnimationData> saberAnimations;
-        private Dictionary<AnimationID, AnimationData> roninAnimations;
-        private Dictionary<AnimationID, AnimationData> attackAnimations;
-
-        private AnimationData currentSaberAnim;
+        private AnimationID previousAnimationID;
+        private int previousSaberFrameIndex;
 
         public override void OnInitialize()
         {
-            saberAnimations = new Dictionary<AnimationID, AnimationData>();
-            roninAnimations = new Dictionary<AnimationID, AnimationData>();
-            attackAnimations = new Dictionary<AnimationID, AnimationData>();
+            QuantumEvent.Subscribe<EventOnHit>(listener: this, handler: OnHit);
+            QuantumEvent.Subscribe<EventOnReceivedHit>(listener: this, handler: OnReceivedHit);
+
+            previousAnimationID = 0;
+            previousSaberFrameIndex = -1;
+        }
+
+        private void OnHit(EventOnHit e)
+        {
+            if (e.entity != EntityRef)
+                return;
             
-            foreach (var anim in AnimationHolder.SaberAnimations)
-            {
-                saberAnimations.Add(anim.ID, anim);
-            }
+            
+        }
 
-            foreach (var anim in AnimationHolder.RoninAnimations)
-            {
-                roninAnimations.Add(anim.ID, anim);
-            }
+        private void OnReceivedHit(EventOnReceivedHit e)
+        {
+            if (e.entity != EntityRef || !e.result.SaberHit)
+                return;
+            
+            var midPoint = e.result.MidPoint.ToUnityVector2();
+            var closestPointOnSaber = GetClosestPointOnSaber(midPoint);
+            SaberToPoint(closestPointOnSaber, midPoint, out var newPos, out var newRot);
+            
+            SetSaberWorld(newPos, newRot);
+        }
 
-            foreach (var anim in AnimationHolder.AttackAnimations)
-            {
-                attackAnimations.Add(anim.ID, anim);
-            }
+        private void SaberToPoint(Vector2 saberPoint, Vector2 midPoint, out Vector3 newPos, out Quaternion newRot)
+        {
+            var difference = midPoint - saberPoint;
+            var saberPos = SaberTransform.position;
+            var newPoint = new Vector2(saberPos.x, saberPos.y) + difference;
+            
+            newPos = new Vector3(newPoint.x, newPoint.y, SaberTransform.position.z);
+            newRot = SaberTransform.rotation;
+        }
+
+        private Vector2 GetClosestPointOnSaber(Vector2 point)
+        {
+            var start = new Vector2(BladeStartTransform.position.x, BladeStartTransform.position.y);
+            var end = new Vector2(BladeEndTransform.position.x, BladeEndTransform.position.y);
+
+            var startToPoint = point - start;
+            var startToEnd = end - start;
+            
+            var startToEndSquared = startToEnd.sqrMagnitude;
+            var dotProduct = Vector2.Dot(startToPoint, startToEnd);
+            var distance = dotProduct / startToEndSquared;
+
+            if (distance < 0)
+                return start;
+            
+            if (distance > startToEndSquared)
+                return end;
+            
+            return start + startToEnd * distance;
         }
 
         public override void OnUpdateView()
         {
             if (!PredictedFrame.TryGet<RoninData>(EntityRef, out var ronin)) return;
             if (!PredictedFrame.TryGet<SaberData>(EntityRef, out var saber)) return;
-
-            saberAnimations.TryGetValue(GetSaberAnimationID(ronin, saber), out var nextSaberAnim);
-            if (nextSaberAnim != currentSaberAnim)
-            {
-                currentSaberAnim = nextSaberAnim;
-            }
             
             UpdateAnimations(ronin, saber);
         }
-
+        
         private void UpdateAnimations(RoninData ronin, SaberData saber)
         {
             UpdateSaberAnimation(saber);
         }
-
+        
         private void UpdateSaberAnimation(SaberData saber)
         {
-            var frameIndex = 0;
-            var accumulatedFrames = 0;
-            var isFrameSet = false;
+            if (!PredictedFrame.TryFindAsset(saber.Constants, out var constants)) return;
 
-            for (int i = 0; i < currentSaberAnim.Frames.Length; i++)
-            {
-                var frameLength = currentSaberAnim.Frames[i].ActiveLength;
+            if (!constants.SaberAnimations.TryGetValue(saber.CurrentAnimationID, out var animation)) return;
+            var frame = animation.Frames[saber.CurrentAnimationFrameIndex];
+            
+            // this fucking sucks holy shit
+            if (previousAnimationID == saber.CurrentAnimationID &&
+                previousSaberFrameIndex == saber.CurrentAnimationFrameIndex)
+                return;
+            
+            previousAnimationID = saber.CurrentAnimationID;
+            previousSaberFrameIndex = saber.CurrentAnimationFrameIndex;
 
-                if (saber.StateFrame < accumulatedFrames + frameLength)
-                {
-                    frameIndex = i;
-                    isFrameSet = true;
-                    break;
-                }
+            var pos = frame.Position.ToUnityVector3();
+            var rotEuler = frame.Rotation.ToUnityVector3();
+            var rot = Quaternion.Euler(rotEuler);
+            
+            SetSaberLocal(pos, rot);
 
-                accumulatedFrames += frameLength;
-            }
-
-            if (!isFrameSet)
-            {
-                frameIndex = currentSaberAnim.Loop ? 0 : currentSaberAnim.Frames.Length - 1;
-            }
-
-            var frame = currentSaberAnim.Frames[frameIndex];
-            SetMeshes(frame.HiltMesh, frame.BladeMesh, frame.HiltTransform);
+            var poleL = frame.PoleLPosition.ToUnityVector3();
+            var poleR = frame.PoleRPosition.ToUnityVector3();
+            
+            PoleLTransform.localPosition = poleL;
+            PoleRTransform.localPosition = poleR;
+        }
+        
+        
+        private void UpdateRoninAnimation(RoninData ronin)
+        {
+            
+        }
+        
+        private void SetSaberLocal(Vector3 pos, Quaternion rot)
+        {
+            SaberTransform.SetLocalPositionAndRotation(pos, rot);
         }
 
-
-        private void SetMeshes(Mesh hiltMesh, Mesh bladeMesh, Transform hiltTransform)
+        private void SetSaberWorld(Vector3 pos, Quaternion rot)
         {
-            HiltMeshFilter.sharedMesh = hiltMesh;
-            BladeMeshFilter.sharedMesh = bladeMesh;
-            HiltTransform.SetLocalPositionAndRotation(hiltTransform.localPosition, hiltTransform.localRotation);
-        }
-
-        private AnimationID GetSaberAnimationID(RoninData ronin, SaberData saber)
-        {
-            var rConstants = PredictedFrame.FindAsset(ronin.Constants);
-            var sConstants = PredictedFrame.FindAsset(saber.Constants);
-
-            if (saber.CurrentState == sConstants.States.Holding)
-            {
-                switch (saber.Direction.Id)
-                {
-                    case (SaberDirection.FwHigh):
-                        return AnimationID.HoldingFwHigh;
-                    
-                    case (SaberDirection.FwMid):
-                        return AnimationID.HoldingFwMid;
-                    
-                    case (SaberDirection.FwLow):
-                        return AnimationID.HoldingFwLow;
-                    
-                    case (SaberDirection.BwHigh):
-                        return AnimationID.HoldingBwHigh;
-                    
-                    case (SaberDirection.BwMid):
-                        return AnimationID.HoldingBwMid;
-                    
-                    case (SaberDirection.BwLow):
-                        return AnimationID.HoldingBwLow;
-                }
-            }
-
-            if (saber.CurrentState == sConstants.States.Attacking)
-            {
-                switch (saber.Direction.Id)
-                {
-                    case (SaberDirection.FwHigh):
-                        return AnimationID.AttackFwHigh;
-                    
-                    case (SaberDirection.FwMid):
-                        return AnimationID.AttackFwMid;
-                    
-                    case (SaberDirection.FwLow):
-                        return AnimationID.AttackFwLow;
-                    
-                    case (SaberDirection.BwHigh):
-                        return AnimationID.AttackBwHigh;
-                    
-                    case (SaberDirection.BwMid):
-                        return AnimationID.AttackBwMid;
-                    
-                    case (SaberDirection.BwLow):
-                        return AnimationID.AttackBwLow;
-                }
-            }
-
-            return AnimationID.HoldingFwMid;
+            SaberTransform.SetPositionAndRotation(pos, rot);
         }
     }
 }

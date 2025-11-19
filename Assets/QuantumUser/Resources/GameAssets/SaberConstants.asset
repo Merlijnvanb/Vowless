@@ -20,42 +20,131 @@ MonoBehaviour:
     Holding: {fileID: 11400000, guid: e3b6f36df6d975e42a8ec6ca4a765f54, type: 2}
     Attacking: {fileID: 11400000, guid: 27eda4541330e584cbad977ba2229d4a, type: 2}
     BlockStun: {fileID: 11400000, guid: 27b0d31a9e18696468d8e90c885b972e, type: 2}
-  _directions:
+  directionData:
   - Id: 0
     Vector:
       X:
         RawValue: 65536
       Y:
         RawValue: -65536
+    Boxes:
+    - Position:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 29491
+      WidthHeight:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 45875
   - Id: 1
     Vector:
       X:
         RawValue: 65536
       Y:
         RawValue: 0
+    Boxes:
+    - Position:
+        X:
+          RawValue: 39322
+        Y:
+          RawValue: 65536
+      WidthHeight:
+        X:
+          RawValue: 49152
+        Y:
+          RawValue: 55706
   - Id: 2
     Vector:
       X:
         RawValue: 65536
       Y:
         RawValue: 65536
+    Boxes:
+    - Position:
+        X:
+          RawValue: 39322
+        Y:
+          RawValue: 91750
+      WidthHeight:
+        X:
+          RawValue: 49152
+        Y:
+          RawValue: 32768
   - Id: 3
     Vector:
       X:
         RawValue: -65536
       Y:
         RawValue: -65536
+    Boxes:
+    - Position:
+        X:
+          RawValue: -32768
+        Y:
+          RawValue: 27853
+      WidthHeight:
+        X:
+          RawValue: 32768
+        Y:
+          RawValue: 32768
   - Id: 4
     Vector:
       X:
         RawValue: -65536
       Y:
         RawValue: 0
+    Boxes:
+    - Position:
+        X:
+          RawValue: -27853
+        Y:
+          RawValue: 49152
+      WidthHeight:
+        X:
+          RawValue: 22938
+        Y:
+          RawValue: 55706
   - Id: 5
     Vector:
       X:
         RawValue: -65536
       Y:
         RawValue: 65536
+    Boxes:
+    - Position:
+        X:
+          RawValue: -26214
+        Y:
+          RawValue: 95027
+      WidthHeight:
+        X:
+          RawValue: 49152
+        Y:
+          RawValue: 32768
+  saberAnimations:
+  - {fileID: 11400000, guid: b6386464b322aa142b17d17d0e1c867a, type: 2}
+  - {fileID: 11400000, guid: 8f972fcdb9d6e2a43a0a74af3d6ef4d5, type: 2}
+  - {fileID: 11400000, guid: 4299de63106c8e149b5e5f5c0d1efdfd, type: 2}
+  - {fileID: 11400000, guid: fdbdc629290c2e340a1729c7e32ba40a, type: 2}
+  - {fileID: 11400000, guid: 678dc54dc29f95846892f1c04c07721e, type: 2}
+  - {fileID: 11400000, guid: df0b31c455394ac4691d6e69d6303275, type: 2}
+  - {fileID: 11400000, guid: 17a3f87f88d14424186b54cf892233b6, type: 2}
+  - {fileID: 11400000, guid: eacdb8628cbe5b041bff080824f4a2bb, type: 2}
+  - {fileID: 11400000, guid: 1a9bbf41bdbcee349b1c9cc0953810a2, type: 2}
+  - {fileID: 11400000, guid: 0bba8ac1a219036478030952be8ffa88, type: 2}
+  - {fileID: 11400000, guid: 3ffd6e8ea27713740bf6fbfa314f7c60, type: 2}
+  - {fileID: 11400000, guid: 978d1fe36b73ee846b963d5cf43099df, type: 2}
+  - {fileID: 11400000, guid: df31135a52a1dc04c8ec230c53b6386d, type: 2}
+  - {fileID: 11400000, guid: 433c5133c44049c4c9e34047ee776d1c, type: 2}
+  - {fileID: 11400000, guid: fc13bc9a7c61dc5448215b0a58c15853, type: 2}
   InputMagnitudeThreshold:
     RawValue: 32768
+  SaberStartEndLength:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+  SaberRadius:
+    RawValue: 0

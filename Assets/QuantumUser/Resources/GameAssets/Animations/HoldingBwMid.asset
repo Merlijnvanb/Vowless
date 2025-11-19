@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66aedc9045e35cc4499c5abf8842804f, type: 3}
+  m_Name: HoldingBwMid
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/GameAssets/Animations/HoldingBwMid
+    Guid:
+      Value: 496998835489775672
+  ID: 4
+  Frames:
+  - Position:
+      X:
+        RawValue: -17563
+      Y:
+        RawValue: 88408
+      Z:
+        RawValue: -13107
+    Rotation:
+      X:
+        RawValue: -611575
+      Y:
+        RawValue: -5365406
+      Z:
+        RawValue: -11630527
+    PoleLPosition:
+      X:
+        RawValue: 26279
+      Y:
+        RawValue: 32571
+      Z:
+        RawValue: 31653
+    PoleRPosition:
+      X:
+        RawValue: 14024
+      Y:
+        RawValue: 37748
+      Z:
+        RawValue: -11599
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
+    StartEndFrame:
+      X: 0
+      Y: 0
+  IsLoop: 1

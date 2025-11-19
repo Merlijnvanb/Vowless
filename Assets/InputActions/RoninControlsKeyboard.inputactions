@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "RoninControlsKBM",
+    "name": "RoninControlsKeyboard",
     "maps": [
         {
             "name": "Battle",
@@ -56,7 +56,7 @@
                 {
                     "name": "",
                     "id": "b67f6d43-d35e-4000-a38f-bb2a3bc164cb",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KBM",
@@ -67,7 +67,7 @@
                 {
                     "name": "",
                     "id": "f7d3c1ee-74d9-4f62-961a-2eae9944809c",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KBM",
@@ -78,7 +78,7 @@
                 {
                     "name": "",
                     "id": "d21c08c2-507b-407a-af48-b73573df54ac",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KBM",
@@ -144,9 +144,9 @@
                 {
                     "name": "2D Vector",
                     "id": "7fe08b14-b258-4e70-af71-98548cc7f65a",
-                    "path": "2DVector(mode=2)",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=0.01,y=0.01)",
+                    "processors": "",
                     "groups": "",
                     "action": "Look",
                     "isComposite": true,
@@ -155,7 +155,7 @@
                 {
                     "name": "up",
                     "id": "fa4b0831-cac7-40b4-b403-f49d4c92cd2b",
-                    "path": "<Mouse>/delta/up",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KBM",
@@ -166,7 +166,7 @@
                 {
                     "name": "down",
                     "id": "930e5e9b-dc5d-4a58-a274-c015fbecb26f",
-                    "path": "<Mouse>/delta/down",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KBM",
@@ -177,7 +177,7 @@
                 {
                     "name": "left",
                     "id": "ce8341fa-dbbb-4c5d-b4e7-75925f705aea",
-                    "path": "<Mouse>/delta/left",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KBM",
@@ -188,7 +188,7 @@
                 {
                     "name": "right",
                     "id": "6e650871-4567-4f83-9499-98ef2b3a189d",
-                    "path": "<Mouse>/delta/right",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KBM",

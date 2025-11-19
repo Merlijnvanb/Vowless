@@ -16,6 +16,18 @@ namespace Quantum
             QuantumCallback.Subscribe(this, (CallbackPollInput callback) => PollInput(callback));
         }
 
+        void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.P))
+            {
+                var kbm = KbmIndex;
+                var pad = PadIndex;
+
+                KbmIndex = pad;
+                PadIndex = kbm;
+            }
+        }
+
         private void PollInput(CallbackPollInput callback)
         {
             Quantum.Input i = new Quantum.Input();
@@ -23,10 +35,10 @@ namespace Quantum
             //Debug.Log(callback.PlayerSlot);
 
             if (callback.PlayerSlot == KbmIndex)
-                i = KbmInput.GetInputs(i);
+                i = KbmInput.GetInputs(i, false);
             
             else if (callback.PlayerSlot == PadIndex)
-                i = PadInput.GetInputs(i);
+                i = PadInput.GetInputs(i, false);
 
             callback.SetInput(i, DeterministicInputFlags.Repeatable);
         }

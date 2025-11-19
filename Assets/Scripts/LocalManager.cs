@@ -7,6 +7,9 @@ public class LocalManager : MonoBehaviour
     
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
         if (LimitFramerate)
             Application.targetFrameRate = TargetFramerate;
     }

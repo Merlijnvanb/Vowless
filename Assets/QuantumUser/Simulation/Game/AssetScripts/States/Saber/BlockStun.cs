@@ -20,5 +20,36 @@ namespace Quantum
                 frame.Signals.OnSwitchSaberState(entity, constants.States.Holding);
             }
         }
+        
+        public override AnimationID GetAnimationID(Frame frame, EntityRef entity)
+        {
+            var saber = frame.Unsafe.GetPointer<SaberData>(entity);
+
+            switch (saber->Direction.Id)
+            {
+                case SaberDirection.FwLow:
+                    return AnimationID.BlockStunFwLow;
+                
+                case SaberDirection.FwMid:
+                    return AnimationID.BlockStunFwMid;
+                
+                case SaberDirection.FwHigh:
+                    return AnimationID.BlockStunFwHigh;
+                
+                
+                case SaberDirection.BwLow:
+                    return AnimationID.BlockStunBwLow;
+                
+                case SaberDirection.BwMid:
+                    return AnimationID.BlockStunBwMid;
+                
+                case SaberDirection.BwHigh:
+                    return AnimationID.BlockStunBwHigh;
+                
+                
+                default:
+                    return AnimationID.BlockStunFwMid;
+            }
+        }
     }
 }

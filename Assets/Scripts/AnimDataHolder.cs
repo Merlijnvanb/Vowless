@@ -5,5 +5,4 @@ public class AnimDataHolder : ScriptableObject
 {
     public AnimationData[] SaberAnimations;
     public AnimationData[] RoninAnimations;
-    public AnimationData[] AttackAnimations;
 }

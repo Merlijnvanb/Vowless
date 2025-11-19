@@ -18,11 +18,24 @@ namespace Quantum
             public IntVector2 StartEndFrame;
             public FPVector2 MoveVector;
         }
-        
+
+        [System.Serializable]
+        public struct HurtBoxData
+        {
+            public bool UseBaseRect;
+            public BoxRect Rect;
+            public bool AlwaysActive;
+            public IntVector2 StartEndFrame;
+        }
+
+        public int Duration;
         public bool AlwaysCancelable = false;
+        public bool CanSwitchTarget = false;
         
         public TurnCancelWindow[] TurnCancelWindows;
         public MovementData[] Movements;
+
+        public HurtBoxData[] HurtBoxes;
 
         public virtual void EnterState(Frame frame, EntityRef entity)
         {
@@ -38,8 +51,7 @@ namespace Quantum
             if (AlwaysCancelable)
             {
                 var nextState = GetNextState(frame, entity);
-                if (nextState != this)
-                    frame.Signals.OnSwitchRoninState(entity, nextState);
+                frame.Signals.OnSwitchRoninState(entity, nextState);
             }
         }
 
@@ -64,51 +76,63 @@ namespace Quantum
             var input = InputUtils.GetInput(frame, entity);
             
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            var constants = frame.FindAsset<RoninConstants>(ronin->Constants);
+            var rConstants = frame.FindAsset<RoninConstants>(ronin->Constants);
             
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
+            var sConstants = frame.FindAsset<SaberConstants>(saber->Constants);
 
             if (input.Attack.WasPressed)
             {
-                switch (saber->Direction.Id)
+                var dir = saber->Direction;
+                
+                if (player->InputDirectionVector != FPVector2.Zero)
+                {
+                    var signedInput = new FPVector2(player->InputDirectionVector.X * ronin->FacingSign, player->InputDirectionVector.Y);
+                    dir = InputUtils.SnapToDirection(frame, signedInput, sConstants);
+                }
+                
+                var turned = ronin->TargetingSign != ronin->FacingSign;
+                switch (dir.Id)
                 {
                     case SaberDirection.FwHigh:
-                        return constants.Attacks.ForwardHigh;
+                        return turned ? rConstants.Attacks.TurnedForwardHigh : rConstants.Attacks.ForwardHigh;
                     
                     case SaberDirection.FwMid:
-                        return constants.Attacks.ForwardMid;
+                        return turned ? rConstants.Attacks.TurnedForwardMid : rConstants.Attacks.ForwardMid;
                     
                     case SaberDirection.FwLow:
-                        return constants.Attacks.ForwardLow;
+                        return turned ? rConstants.Attacks.TurnedForwardLow : rConstants.Attacks.ForwardLow;
                     
                     
                     case SaberDirection.BwHigh:
-                        return constants.Attacks.BackwardHigh;
+                        return turned ? rConstants.Attacks.TurnedBackwardHigh : rConstants.Attacks.BackwardHigh;
                     
                     case SaberDirection.BwMid:
-                        return constants.Attacks.BackwardMid;
+                        return turned ? rConstants.Attacks.TurnedBackwardMid : rConstants.Attacks.BackwardMid;
                     
                     case SaberDirection.BwLow:
-                        return constants.Attacks.BackwardLow;
+                        return turned ? rConstants.Attacks.TurnedBackwardLow : rConstants.Attacks.BackwardLow;
                 }
             }
             // if (input.Block)
             //     // return block
             if (input.Turn.WasPressed)
             {
+                var signedInput = FPMath.SignZeroInt(input.MoveDir.X);
+                
                 if ((int)input.MoveDir.X == ronin->FacingSign)
-                    return constants.States.TurningStateForward;
+                    return rConstants.States.TurningStateForward;
                 
                 if ((int)input.MoveDir.X == -ronin->FacingSign)
-                    return constants.States.TurningStateBackward;
+                    return rConstants.States.TurningStateBackward;
                 
-                return constants.States.TurningState;
+                return rConstants.States.TurningState;
             }
             
             if (input.MoveDir.X != 0)
-                return constants.States.WalkState;
+                return rConstants.States.WalkState;
 
-            return constants.States.IdleState;
+            return rConstants.States.IdleState;
         }
     }
 }

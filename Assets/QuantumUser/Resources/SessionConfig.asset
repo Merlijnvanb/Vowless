@@ -16,7 +16,7 @@ MonoBehaviour:
     PlayerCount: 0
     ChecksumCrossPlatformDeterminism: 0
     LockstepSimulation: 0
-    InputDeltaCompression: 1
+    InputDeltaCompression: 0
     UpdateFPS: 60
     ChecksumInterval: 60
     RollbackWindow: 60

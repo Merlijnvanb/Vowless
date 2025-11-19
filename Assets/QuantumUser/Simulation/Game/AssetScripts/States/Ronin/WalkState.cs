@@ -17,8 +17,7 @@ namespace Quantum
             if (AlwaysCancelable)
             {
                 var nextState = GetNextState(frame, entity);
-                if (nextState != this)
-                    frame.Signals.OnSwitchRoninState(entity, nextState);
+                frame.Signals.OnSwitchRoninState(entity, nextState);
             }
         }
 
@@ -27,11 +26,11 @@ namespace Quantum
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
             var input = InputUtils.GetInput(frame, entity);
 
-            var signedDir = ronin->FacingSign * input.MoveDir.X;
+            var signedDir = ronin->FacingSign * FPMath.SignInt(input.MoveDir.X);
             var moveSpeed = signedDir > 0 ? ForwardWalkSpeed : BackwardWalkSpeed;
             moveSpeed *= frame.DeltaTime;
 
-            ronin->Position.X += moveSpeed * input.MoveDir.X;
+            ronin->Position.X += moveSpeed * FPMath.SignInt(input.MoveDir.X);
         }
     }
 }

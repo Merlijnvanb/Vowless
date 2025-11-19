@@ -50,18 +50,28 @@ namespace Quantum.Prototypes {
   #endif //;
   
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.BoxRect))]
+  public unsafe partial class BoxRectPrototype : StructPrototype {
+    public FPVector2 Position;
+    public FPVector2 WidthHeight;
+    partial void MaterializeUser(Frame frame, ref Quantum.BoxRect result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.BoxRect result, in PrototypeMaterializationContext context = default) {
+        result.Position = this.Position;
+        result.WidthHeight = this.WidthHeight;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.CombatContext))]
   public unsafe class CombatContextPrototype : StructPrototype {
     public MapEntityId Entity;
     public QBoolean IsAttacking;
-    public QBoolean IsAttackActive;
     public AssetRef<AttackStateBase> AttackState;
     public QBoolean IsDeflecting;
     public AssetRef<SaberStateBase> SaberState;
     public void Materialize(Frame frame, ref Quantum.CombatContext result, in PrototypeMaterializationContext context = default) {
         PrototypeValidator.FindMapEntity(this.Entity, in context, out result.Entity);
         result.IsAttacking = this.IsAttacking;
-        result.IsAttackActive = this.IsAttackActive;
         result.AttackState = this.AttackState;
         result.IsDeflecting = this.IsDeflecting;
         result.SaberState = this.SaberState;
@@ -74,16 +84,43 @@ namespace Quantum.Prototypes {
     public MapEntityId Attacker;
     public MapEntityId Defender;
     public AssetRef<AttackStateBase> AttackState;
+    public FPVector2 MidPoint;
+    public QBoolean SaberHit;
     public void Materialize(Frame frame, ref Quantum.CombatResult result, in PrototypeMaterializationContext context = default) {
         result.Type = this.Type;
         PrototypeValidator.FindMapEntity(this.Attacker, in context, out result.Attacker);
         PrototypeValidator.FindMapEntity(this.Defender, in context, out result.Defender);
         result.AttackState = this.AttackState;
+        result.MidPoint = this.MidPoint;
+        result.SaberHit = this.SaberHit;
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.HitBox))]
+  public unsafe partial class HitBoxPrototype : StructPrototype {
+    public Quantum.Prototypes.BoxRectPrototype Rect;
+    partial void MaterializeUser(Frame frame, ref Quantum.HitBox result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.HitBox result, in PrototypeMaterializationContext context = default) {
+        this.Rect.Materialize(frame, ref result.Rect, in context);
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.HurtBox))]
+  public unsafe partial class HurtBoxPrototype : StructPrototype {
+    public Quantum.Prototypes.BoxRectPrototype Rect;
+    public QBoolean IsSaber;
+    partial void MaterializeUser(Frame frame, ref Quantum.HurtBox result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.HurtBox result, in PrototypeMaterializationContext context = default) {
+        this.Rect.Materialize(frame, ref result.Rect, in context);
+        result.IsSaber = this.IsSaber;
+        MaterializeUser(frame, ref result, in context);
     }
   }
   [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.Input))]
   public unsafe partial class InputPrototype : StructPrototype {
+    public QBoolean IsMouseInput;
     public FPVector2 MoveDir;
     public FPVector2 LookDir;
     public Button Block;
@@ -91,6 +128,7 @@ namespace Quantum.Prototypes {
     public Button Turn;
     partial void MaterializeUser(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context = default) {
+        result.IsMouseInput = this.IsMouseInput;
         result.MoveDir = this.MoveDir;
         result.LookDir = this.LookDir;
         result.Block = this.Block;
@@ -106,6 +144,7 @@ namespace Quantum.Prototypes {
     [ArrayLengthAttribute(60)]
     public Quantum.Prototypes.InputPrototype[] InputHistory = new Quantum.Prototypes.InputPrototype[60];
     public Int32 InputHeadIndex;
+    public FPVector2 InputDirectionVector;
     partial void MaterializeUser(Frame frame, ref Quantum.PlayerData result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.PlayerData component = default;
@@ -118,6 +157,17 @@ namespace Quantum.Prototypes {
           this.InputHistory[i].Materialize(frame, ref *result.InputHistory.GetPointer(i), in context);
         }
         result.InputHeadIndex = this.InputHeadIndex;
+        result.InputDirectionVector = this.InputDirectionVector;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.PushBox))]
+  public unsafe partial class PushBoxPrototype : StructPrototype {
+    public Quantum.Prototypes.BoxRectPrototype Rect;
+    partial void MaterializeUser(Frame frame, ref Quantum.PushBox result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.PushBox result, in PrototypeMaterializationContext context = default) {
+        this.Rect.Materialize(frame, ref result.Rect, in context);
         MaterializeUser(frame, ref result, in context);
     }
   }
@@ -125,10 +175,15 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.RoninData))]
   public unsafe partial class RoninDataPrototype : ComponentPrototype<Quantum.RoninData> {
     public AssetRef<RoninConstants> Constants;
+    public FP Devotion;
     public FPVector2 Position;
     public FPVector2 Velocity;
     public Int32 TargetingSign;
     public Int32 FacingSign;
+    [DynamicCollectionAttribute()]
+    public Quantum.Prototypes.HitBoxPrototype[] HitBoxes = {};
+    [DynamicCollectionAttribute()]
+    public Quantum.Prototypes.HurtBoxPrototype[] HurtBoxes = {};
     public QBoolean IgnoreCollision;
     public AssetRef<RoninStateBase> CurrentState;
     public Int32 StateFrame;
@@ -141,10 +196,31 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Quantum.RoninData result, in PrototypeMaterializationContext context = default) {
         result.Constants = this.Constants;
+        result.Devotion = this.Devotion;
         result.Position = this.Position;
         result.Velocity = this.Velocity;
         result.TargetingSign = this.TargetingSign;
         result.FacingSign = this.FacingSign;
+        if (this.HitBoxes.Length == 0) {
+          result.HitBoxes = default;
+        } else {
+          var list = frame.AllocateList(out result.HitBoxes, this.HitBoxes.Length);
+          for (int i = 0; i < this.HitBoxes.Length; ++i) {
+            Quantum.HitBox tmp = default;
+            this.HitBoxes[i].Materialize(frame, ref tmp, in context);
+            list.Add(tmp);
+          }
+        }
+        if (this.HurtBoxes.Length == 0) {
+          result.HurtBoxes = default;
+        } else {
+          var list = frame.AllocateList(out result.HurtBoxes, this.HurtBoxes.Length);
+          for (int i = 0; i < this.HurtBoxes.Length; ++i) {
+            Quantum.HurtBox tmp = default;
+            this.HurtBoxes[i].Materialize(frame, ref tmp, in context);
+            list.Add(tmp);
+          }
+        }
         result.IgnoreCollision = this.IgnoreCollision;
         result.CurrentState = this.CurrentState;
         result.StateFrame = this.StateFrame;
@@ -157,6 +233,8 @@ namespace Quantum.Prototypes {
   public unsafe partial class SaberDataPrototype : ComponentPrototype<Quantum.SaberData> {
     public AssetRef<SaberConstants> Constants;
     public Quantum.Prototypes.SaberDirectionDataPrototype Direction;
+    public Quantum.QEnum32<AnimationID> CurrentAnimationID;
+    public Int32 CurrentAnimationFrameIndex;
     public AssetRef<SaberStateBase> CurrentState;
     public Int32 StateFrame;
     partial void MaterializeUser(Frame frame, ref Quantum.SaberData result, in PrototypeMaterializationContext context);
@@ -168,6 +246,8 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref Quantum.SaberData result, in PrototypeMaterializationContext context = default) {
         result.Constants = this.Constants;
         this.Direction.Materialize(frame, ref result.Direction, in context);
+        result.CurrentAnimationID = this.CurrentAnimationID;
+        result.CurrentAnimationFrameIndex = this.CurrentAnimationFrameIndex;
         result.CurrentState = this.CurrentState;
         result.StateFrame = this.StateFrame;
         MaterializeUser(frame, ref result, in context);
@@ -178,10 +258,22 @@ namespace Quantum.Prototypes {
   public unsafe partial class SaberDirectionDataPrototype : StructPrototype {
     public Quantum.QEnum32<SaberDirection> Id;
     public FPVector2 Vector;
+    [DynamicCollectionAttribute()]
+    public Quantum.Prototypes.BoxRectPrototype[] Boxes = {};
     partial void MaterializeUser(Frame frame, ref Quantum.SaberDirectionData result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.SaberDirectionData result, in PrototypeMaterializationContext context = default) {
         result.Id = this.Id;
         result.Vector = this.Vector;
+        if (this.Boxes.Length == 0) {
+          result.Boxes = default;
+        } else {
+          var list = frame.AllocateList(out result.Boxes, this.Boxes.Length);
+          for (int i = 0; i < this.Boxes.Length; ++i) {
+            Quantum.BoxRect tmp = default;
+            this.Boxes[i].Materialize(frame, ref tmp, in context);
+            list.Add(tmp);
+          }
+        }
         MaterializeUser(frame, ref result, in context);
     }
   }

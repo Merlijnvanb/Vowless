@@ -14,8 +14,7 @@ namespace Quantum
             if (AlwaysCancelable)
             {
                 var nextState = GetNextState(frame, entity);
-                if (nextState != this)
-                    frame.Signals.OnSwitchRoninState(entity, nextState);
+                frame.Signals.OnSwitchRoninState(entity, nextState);
             }
         }
     }

@@ -4,17 +4,24 @@ component PlayerData
     
     array<Input>[60] InputHistory;
     int InputHeadIndex;
+    
+    FPVector2 InputDirectionVector;
 }
 
 component RoninData
 {
     asset_ref<RoninConstants> Constants;
     
+    FP Devotion;
+    
     FPVector2 Position;
     FPVector2 Velocity;
     
     int TargetingSign;
     int FacingSign;
+    
+    list<HitBox> HitBoxes;
+    list<HurtBox> HurtBoxes;
     
     bool IgnoreCollision;
     
@@ -29,6 +36,9 @@ component SaberData
     
     SaberDirectionData Direction;
 
+    AnimationID CurrentAnimationID;
+    int CurrentAnimationFrameIndex;
+    
     asset_ref<SaberStateBase> CurrentState;
     int StateFrame;
 }

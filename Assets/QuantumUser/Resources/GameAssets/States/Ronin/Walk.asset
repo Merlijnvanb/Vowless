@@ -16,8 +16,29 @@ MonoBehaviour:
     Path: QuantumUser/Resources/GameAssets/States/Ronin/Walk
     Guid:
       Value: 389968709553779405
+  Duration: 0
   AlwaysCancelable: 1
+  CanSwitchTarget: 1
+  TurnCancelWindows: []
+  Movements: []
+  HurtBoxes:
+  - UseBaseRect: 1
+    Rect:
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      WidthHeight:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+    AlwaysActive: 1
+    StartEndFrame:
+      X: 0
+      Y: 0
   ForwardWalkSpeed:
-    RawValue: 196608
+    RawValue: 327680
   BackwardWalkSpeed:
-    RawValue: 163840
+    RawValue: 262144

@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66aedc9045e35cc4499c5abf8842804f, type: 3}
+  m_Name: AttackingTurnedFwMid
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/GameAssets/Animations/Attacks/Turned/AttackingTurnedFwMid
+    Guid:
+      Value: 334551036509201130
+  ID: 16
+  Frames:
+  - Position:
+      X:
+        RawValue: 37355
+      Y:
+        RawValue: 76742
+      Z:
+        RawValue: -21102
+    Rotation:
+      X:
+        RawValue: 58327
+      Y:
+        RawValue: 22725846
+      Z:
+        RawValue: 8078933
+    PoleLPosition:
+      X:
+        RawValue: 36896
+      Y:
+        RawValue: 12255
+      Z:
+        RawValue: -5373
+    PoleRPosition:
+      X:
+        RawValue: 9895
+      Y:
+        RawValue: 24838
+      Z:
+        RawValue: -39321
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
+    StartEndFrame:
+      X: 1
+      Y: 23
+  - Position:
+      X:
+        RawValue: -4718
+      Y:
+        RawValue: 47644
+      Z:
+        RawValue: -24248
+    Rotation:
+      X:
+        RawValue: 22954054
+      Y:
+        RawValue: 669616
+      Z:
+        RawValue: 5865999
+    PoleLPosition:
+      X:
+        RawValue: 49676
+      Y:
+        RawValue: 3670
+      Z:
+        RawValue: -35127
+    PoleRPosition:
+      X:
+        RawValue: 4128
+      Y:
+        RawValue: -26935
+      Z:
+        RawValue: -59441
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
+    StartEndFrame:
+      X: 24
+      Y: 35
+  - Position:
+      X:
+        RawValue: 42008
+      Y:
+        RawValue: 48168
+      Z:
+        RawValue: -27000
+    Rotation:
+      X:
+        RawValue: 22957664
+      Y:
+        RawValue: 33919
+      Z:
+        RawValue: 5973486
+    PoleLPosition:
+      X:
+        RawValue: 53084
+      Y:
+        RawValue: -12451
+      Z:
+        RawValue: -35127
+    PoleRPosition:
+      X:
+        RawValue: 4128
+      Y:
+        RawValue: 15925
+      Z:
+        RawValue: -59441
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
+    StartEndFrame:
+      X: 36
+      Y: 60
+  IsLoop: 0

@@ -74,17 +74,32 @@ namespace Quantum
                 ? new FPVector2(-(config.StartDistance / 2), 0)
                 : new FPVector2(config.StartDistance / 2, 0);
             ronin->FacingSign = i == 1 ? 1 : -1;
+            ronin->TargetingSign = i == 1 ? 1 : -1;
+            ronin->HitBoxes = frame.AllocateList<HitBox>();
+            ronin->HurtBoxes = frame.AllocateList<HurtBox>();
+            ronin->IgnoreCollision = false;
             ronin->CurrentState = config.StartingRoninState;
             ronin->StateFrame = 0;
+            ronin->HasHit = false;
                 
                 
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
 
+            var directionEditorData = config.BaseSaberDirection;
+            var directionBoxes = frame.AllocateList<BoxRect>();
+
+            foreach (var box in directionEditorData.Boxes)
+            {
+                directionBoxes.Add(box);
+            }
+
             var directionData = new SaberDirectionData()
             {
-                Id = SaberDirection.FwMid,
-                Vector = new FPVector2(1, 0)
+                Id = directionEditorData.Id,
+                Vector = directionEditorData.Vector,
+                Boxes = directionBoxes
             };
+            
             saber->Direction = directionData;
             saber->CurrentState = config.StartingSaberState;
             saber->StateFrame = 0;

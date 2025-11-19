@@ -1,0 +1,11 @@
+event OnHit
+{
+    entity_ref entity;
+    CombatResult result;
+}
+
+event OnReceivedHit
+{
+    entity_ref entity;
+    CombatResult result;
+}

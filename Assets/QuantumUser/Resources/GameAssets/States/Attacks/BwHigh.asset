@@ -16,15 +16,50 @@ MonoBehaviour:
     Path: QuantumUser/Resources/GameAssets/States/Attacks/BwHigh
     Guid:
       Value: 528983137728019811
+  Duration: 90
   AlwaysCancelable: 0
-  Height: 2
-  Range:
-    RawValue: 114688
-  StartupFrames: 25
-  ActiveFrames: 2
-  RecoveryFrames: 10
+  CanSwitchTarget: 0
   TurnCancelWindows:
   - StartEndFrame:
       X: 10
-      Y: 27
-  ReceivedBlockStun: 10
+      Y: 90
+    CancelCost:
+      RawValue: 0
+  Movements: []
+  HurtBoxes:
+  - UseBaseRect: 1
+    Rect:
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      WidthHeight:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+    AlwaysActive: 1
+    StartEndFrame:
+      X: 0
+      Y: 0
+  Height: 2
+  HitBoxes:
+  - Rect:
+      Position:
+        X:
+          RawValue: 65536
+        Y:
+          RawValue: 65536
+      WidthHeight:
+        X:
+          RawValue: 78643
+        Y:
+          RawValue: 78643
+    StartEndFrame:
+      X: 44
+      Y: 45
+  ReceivedBlockStun: 45
+  TurnAround: 1
+  EndingDirection: 0
+  AnimationID: 12

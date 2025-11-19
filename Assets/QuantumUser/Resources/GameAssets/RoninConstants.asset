@@ -18,6 +18,17 @@ MonoBehaviour:
       Value: 299644897576287749
   PushRange:
     RawValue: 16384
+  BaseRect:
+    Position:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 49152
+    WidthHeight:
+      X:
+        RawValue: 32768
+      Y:
+        RawValue: 98304
   States:
     IdleState: {fileID: 11400000, guid: f2e91eda63ed7714f9266e8817e3de00, type: 2}
     WalkState: {fileID: 11400000, guid: 0a1416e7322beb24382eb5089d6b6eef, type: 2}
@@ -31,3 +42,9 @@ MonoBehaviour:
     BackwardHigh: {fileID: 11400000, guid: 1aaaf7afc9ad0934ba987638df184d16, type: 2}
     BackwardMid: {fileID: 11400000, guid: 808d32a6dc932214caac24a9453b4f43, type: 2}
     BackwardLow: {fileID: 11400000, guid: ab701cf89f3e42e4d8103015f5b50721, type: 2}
+    TurnedForwardHigh: {fileID: 11400000, guid: 4d5aeaaa7cfc14f44bb6124f0f11e84b, type: 2}
+    TurnedForwardMid: {fileID: 11400000, guid: 0bdeaa92c21b8264c9c590cf8035f063, type: 2}
+    TurnedForwardLow: {fileID: 11400000, guid: d447e9f13e49fb447aa6d7d72daa6fd1, type: 2}
+    TurnedBackwardHigh: {fileID: 11400000, guid: 9df90cc6046a81c44915c2846ac316ca, type: 2}
+    TurnedBackwardMid: {fileID: 11400000, guid: 14fef98c2dfae6740aa2f41b0f8c292b, type: 2}
+    TurnedBackwardLow: {fileID: 11400000, guid: 0194ae9b257d81247ad8252b81ea3cda, type: 2}

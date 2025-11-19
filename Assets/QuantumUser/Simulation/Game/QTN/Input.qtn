@@ -1,5 +1,7 @@
 input 
 {
+    bool IsMouseInput;
+
     FPVector2 MoveDir;
     FPVector2 LookDir;
     

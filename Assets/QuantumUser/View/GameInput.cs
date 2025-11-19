@@ -19,8 +19,10 @@ namespace Quantum
         public InputActions Inputs;
         public bool DebugVectorsEnabled = false;
 
-        public Quantum.Input GetInputs(Quantum.Input i)
+        public Quantum.Input GetInputs(Quantum.Input i, bool isMouse)
         {
+            i.IsMouseInput = isMouse;
+            
             i.MoveDir = Inputs.Movement.action.ReadValue<Vector2>().ToFPVector2();
             i.LookDir = Inputs.Look.action.ReadValue<Vector2>().ToFPVector2();
             

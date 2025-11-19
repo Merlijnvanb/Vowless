@@ -16,7 +16,25 @@ MonoBehaviour:
     Path: QuantumUser/Resources/GameAssets/States/Ronin/Turning
     Guid:
       Value: 297583085050058086
+  Duration: 10
   AlwaysCancelable: 0
+  CanSwitchTarget: 0
   TurnCancelWindows: []
   Movements: []
-  Duration: 10
+  HurtBoxes:
+  - UseBaseRect: 1
+    Rect:
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      WidthHeight:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+    AlwaysActive: 1
+    StartEndFrame:
+      X: 0
+      Y: 0

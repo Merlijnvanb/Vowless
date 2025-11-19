@@ -2,6 +2,7 @@ namespace Quantum
 {
     using Photon.Deterministic;
     using UnityEngine.Scripting;
+    using Quantum.Collections;
 
     [Preserve]
     public unsafe class HitRegSystem : SystemMainThread
@@ -25,22 +26,14 @@ namespace Quantum
 
         private void ParseCombatResult(Frame frame, CombatResult result)
         {
-            switch (result.Type)
-            {
-                case CombatResultType.Hit:
-                    frame.Signals.OnHit(result.Attacker, result.AttackState);
-                    frame.Signals.OnReceivedHit(result.Defender, result.AttackState);
-                    break;
-                
-                case CombatResultType.Deflected:
-                    frame.Signals.OnDeflected(result.Attacker, result.AttackState);
-                    frame.Signals.OnReceivedDeflected(result.Defender, result.AttackState);
-                    break;
-                
-                case CombatResultType.Clashed:
-                    frame.Signals.OnClashed(result.Attacker, result.AttackState);
-                    break;
-            }
+            if (result.Type == CombatResultType.None)
+                return;
+            
+            frame.Signals.OnHit(result.Attacker, result);
+            frame.Signals.OnReceivedHit(result.Defender, result);
+
+            frame.Events.OnHit(result.Attacker, result);
+            frame.Events.OnReceivedHit(result.Defender, result);
         }
 
         private CombatContext SetupContext(Frame frame, EntityRef entity)
@@ -58,12 +51,11 @@ namespace Quantum
             if (context.IsAttacking)
             {
                 var attackState = roninState as AttackStateBase;
-                context.IsAttackActive = attackState.IsActive(frame, entity);
                 context.AttackState = attackState;
             }
             
             var saberState = frame.FindAsset(saber->CurrentState);
-            context.IsDeflecting = saberState is Holding;
+            context.IsDeflecting = saberState.BlockType == SaberBlockType.Deflect;
             if (context.IsDeflecting)
             {
                 context.SaberState = saberState;
@@ -76,7 +68,7 @@ namespace Quantum
         {
             var result = new CombatResult()
             {
-                Type = CombatResultType.Whiff,
+                Type = CombatResultType.None,
                 Attacker = cAttacker.Entity,
                 Defender = cDefender.Entity
             };
@@ -91,92 +83,112 @@ namespace Quantum
                 return result;
             
             var attAttackState = frame.FindAsset(cAttacker.AttackState);
+            var attHitBoxes = frame.ResolveList(attRonin->HitBoxes);
+            var defHurtBoxes = frame.ResolveList(defRonin->HurtBoxes);
 
-            if (!cAttacker.IsAttackActive)
+            if (attHitBoxes.Count == 0)
                 return result;
 
-            if (!IsInRange(frame, attRonin, defRonin, attAttackState))
+            if (!CheckHit(attHitBoxes, defHurtBoxes, out var midPoint, out var saberHit))
                 return result;
 
             result.Type = CombatResultType.Hit;
             result.AttackState = attAttackState;
+            result.MidPoint = midPoint;
+            result.SaberHit = saberHit;
             attRonin->HasHit = true;
             
-            var defSaberState = frame.FindAsset(cDefender.SaberState);
             var defSaber = frame.Unsafe.GetPointer<SaberData>(cDefender.Entity);
 
-            if (defSaberState.BlockType == SaberBlockType.Deflect)
+            if (frame.TryFindAsset(cDefender.SaberState, out var defSaberState))
             {
-                bool deflected = false;
-                
-                switch (attAttackState.Height)
+                if (defSaberState.BlockType == SaberBlockType.Deflect)
                 {
-                    case AttackHeight.High:
-                        if (defRonin->TargetingSign == defRonin->FacingSign)
-                        {
-                            deflected = defSaber->Direction.Id == SaberDirection.FwHigh;
-                        }
-                        else
-                        {
-                            deflected = defSaber->Direction.Id == SaberDirection.BwHigh;
-                        }
-                        
-                        break;
-                    
-                    case AttackHeight.Mid:
-                        if (defRonin->TargetingSign == defRonin->FacingSign)
-                        {
-                            deflected = defSaber->Direction.Id == SaberDirection.FwMid;
-                        }
-                        else
-                        {
-                            deflected = defSaber->Direction.Id == SaberDirection.BwMid;
-                        }
+                    bool deflected = false;
 
-                        break;
-                    
-                    case AttackHeight.Low:
-                        if (defRonin->TargetingSign == defRonin->FacingSign)
-                        {
-                            deflected = defSaber->Direction.Id == SaberDirection.FwLow;
-                        }
-                        else
-                        {
-                            deflected = defSaber->Direction.Id == SaberDirection.BwLow;
-                        }
+                    switch (attAttackState.Height)
+                    {
+                        case AttackHeight.High:
+                            if (defRonin->TargetingSign == defRonin->FacingSign)
+                            {
+                                deflected = defSaber->Direction.Id == SaberDirection.FwHigh;
+                            }
+                            else
+                            {
+                                deflected = defSaber->Direction.Id == SaberDirection.BwHigh;
+                            }
 
-                        break;
+                            break;
+
+                        case AttackHeight.Mid:
+                            if (defRonin->TargetingSign == defRonin->FacingSign)
+                            {
+                                deflected = defSaber->Direction.Id == SaberDirection.FwMid;
+                            }
+                            else
+                            {
+                                deflected = defSaber->Direction.Id == SaberDirection.BwMid;
+                            }
+
+                            break;
+
+                        case AttackHeight.Low:
+                            if (defRonin->TargetingSign == defRonin->FacingSign)
+                            {
+                                deflected = defSaber->Direction.Id == SaberDirection.FwLow;
+                            }
+                            else
+                            {
+                                deflected = defSaber->Direction.Id == SaberDirection.BwLow;
+                            }
+
+                            break;
+                    }
+
+                    if (deflected)
+                    {
+                        result.Type = CombatResultType.Deflected;
+                    }
+                    else if (saberHit)
+                    {
+                        result.Type = CombatResultType.None;
+                    }
+
+                    return result;
                 }
-
-                if (deflected)
-                {
-                    result.Type = CombatResultType.Deflected;
-                }
-
-                return result;
             }
 
             if (cDefender.IsAttacking)
             {
-                var defAttackState = frame.FindAsset(cDefender.AttackState);
+                // check if clashing or something
+            }
 
-                if (defAttackState.IsActive(frame, cDefender.Entity) && 
-                    IsInRange(frame, defRonin, attRonin, defAttackState))
-                {
-                    if (attAttackState.Height == defAttackState.Height)
-                    {
-                        result.Type = CombatResultType.Clashed;
-                    }
-                }
+            if (saberHit)
+            {
+                result.Type = CombatResultType.None;
             }
             
             return result;
         }
 
-        private bool IsInRange(Frame frame, RoninData* attacker, RoninData* defender, AttackStateBase attack)
+        private bool CheckHit(QList<HitBox> hitBoxes, QList<HurtBox> hurtBoxes, out FPVector2 midPoint, out bool saberHit)
         {
-            // this does not take into account if defender is behind attacker or not, might want to use actual hitboxes instead
-            return FPVector2.Distance(attacker->Position, defender->Position) < attack.Range;
+            foreach (var hitBox in hitBoxes)
+            {
+                foreach (var hurtBox in hurtBoxes)
+                {
+                    if (hitBox.Rect.Overlaps(hurtBox.Rect))
+                    {
+                        midPoint = hitBox.Rect.GetOverlapCenter(hurtBox.Rect);
+                        saberHit = hurtBox.IsSaber;
+                        return true;
+                    }
+                }
+            }
+            
+            midPoint = FPVector2.Zero;
+            saberHit = false;
+            return false;
         }
     }
 }

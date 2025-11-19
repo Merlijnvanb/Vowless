@@ -53,7 +53,6 @@ namespace Quantum.Prototypes.Unity {
   public unsafe partial class CombatContextPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.CombatContextPrototype> {
     public Quantum.QuantumEntityPrototype Entity;
     public QBoolean IsAttacking;
-    public QBoolean IsAttackActive;
     public AssetRef<AttackStateBase> AttackState;
     public QBoolean IsDeflecting;
     public AssetRef<SaberStateBase> SaberState;
@@ -62,7 +61,6 @@ namespace Quantum.Prototypes.Unity {
       var result = new Quantum.Prototypes.CombatContextPrototype();
       converter.Convert(this.Entity, out result.Entity);
       converter.Convert(this.IsAttacking, out result.IsAttacking);
-      converter.Convert(this.IsAttackActive, out result.IsAttackActive);
       converter.Convert(this.AttackState, out result.AttackState);
       converter.Convert(this.IsDeflecting, out result.IsDeflecting);
       converter.Convert(this.SaberState, out result.SaberState);
@@ -76,6 +74,8 @@ namespace Quantum.Prototypes.Unity {
     public Quantum.QuantumEntityPrototype Attacker;
     public Quantum.QuantumEntityPrototype Defender;
     public AssetRef<AttackStateBase> AttackState;
+    public FPVector2 MidPoint;
+    public QBoolean SaberHit;
     partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.CombatResultPrototype prototype);
     public override Quantum.Prototypes.CombatResultPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
       var result = new Quantum.Prototypes.CombatResultPrototype();
@@ -83,6 +83,8 @@ namespace Quantum.Prototypes.Unity {
       converter.Convert(this.Attacker, out result.Attacker);
       converter.Convert(this.Defender, out result.Defender);
       converter.Convert(this.AttackState, out result.AttackState);
+      converter.Convert(this.MidPoint, out result.MidPoint);
+      converter.Convert(this.SaberHit, out result.SaberHit);
       ConvertUser(converter, ref result);
       return result;
     }

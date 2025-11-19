@@ -16,7 +16,9 @@ MonoBehaviour:
     Path: QuantumUser/Resources/GameAssets/States/Ronin/TurningBackward
     Guid:
       Value: 333480446786550238
+  Duration: 30
   AlwaysCancelable: 0
+  CanSwitchTarget: 0
   TurnCancelWindows: []
   Movements:
   - StartEndFrame:
@@ -24,7 +26,7 @@ MonoBehaviour:
       Y: 5
     MoveVector:
       X:
-        RawValue: -655360
+        RawValue: 655360
       Y:
         RawValue: 0
   - StartEndFrame:
@@ -32,7 +34,7 @@ MonoBehaviour:
       Y: 20
     MoveVector:
       X:
-        RawValue: -524288
+        RawValue: 524288
       Y:
         RawValue: 0
   - StartEndFrame:
@@ -40,7 +42,7 @@ MonoBehaviour:
       Y: 23
     MoveVector:
       X:
-        RawValue: -196608
+        RawValue: 196608
       Y:
         RawValue: 0
   - StartEndFrame:
@@ -48,7 +50,7 @@ MonoBehaviour:
       Y: 25
     MoveVector:
       X:
-        RawValue: -131072
+        RawValue: 131072
       Y:
         RawValue: 0
   - StartEndFrame:
@@ -56,7 +58,23 @@ MonoBehaviour:
       Y: 30
     MoveVector:
       X:
-        RawValue: -16384
+        RawValue: 16384
       Y:
         RawValue: 0
-  Duration: 30
+  HurtBoxes:
+  - UseBaseRect: 1
+    Rect:
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      WidthHeight:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+    AlwaysActive: 1
+    StartEndFrame:
+      X: 0
+      Y: 0

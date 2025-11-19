@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607417de66546774fb70979779f4f247, type: 3}
+  m_Name: TurnedBackwardMid
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/GameAssets/States/Attacks/Turned/TurnedBackwardMid
+    Guid:
+      Value: 476107028342263335
+  Duration: 90
+  AlwaysCancelable: 0
+  CanSwitchTarget: 0
+  TurnCancelWindows:
+  - StartEndFrame:
+      X: 10
+      Y: 90
+    CancelCost:
+      RawValue: 0
+  Movements: []
+  HurtBoxes:
+  - UseBaseRect: 1
+    Rect:
+      Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      WidthHeight:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+    AlwaysActive: 1
+    StartEndFrame:
+      X: 0
+      Y: 0
+  Height: 1
+  HitBoxes:
+  - Rect:
+      Position:
+        X:
+          RawValue: -81920
+        Y:
+          RawValue: 58982
+      WidthHeight:
+        X:
+          RawValue: 98304
+        Y:
+          RawValue: 19661
+    StartEndFrame:
+      X: 44
+      Y: 45
+  ReceivedBlockStun: 45
+  TurnAround: 1
+  EndingDirection: 1
+  AnimationID: 19
