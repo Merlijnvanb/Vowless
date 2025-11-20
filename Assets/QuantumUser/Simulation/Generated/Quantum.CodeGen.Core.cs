@@ -901,17 +901,19 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerData : Quantum.IComponent {
-    public const Int32 SIZE = 4344;
+    public const Int32 SIZE = 4360;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(4)]
     public PlayerRef PlayerRef;
-    [FieldOffset(24)]
+    [FieldOffset(40)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 60)]
     private fixed Byte _InputHistory_[4320];
     [FieldOffset(0)]
     public Int32 InputHeadIndex;
     [FieldOffset(8)]
-    public FPVector2 InputDirectionVector;
+    public FPVector2 InputLookDirectionVector;
+    [FieldOffset(24)]
+    public FPVector2 InputMoveDirectionVector;
     public readonly FixedArray<Input> InputHistory {
       get {
         fixed (byte* p = _InputHistory_) { return new FixedArray<Input>(p, 72, 60); }
@@ -923,7 +925,8 @@ namespace Quantum {
         hash = hash * 31 + PlayerRef.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(InputHistory);
         hash = hash * 31 + InputHeadIndex.GetHashCode();
-        hash = hash * 31 + InputDirectionVector.GetHashCode();
+        hash = hash * 31 + InputLookDirectionVector.GetHashCode();
+        hash = hash * 31 + InputMoveDirectionVector.GetHashCode();
         return hash;
       }
     }
@@ -931,7 +934,8 @@ namespace Quantum {
         var p = (PlayerData*)ptr;
         serializer.Stream.Serialize(&p->InputHeadIndex);
         PlayerRef.Serialize(&p->PlayerRef, serializer);
-        FPVector2.Serialize(&p->InputDirectionVector, serializer);
+        FPVector2.Serialize(&p->InputLookDirectionVector, serializer);
+        FPVector2.Serialize(&p->InputMoveDirectionVector, serializer);
         FixedArray.Serialize(p->InputHistory, serializer, Statics.SerializeInput);
     }
   }

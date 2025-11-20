@@ -12,63 +12,14 @@ namespace Quantum
             
             for (int i = 1; i <= 2; i++)
             {
-                var roninEntity = frame.Create(frame.FindAsset(config.BaseRonin));
+                var entity = frame.Create(frame.FindAsset(config.BaseRonin));
                 
-                var player = frame.Unsafe.GetPointer<PlayerData>(roninEntity);
-                
-                player->InputHeadIndex = -1;
-                
-                
-                var ronin = frame.Unsafe.GetPointer<RoninData>(roninEntity);
-                var roninConstants = frame.FindAsset<RoninConstants>(config.BaseRoninConstants);
-
-                ronin->Constants = roninConstants;
-                ronin->Devotion = config.BaseDevotion;
-                ronin->Position = i == 1
-                    ? new FPVector2(-(config.StartDistance / 2), 0)
-                    : new FPVector2(config.StartDistance / 2, 0);
-                ronin->Velocity = FPVector2.Zero;
-                ronin->TargetingSign = i == 1 ? 1 : -1;
-                ronin->FacingSign = i == 1 ? 1 : -1;
-                ronin->HitBoxes = frame.AllocateList<HitBox>();
-                ronin->HurtBoxes = frame.AllocateList<HurtBox>();
-                ronin->IgnoreCollision = false;
-                ronin->CurrentState = config.StartingRoninState;
-                ronin->StateFrame = 0;
-                ronin->HasHit = false;
-                
-                
-                var saber = frame.Unsafe.GetPointer<SaberData>(roninEntity);
-                var saberConstants = frame.FindAsset<SaberConstants>(config.BaseSaberConstants);
-                saberConstants.InitData(frame);
-            
-                saber->Constants = saberConstants;
-                
-                // setup base direction
-                var directionEditorData = config.BaseSaberDirection;
-                var directionBoxes = frame.AllocateList<BoxRect>();
-
-                foreach (var box in directionEditorData.Boxes)
-                {
-                    directionBoxes.Add(box);
-                }
-
-                var directionData = new SaberDirectionData()
-                {
-                    Id = directionEditorData.Id,
-                    Vector = directionEditorData.Vector,
-                    Boxes = directionBoxes
-                };
-                
-                saber->Direction = directionData;
-                saber->CurrentState = config.StartingSaberState;
-                saber->StateFrame = 0;
-                
+                InitEntity(frame, entity, i);
 
                 if (i == 1)
-                    frame.Global->Ronin1 = roninEntity;
+                    frame.Global->Ronin1 = entity;
                 else
-                    frame.Global->Ronin2 = roninEntity;
+                    frame.Global->Ronin2 = entity;
             }
         }
 
@@ -81,6 +32,59 @@ namespace Quantum
             var playerData = frame.Unsafe.GetPointer<PlayerData>(entity);
             
             playerData->PlayerRef = player;
+        }
+
+        public static void InitEntity(Frame frame, EntityRef entity, int i)
+        {
+            var config = frame.FindAsset<GameConfig>(frame.RuntimeConfig.GameConfig);
+            var player = frame.Unsafe.GetPointer<PlayerData>(entity);
+
+            player->InputHeadIndex = -1;
+
+            var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
+            var roninConstants = frame.FindAsset<RoninConstants>(config.BaseRoninConstants);
+
+            ronin->Constants = roninConstants;
+            ronin->Devotion = config.BaseDevotion;
+            ronin->Position = i == 1
+                ? new FPVector2(-(config.StartDistance / 2), 0)
+                : new FPVector2(config.StartDistance / 2, 0);
+            ronin->Velocity = FPVector2.Zero;
+            ronin->TargetingSign = i == 1 ? 1 : -1;
+            ronin->FacingSign = i == 1 ? 1 : -1;
+            ronin->HitBoxes = frame.AllocateList<HitBox>();
+            ronin->HurtBoxes = frame.AllocateList<HurtBox>();
+            ronin->IgnoreCollision = false;
+            ronin->CurrentState = config.StartingRoninState;
+            ronin->StateFrame = 0;
+            ronin->HasHit = false;
+
+
+            var saber = frame.Unsafe.GetPointer<SaberData>(entity);
+            var saberConstants = frame.FindAsset<SaberConstants>(config.BaseSaberConstants);
+            saberConstants.InitData(frame);
+
+            saber->Constants = saberConstants;
+
+            // setup base direction
+            var directionEditorData = config.BaseSaberDirection;
+            var directionBoxes = frame.AllocateList<BoxRect>();
+
+            foreach (var box in directionEditorData.Boxes)
+            {
+                directionBoxes.Add(box);
+            }
+
+            var directionData = new SaberDirectionData()
+            {
+                Id = directionEditorData.Id,
+                Vector = directionEditorData.Vector,
+                Boxes = directionBoxes
+            };
+
+            saber->Direction = directionData;
+            saber->CurrentState = config.StartingSaberState;
+            saber->StateFrame = 0;
         }
     }
 }

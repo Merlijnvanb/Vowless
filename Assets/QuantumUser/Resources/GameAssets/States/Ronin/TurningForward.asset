@@ -18,7 +18,7 @@ MonoBehaviour:
       Value: 520172074395491881
   Duration: 30
   AlwaysCancelable: 0
-  CanSwitchTarget: 0
+  CanSwitchTarget: 1
   TurnCancelWindows: []
   Movements:
   - StartEndFrame:

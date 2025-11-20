@@ -5,7 +5,8 @@ component PlayerData
     array<Input>[60] InputHistory;
     int InputHeadIndex;
     
-    FPVector2 InputDirectionVector;
+    FPVector2 InputLookDirectionVector;
+    FPVector2 InputMoveDirectionVector;
 }
 
 component RoninData

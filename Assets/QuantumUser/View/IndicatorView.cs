@@ -12,7 +12,7 @@ namespace Quantum
             if (!PredictedFrame.TryGet<PlayerData>(EntityRef, out var player))
                 return;
             
-            var directionVector = player.InputDirectionVector.ToUnityVector2();
+            var directionVector = player.InputLookDirectionVector.ToUnityVector2();
             Indicator.localPosition = new Vector3(directionVector.x * Range, directionVector.y * Range, Indicator.localPosition.z);
         }
     }

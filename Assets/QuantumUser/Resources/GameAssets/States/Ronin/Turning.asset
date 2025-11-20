@@ -18,7 +18,7 @@ MonoBehaviour:
       Value: 297583085050058086
   Duration: 10
   AlwaysCancelable: 0
-  CanSwitchTarget: 0
+  CanSwitchTarget: 1
   TurnCancelWindows: []
   Movements: []
   HurtBoxes:

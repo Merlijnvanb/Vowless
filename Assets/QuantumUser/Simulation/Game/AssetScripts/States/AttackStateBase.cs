@@ -14,6 +14,7 @@ namespace Quantum
         public AttackHeight Height;
         public HitBoxData[] HitBoxes;
         public int ReceivedBlockStun;
+        public FP DevotionGain;
         public bool TurnAround;
         public SaberDirection EndingDirection;
         
@@ -47,6 +48,8 @@ namespace Quantum
             
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             var saberConstants = frame.FindAsset(saber->Constants);
+
+            var config = frame.FindAsset(frame.RuntimeConfig.GameConfig);
             
             var input = InputUtils.GetInput(frame, entity);
             if (input.Turn.WasPressed)
@@ -55,12 +58,24 @@ namespace Quantum
                 {
                     if (ronin->StateFrame >= window.StartEndFrame.X && ronin->StateFrame <= window.StartEndFrame.Y)
                     {
+                        var cost = window.CancelCost;
+
+                        if (window.HasWhiffCost && !ronin->HasHit)
+                        {
+                            cost = window.WhiffCost;
+                        }
+
+                        var nextState = rConstants.States.TurningState as RoninStateBase;
                         if (input.MoveDir.X == ronin->FacingSign)
-                            frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningStateForward);
-                        else if (input.MoveDir.X == -ronin->FacingSign)
-                            frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningStateBackward);
-                        else
-                            frame.Signals.OnSwitchRoninState(entity, rConstants.States.TurningState);
+                            nextState = rConstants.States.TurningStateForward;
+                        if (input.MoveDir.X == -ronin->FacingSign)
+                            nextState = rConstants.States.TurningStateBackward;
+
+                        if (cost > ronin->Devotion)
+                            break;
+                        
+                        frame.Signals.OnDecreaseDevotion(entity, cost);
+                        frame.Signals.OnSwitchRoninState(entity, nextState);
             
                         if (saber->CurrentState != saberConstants.States.Holding)
                         {
@@ -79,11 +94,22 @@ namespace Quantum
                         ronin->FacingSign *= -1;
                     }
                     
-                    var nextState = GetNextState(frame, entity);
+                    var nextState = GetNextState(frame, entity, out var newDir);
                     if (nextState is AttackStateBase)
                     {
-                        frame.Signals.OnSwitchRoninState(entity, nextState);
-                        frame.Signals.OnSwitchSaberState(entity, saberConstants.States.Attacking);
+                        var cost = FP._0;
+                        
+                        if (EndingDirection != newDir.Id)
+                        {
+                            cost = config.NonLinearAttackCost;
+                        }
+                        
+                        if (cost <= ronin->Devotion)
+                        {
+                            frame.Signals.OnDecreaseDevotion(entity, cost);
+                            frame.Signals.OnSwitchRoninState(entity, nextState);
+                            frame.Signals.OnSwitchSaberState(entity, saberConstants.States.Attacking);
+                        }
                     }
                 }
             }

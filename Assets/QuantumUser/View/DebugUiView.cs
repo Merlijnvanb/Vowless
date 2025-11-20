@@ -79,7 +79,7 @@ namespace Quantum
             {
                 var pElements = Elements.Player;
 
-                ApplyData(pElements.InputLookVector, playerData.InputDirectionVector.ToString());
+                ApplyData(pElements.InputLookVector, playerData.InputLookDirectionVector.ToString());
             }
 
             if (PredictedFrame.TryGet<RoninData>(entity, out var roninData))

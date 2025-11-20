@@ -18,9 +18,15 @@ namespace Quantum
         public AssetRef<SaberStateBase> StartingSaberState;
         public SaberConstants.SaberDirectionEditorData BaseSaberDirection;
 
+        [Header("Player Static Values")] 
+        public FP AnalogMoveDeadZone;
+
         [Header("Ronin Base Values")] 
         public FP BaseDevotion = 50;
         public FP DevotionMax = 100;
+
+        [Header("Ronin Static Values")] 
+        public FP NonLinearAttackCost = 10;
         
         [Header("Stage Settings")]
         public FP StageWidth = 10;

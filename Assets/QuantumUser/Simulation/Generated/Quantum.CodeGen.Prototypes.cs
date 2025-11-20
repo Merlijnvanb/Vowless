@@ -144,7 +144,8 @@ namespace Quantum.Prototypes {
     [ArrayLengthAttribute(60)]
     public Quantum.Prototypes.InputPrototype[] InputHistory = new Quantum.Prototypes.InputPrototype[60];
     public Int32 InputHeadIndex;
-    public FPVector2 InputDirectionVector;
+    public FPVector2 InputLookDirectionVector;
+    public FPVector2 InputMoveDirectionVector;
     partial void MaterializeUser(Frame frame, ref Quantum.PlayerData result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.PlayerData component = default;
@@ -157,7 +158,8 @@ namespace Quantum.Prototypes {
           this.InputHistory[i].Materialize(frame, ref *result.InputHistory.GetPointer(i), in context);
         }
         result.InputHeadIndex = this.InputHeadIndex;
-        result.InputDirectionVector = this.InputDirectionVector;
+        result.InputLookDirectionVector = this.InputLookDirectionVector;
+        result.InputMoveDirectionVector = this.InputMoveDirectionVector;
         MaterializeUser(frame, ref result, in context);
     }
   }

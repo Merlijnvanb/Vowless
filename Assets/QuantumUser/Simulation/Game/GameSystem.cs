@@ -58,51 +58,11 @@ namespace Quantum
 
         private void ResetBattle(Frame frame)
         {
-            ResetEntity(frame, frame.Global->Ronin1, 1);
-            ResetEntity(frame, frame.Global->Ronin2, 2);
+            PlayerInitializer.InitEntity(frame, frame.Global->Ronin1, 1);
+            PlayerInitializer.InitEntity(frame, frame.Global->Ronin2, 2);
             
             var gameConfig = frame.FindAsset<GameConfig>(frame.RuntimeConfig.GameConfig);
             SwitchGameState(frame, GameState.PreBattle, gameConfig.PreBattleTimeFrames);
-        }
-
-        private void ResetEntity(Frame frame, EntityRef entity, int i)
-        {
-            var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            var config = frame.FindAsset<GameConfig>(frame.RuntimeConfig.GameConfig);
-
-            ronin->Position = i == 1
-                ? new FPVector2(-(config.StartDistance / 2), 0)
-                : new FPVector2(config.StartDistance / 2, 0);
-            ronin->FacingSign = i == 1 ? 1 : -1;
-            ronin->TargetingSign = i == 1 ? 1 : -1;
-            ronin->HitBoxes = frame.AllocateList<HitBox>();
-            ronin->HurtBoxes = frame.AllocateList<HurtBox>();
-            ronin->IgnoreCollision = false;
-            ronin->CurrentState = config.StartingRoninState;
-            ronin->StateFrame = 0;
-            ronin->HasHit = false;
-                
-                
-            var saber = frame.Unsafe.GetPointer<SaberData>(entity);
-
-            var directionEditorData = config.BaseSaberDirection;
-            var directionBoxes = frame.AllocateList<BoxRect>();
-
-            foreach (var box in directionEditorData.Boxes)
-            {
-                directionBoxes.Add(box);
-            }
-
-            var directionData = new SaberDirectionData()
-            {
-                Id = directionEditorData.Id,
-                Vector = directionEditorData.Vector,
-                Boxes = directionBoxes
-            };
-            
-            saber->Direction = directionData;
-            saber->CurrentState = config.StartingSaberState;
-            saber->StateFrame = 0;
         }
     }
 }

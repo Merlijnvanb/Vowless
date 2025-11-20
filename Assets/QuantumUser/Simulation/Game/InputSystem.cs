@@ -27,9 +27,9 @@ namespace Quantum
         private void UpdateDirectionVector(Frame frame, ref Filter filter)
         {
             var player = filter.Player;
-            var input = InputUtils.GetInput(frame, filter.Entity);
 
-            player->InputDirectionVector = ApplyDirection(frame, ref filter);
+            player->InputMoveDirectionVector = DigitalizeMoveInput(frame, ref filter);
+            player->InputLookDirectionVector = ApplyDirection(frame, ref filter);
         }
         
         private FPVector2 ApplyMouseDirection(Frame frame, ref Filter filter)
@@ -38,9 +38,36 @@ namespace Quantum
             var input = InputUtils.GetInput(frame, filter.Entity);
 
             var dirDelta = input.LookDir;
-            var currentDir = player->InputDirectionVector;
+            var currentDir = player->InputLookDirectionVector;
             
             return currentDir + dirDelta;
+        }
+
+        private FPVector2 DigitalizeMoveInput(Frame frame, ref Filter filter)
+        {
+            var input = InputUtils.GetInput(frame, filter.Entity);
+            var config = frame.FindAsset(frame.RuntimeConfig.GameConfig);
+            
+            var xDir = input.MoveDir.X;
+            var yDir = input.MoveDir.Y;
+
+            var digitalX = FP._0;
+            var digitalY = FP._0;
+
+            if (xDir > config.AnalogMoveDeadZone)
+                digitalX += 1;
+            
+            if (xDir < -config.AnalogMoveDeadZone)
+                digitalX -= 1;
+            
+            
+            if (yDir > config.AnalogMoveDeadZone)
+                digitalY += 1;
+            
+            if (yDir < -config.AnalogMoveDeadZone)
+                digitalY -= 1;
+            
+            return new FPVector2(digitalX, digitalY);
         }
         
         private FPVector2 ApplyDirection(Frame frame, ref Filter filter)

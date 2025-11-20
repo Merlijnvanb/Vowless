@@ -49,13 +49,14 @@ MonoBehaviour:
           RawValue: 49152
         Y:
           RawValue: 55706
+  AnalogMoveDeadZone:
+    RawValue: 19661
   BaseDevotion:
     RawValue: 3276800
-  DevotionRange:
-    X:
-      RawValue: 0
-    Y:
-      RawValue: 6553600
+  DevotionMax:
+    RawValue: 6553600
+  NonLinearAttackCost:
+    RawValue: 655360
   StageWidth:
     RawValue: 655360
   MaxDistance:

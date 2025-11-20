@@ -56,6 +56,8 @@ namespace Quantum
 
         public void OnHit(Frame frame, EntityRef entity, CombatResult result)
         {
+            var attackState = frame.FindAsset(result.AttackState);
+            
             switch (result.Type)
             {
                 case CombatResultType.Hit:
@@ -63,6 +65,7 @@ namespace Quantum
                     break;
                 
                 case CombatResultType.Deflected:
+                    frame.Signals.OnIncreaseDevotion(entity, attackState.DevotionGain);
                     Log.Debug(entity + " had their attack deflected");
                     break;
                 

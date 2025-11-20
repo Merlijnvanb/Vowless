@@ -32,7 +32,7 @@ namespace Quantum
             var player = frame.Unsafe.GetPointer<PlayerData>(entity);
             
             var constants = frame.FindAsset(saber->Constants);
-            var inputDir = player->InputDirectionVector;
+            var inputDir = player->InputLookDirectionVector;
 
             if (inputDir != FPVector2.Zero && inputDir.Magnitude > constants.InputMagnitudeThreshold)
             {

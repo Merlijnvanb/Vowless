@@ -21,10 +21,13 @@ MonoBehaviour:
   CanSwitchTarget: 0
   TurnCancelWindows:
   - StartEndFrame:
-      X: 5
+      X: 26
       Y: 60
     CancelCost:
-      RawValue: 0
+      RawValue: 655360
+    HasWhiffCost: 1
+    WhiffCost:
+      RawValue: 1638400
   Movements: []
   HurtBoxes:
   - UseBaseRect: 1
@@ -60,6 +63,8 @@ MonoBehaviour:
       X: 24
       Y: 25
   ReceivedBlockStun: 20
+  DevotionGain:
+    RawValue: 327680
   TurnAround: 0
   EndingDirection: 3
   AnimationID: 9

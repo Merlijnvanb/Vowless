@@ -24,13 +24,13 @@ namespace Quantum
         private void ApplyWalk(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            var input = InputUtils.GetInput(frame, entity);
+            var player = frame.Unsafe.GetPointer<PlayerData>(entity);
 
-            var signedDir = ronin->FacingSign * FPMath.SignInt(input.MoveDir.X);
+            var signedDir = ronin->FacingSign * FPMath.SignInt(player->InputMoveDirectionVector.X);
             var moveSpeed = signedDir > 0 ? ForwardWalkSpeed : BackwardWalkSpeed;
             moveSpeed *= frame.DeltaTime;
 
-            ronin->Position.X += moveSpeed * FPMath.SignInt(input.MoveDir.X);
+            ronin->Position.X += moveSpeed * FPMath.SignInt(player->InputMoveDirectionVector.X);
         }
     }
 }
