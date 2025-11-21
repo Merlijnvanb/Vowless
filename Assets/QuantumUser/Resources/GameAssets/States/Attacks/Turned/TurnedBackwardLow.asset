@@ -55,10 +55,24 @@ MonoBehaviour:
       X: 0
       Y: 0
   Height: 0
-  HitBoxes: []
+  HitBoxes:
+  - Rect:
+      Position:
+        X:
+          RawValue: -65536
+        Y:
+          RawValue: 32768
+      WidthHeight:
+        X:
+          RawValue: 78643
+        Y:
+          RawValue: 78643
+    StartEndFrame:
+      X: 44
+      Y: 45
   ReceivedBlockStun: 45
   DevotionGain:
     RawValue: 1310720
-  TurnAround: 0
-  EndingDirection: 0
-  AnimationID: 0
+  TurnAround: 1
+  EndingDirection: 2
+  AnimationID: 20

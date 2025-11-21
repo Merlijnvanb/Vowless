@@ -17,5 +17,104 @@ MonoBehaviour:
     Guid:
       Value: 455265814531622985
   ID: 18
-  Frames: []
+  Frames:
+  - Position:
+      X:
+        RawValue: -2031
+      Y:
+        RawValue: 103219
+      Z:
+        RawValue: 13565
+    Rotation:
+      X:
+        RawValue: -4181732
+      Y:
+        RawValue: 4713953
+      Z:
+        RawValue: -8950460
+    PoleLPosition:
+      X:
+        RawValue: -26017
+      Y:
+        RawValue: 19660
+      Z:
+        RawValue: 18874
+    PoleRPosition:
+      X:
+        RawValue: 30015
+      Y:
+        RawValue: 30343
+      Z:
+        RawValue: -18153
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
+    StartEndFrame:
+      X: 1
+      Y: 43
+  - Position:
+      X:
+        RawValue: -54132
+      Y:
+        RawValue: 53608
+      Z:
+        RawValue: 720
+    Rotation:
+      X:
+        RawValue: 2290055
+      Y:
+        RawValue: -6746348
+      Z:
+        RawValue: -1269904
+    PoleLPosition:
+      X:
+        RawValue: -26017
+      Y:
+        RawValue: -34537
+      Z:
+        RawValue: 4849
+    PoleRPosition:
+      X:
+        RawValue: -35782
+      Y:
+        RawValue: -10485
+      Z:
+        RawValue: -22020
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
+    StartEndFrame:
+      X: 44
+      Y: 45
+  - Position:
+      X:
+        RawValue: -27394
+      Y:
+        RawValue: 9699
+      Z:
+        RawValue: -10944
+    Rotation:
+      X:
+        RawValue: 4372527
+      Y:
+        RawValue: 8487624
+      Z:
+        RawValue: -8945991
+    PoleLPosition:
+      X:
+        RawValue: -15073
+      Y:
+        RawValue: -37486
+      Z:
+        RawValue: 28835
+    PoleRPosition:
+      X:
+        RawValue: -7340
+      Y:
+        RawValue: -27525
+      Z:
+        RawValue: -29491
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
+    StartEndFrame:
+      X: 46
+      Y: 90
   IsLoop: 0

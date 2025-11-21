@@ -138,7 +138,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 978d1fe36b73ee846b963d5cf43099df, type: 2}
   - {fileID: 11400000, guid: df31135a52a1dc04c8ec230c53b6386d, type: 2}
   - {fileID: 11400000, guid: 433c5133c44049c4c9e34047ee776d1c, type: 2}
+  - {fileID: 11400000, guid: 7a945d7c85201d240bfa15a1d45011c5, type: 2}
+  - {fileID: 11400000, guid: 5c433b6f79f28cd43a4877190a5baf98, type: 2}
   - {fileID: 11400000, guid: fc13bc9a7c61dc5448215b0a58c15853, type: 2}
+  - {fileID: 11400000, guid: a1d15248728f70d4594185b2aba4648a, type: 2}
+  - {fileID: 11400000, guid: 6995b1cbe4d37d24eafee6b4faad2151, type: 2}
   InputMagnitudeThreshold:
     RawValue: 32768
   SaberStartEndLength:
