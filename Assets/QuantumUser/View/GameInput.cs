@@ -1,4 +1,5 @@
 using Photon.Deterministic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,23 +16,38 @@ namespace Quantum
             public InputActionReference Block;
             public InputActionReference Turn;
         }
-        
+
+        public bool IsPad;
+        public int PadIndex;
+        public InputActionAsset ActionAsset;
         public InputActions Inputs;
         public bool DebugVectorsEnabled = false;
+
+        private InputActionMap actionMap;
+
+        void OnEnable()
+        {
+            if (!IsPad)
+                return;
+            
+            var activeController = Gamepad.all[PadIndex];
+            actionMap = ActionAsset.actionMaps[0].Clone();
+            actionMap.ApplyBindingOverridesOnMatchingControls(activeController);
+        }
 
         public Quantum.Input GetInputs(Quantum.Input i, bool isMouse)
         {
             i.IsMouseInput = isMouse;
             
-            i.MoveDir = Inputs.Movement.action.ReadValue<Vector2>().ToFPVector2();
-            i.LookDir = Inputs.Look.action.ReadValue<Vector2>().ToFPVector2();
+            i.MoveDir = actionMap.FindAction(Inputs.Movement.name).ReadValue<Vector2>().ToFPVector2();
+            i.LookDir = actionMap.FindAction(Inputs.Look.name).ReadValue<Vector2>().ToFPVector2();
             
             if (DebugVectorsEnabled)
                 LogVectors(i);
 
-            i.Attack = Inputs.Attack.action.IsPressed();
-            i.Block = Inputs.Block.action.IsPressed();
-            i.Turn = Inputs.Turn.action.IsPressed();
+            i.Attack = actionMap.FindAction(Inputs.Attack.name).IsPressed();
+            i.Block = actionMap.FindAction(Inputs.Block.name).IsPressed();
+            i.Turn = actionMap.FindAction(Inputs.Turn.name).IsPressed();
 
             return i;
         }

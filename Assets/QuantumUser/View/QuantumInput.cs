@@ -5,11 +5,15 @@ namespace Quantum
 {
     public class QuantumInput : MonoBehaviour
     {
+        public bool TwoPads;
+        
         public GameInput KbmInput;
-        public GameInput PadInput;
+        public GameInput PadInput0;
+        public GameInput PadInput1;
         
         public int KbmIndex = 0;
-        public int PadIndex = 1;
+        public int Pad0Index = 1;
+        public int Pad1Index = 2;
         
         void OnEnable()
         {
@@ -18,13 +22,13 @@ namespace Quantum
 
         void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.P))
+            if (!TwoPads && UnityEngine.Input.GetKeyDown(KeyCode.P))
             {
                 var kbm = KbmIndex;
-                var pad = PadIndex;
+                var pad = Pad0Index;
 
                 KbmIndex = pad;
-                PadIndex = kbm;
+                Pad0Index = kbm;
             }
         }
 
@@ -33,12 +37,22 @@ namespace Quantum
             Quantum.Input i = new Quantum.Input();
             
             //Debug.Log(callback.PlayerSlot);
+            if (!TwoPads)
+            {
+                if (callback.PlayerSlot == KbmIndex)
+                    i = KbmInput.GetInputs(i, false);
 
-            if (callback.PlayerSlot == KbmIndex)
-                i = KbmInput.GetInputs(i, false);
-            
-            else if (callback.PlayerSlot == PadIndex)
-                i = PadInput.GetInputs(i, false);
+                else if (callback.PlayerSlot == Pad0Index)
+                    i = PadInput0.GetInputs(i, false);
+            }
+            else
+            {
+                if (callback.PlayerSlot == Pad0Index)
+                    i = PadInput0.GetInputs(i, false);
+
+                else if (callback.PlayerSlot == Pad1Index)
+                    i = PadInput1.GetInputs(i, false);
+            }
 
             callback.SetInput(i, DeterministicInputFlags.Repeatable);
         }
