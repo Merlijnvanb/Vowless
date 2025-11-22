@@ -7,34 +7,73 @@ namespace Quantum
 {
     public class GameInput : MonoBehaviour
     {
-        public bool IsPad;
-        public int PadIndex;
-
-        public InputActionReference Movement;
-        public InputActionReference Look;
+        public int PlayerIndex;
         
-        public InputActionReference Attack;
-        public InputActionReference Block;
-        public InputActionReference Turn;
+        private Quantum.Input currentInput;
         
-        public Quantum.Input GetInputs(Quantum.Input i, bool isMouse)
+        void OnEnable()
         {
-            i.IsMouseInput = isMouse;
+            QuantumCallback.Subscribe(this, (CallbackPollInput callback) => PollInput(callback));
+        }
+
+        private void PollInput(CallbackPollInput callback)
+        {
+            if (callback.PlayerSlot != PlayerIndex)
+                return;
             
-            i.MoveDir = Movement.action.ReadValue<Vector2>().ToFPVector2();
-            i.LookDir = Look.action.ReadValue<Vector2>().ToFPVector2();
-        
-            i.Attack = Attack.action.IsPressed();
-            i.Block = Block.action.IsPressed();
-            i.Turn = Turn.action.IsPressed();
-        
-            return i;
+            Quantum.Input i = new Quantum.Input();
+            
+            //Debug.Log(callback.PlayerSlot);
+            i = GetInputs(i, false);
+
+            callback.SetInput(i, DeterministicInputFlags.Repeatable);
         }
         
-        private void LogVectors(Quantum.Input i)
+        private Quantum.Input GetInputs(Quantum.Input i, bool isMouse)
         {
-            Debug.Log("MoveDir: " + i.MoveDir);
-            Debug.Log("LookDir: " + i.LookDir);
+            i.IsMouseInput = isMouse;
+
+            i.MoveDir = currentInput.MoveDir;
+            i.LookDir = currentInput.LookDir;
+
+            i.Attack = currentInput.Attack;
+            i.Block = currentInput.Block;
+            i.Turn = currentInput.Turn;
+            
+            // i.MoveDir = Movement.action.ReadValue<Vector2>().ToFPVector2();
+            // i.LookDir = Look.action.ReadValue<Vector2>().ToFPVector2();
+            //
+            // i.Attack = Attack.action.IsPressed();
+            // i.Block = Block.action.IsPressed();
+            // i.Turn = Turn.action.IsPressed();
+        
+            //currentInput = new Quantum.Input();
+            return i;
+        }
+
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            currentInput.MoveDir = context.action.ReadValue<Vector2>().ToFPVector2();
+        }
+        
+        public void OnLook(InputAction.CallbackContext context)
+        {
+            currentInput.LookDir = context.action.ReadValue<Vector2>().ToFPVector2();
+        }
+        
+        public void OnAttack(InputAction.CallbackContext context)
+        {
+            currentInput.Attack = context.action.IsPressed();
+        }
+        
+        public void OnBlock(InputAction.CallbackContext context)
+        {
+            currentInput.Block = context.action.IsPressed();
+        }
+        
+        public void OnTurn(InputAction.CallbackContext context)
+        {
+            currentInput.Turn = context.action.IsPressed();
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Quantum
                     frame.Global->Ronin1 = entity;
                 else
                     frame.Global->Ronin2 = entity;
+
+                frame.Events.OnSpawnedEntity(entity);
             }
         }
 

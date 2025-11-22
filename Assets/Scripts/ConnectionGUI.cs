@@ -157,7 +157,7 @@ namespace Quantum
 
                     break;
                 case State.Running:
-                    if (GUI.Button(rect, "Shutdown", _style))
+                    if (GUI.Button(rect, "Esc for Shutdown", _style) || UnityEngine.Input.GetKeyDown(KeyCode.Escape))
                     {
                         Disconnect();
                     }

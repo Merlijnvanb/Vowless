@@ -49,6 +49,7 @@ namespace Quantum
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             var saberConstants = frame.FindAsset(saber->Constants);
 
+            var player = frame.Unsafe.GetPointer<PlayerData>(entity);
             var config = frame.FindAsset(frame.RuntimeConfig.GameConfig);
             
             var input = InputUtils.GetInput(frame, entity);
@@ -64,15 +65,19 @@ namespace Quantum
                         {
                             cost = window.WhiffCost;
                         }
+                        
+                        var signedInput = FPMath.SignZeroInt(player->InputMoveDirectionVector.X);
 
                         var nextState = rConstants.States.TurningState as RoninStateBase;
-                        if (input.MoveDir.X == ronin->FacingSign)
+                        if (signedInput == ronin->FacingSign)
                             nextState = rConstants.States.TurningStateForward;
-                        if (input.MoveDir.X == -ronin->FacingSign)
+                        if (signedInput == -ronin->FacingSign)
                             nextState = rConstants.States.TurningStateBackward;
 
                         if (cost > ronin->Devotion)
                             break;
+                        
+                        Log.Debug(nextState.name);
                         
                         frame.Signals.OnDecreaseDevotion(entity, cost);
                         frame.Signals.OnSwitchRoninState(entity, nextState);
@@ -81,6 +86,8 @@ namespace Quantum
                         {
                             frame.Signals.OnSwitchSaberState(entity, saberConstants.States.Holding);
                         }
+
+                        return;
                     }
                 }
             }

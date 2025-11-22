@@ -1,32 +1,42 @@
 using UnityEngine;
 using Photon.Deterministic;
+using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 
 namespace Quantum
 {
     public class QuantumInput : MonoBehaviour
     {
-        public PlayerInput P1;
-        public PlayerInput P2;
-        
-        void OnEnable()
-        {
-            QuantumCallback.Subscribe(this, (CallbackPollInput callback) => PollInput(callback));
-        }
+        private GameObject p1;
+        private GameObject p2;
 
-        private void PollInput(CallbackPollInput callback)
-        {
-            Quantum.Input i = new Quantum.Input();
-            
-            //Debug.Log(callback.PlayerSlot);
-            
+        private bool p1Joined;
+        private bool p2Joined;
 
-            callback.SetInput(i, DeterministicInputFlags.Repeatable);
-        }
-
-        public void OnJoin(PlayerInput input)
+        public void OnJoin(PlayerInput playerInput)
         {
-            P1 = input;
+            Debug.Log(playerInput.name);
+            playerInput.gameObject.transform.parent = transform;
+
+            if (!p1Joined)
+            {
+                p1 = playerInput.gameObject;
+                p1Joined = true;
+                
+                var gameInput = p1.GetComponent<GameInput>();
+                gameInput.PlayerIndex = 0;
+                return;
+            }
+
+            if (!p2Joined)
+            {
+                p2 = playerInput.gameObject;
+                p2Joined = true;
+                
+                var gameInput = p2.GetComponent<GameInput>();
+                gameInput.PlayerIndex = 1;
+                return;
+            }
         }
     }
 }

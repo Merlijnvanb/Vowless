@@ -9,3 +9,8 @@ event OnReceivedHit
     entity_ref entity;
     CombatResult result;
 }
+
+event OnSpawnedEntity
+{
+    entity_ref entity;
+}

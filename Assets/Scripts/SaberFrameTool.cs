@@ -4,6 +4,8 @@ using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
+
+#if UNITY_EDITOR
 [ExecuteInEditMode]
 public class SaberFrameTool : MonoBehaviour
 {
@@ -152,3 +154,4 @@ public class SaberFrameTool : MonoBehaviour
         playingTime = 0f;
     }
 }
+#endif
