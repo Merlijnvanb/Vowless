@@ -130,7 +130,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fdbdc629290c2e340a1729c7e32ba40a, type: 2}
   - {fileID: 11400000, guid: 678dc54dc29f95846892f1c04c07721e, type: 2}
   - {fileID: 11400000, guid: df0b31c455394ac4691d6e69d6303275, type: 2}
-  - {fileID: 11400000, guid: 17a3f87f88d14424186b54cf892233b6, type: 2}
   - {fileID: 11400000, guid: eacdb8628cbe5b041bff080824f4a2bb, type: 2}
   - {fileID: 11400000, guid: 1a9bbf41bdbcee349b1c9cc0953810a2, type: 2}
   - {fileID: 11400000, guid: 0bba8ac1a219036478030952be8ffa88, type: 2}
@@ -143,6 +142,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fc13bc9a7c61dc5448215b0a58c15853, type: 2}
   - {fileID: 11400000, guid: a1d15248728f70d4594185b2aba4648a, type: 2}
   - {fileID: 11400000, guid: 6995b1cbe4d37d24eafee6b4faad2151, type: 2}
+  - {fileID: 11400000, guid: 17a3f87f88d14424186b54cf892233b6, type: 2}
+  - {fileID: 11400000, guid: f2def6edaeebcbe4f83ab3111f2ba0d6, type: 2}
+  - {fileID: 11400000, guid: f948fb1e8bcc9b14fbb0cfc150eb6586, type: 2}
+  - {fileID: 11400000, guid: c0368d98d0cc02347ab4f306b25fd2eb, type: 2}
+  - {fileID: 11400000, guid: e875f220c226ab645b8875f7e8710e6d, type: 2}
+  - {fileID: 11400000, guid: bfb7c6b4a3332ab4babb18ef9a49729b, type: 2}
   InputMagnitudeThreshold:
     RawValue: 32768
   SaberStartEndLength:

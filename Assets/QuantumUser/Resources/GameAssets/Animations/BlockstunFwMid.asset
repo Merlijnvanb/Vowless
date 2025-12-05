@@ -31,21 +31,21 @@ MonoBehaviour:
       Y:
         RawValue: 0
       Z:
-        RawValue: -655360
+        RawValue: 22937600
     PoleLPosition:
       X:
-        RawValue: 0
+        RawValue: 24903
       Y:
-        RawValue: 0
+        RawValue: -33357
       Z:
-        RawValue: 0
+        RawValue: 917
     PoleRPosition:
       X:
-        RawValue: 0
+        RawValue: 15925
       Y:
-        RawValue: 0
+        RawValue: -32964
       Z:
-        RawValue: 0
+        RawValue: -11599
     HiltMesh: {fileID: 0}
     BladeMesh: {fileID: 0}
     StartEndFrame:

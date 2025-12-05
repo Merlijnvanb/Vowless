@@ -20,18 +20,34 @@ MonoBehaviour:
   Frames:
   - Position:
       X:
-        RawValue: -25166
+        RawValue: -22151
       Y:
-        RawValue: 37683
+        RawValue: 38666
       Z:
-        RawValue: -25690
+        RawValue: -31588
     Rotation:
       X:
-        RawValue: -4554752
+        RawValue: 18271858
       Y:
-        RawValue: -1048576
+        RawValue: 23018180
       Z:
-        RawValue: 11442586
+        RawValue: 10981769
+    PoleLPosition:
+      X:
+        RawValue: 22347
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: -57081
+    PoleRPosition:
+      X:
+        RawValue: -3735
+      Y:
+        RawValue: -3866
+      Z:
+        RawValue: -44367
+    HiltMesh: {fileID: 0}
+    BladeMesh: {fileID: 0}
     StartEndFrame:
       X: 1
       Y: 1

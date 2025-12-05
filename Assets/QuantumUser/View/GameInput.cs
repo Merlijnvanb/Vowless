@@ -40,14 +40,6 @@ namespace Quantum
             i.Block = currentInput.Block;
             i.Turn = currentInput.Turn;
             
-            // i.MoveDir = Movement.action.ReadValue<Vector2>().ToFPVector2();
-            // i.LookDir = Look.action.ReadValue<Vector2>().ToFPVector2();
-            //
-            // i.Attack = Attack.action.IsPressed();
-            // i.Block = Block.action.IsPressed();
-            // i.Turn = Turn.action.IsPressed();
-        
-            //currentInput = new Quantum.Input();
             return i;
         }
 

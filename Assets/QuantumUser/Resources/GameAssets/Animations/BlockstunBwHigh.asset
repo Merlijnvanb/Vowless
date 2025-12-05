@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66aedc9045e35cc4499c5abf8842804f, type: 3}
-  m_Name: HoldingBwHigh
+  m_Name: BlockstunBwHigh
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Resources/GameAssets/Animations/HoldingBwHigh
+    Path: QuantumUser/Resources/GameAssets/Animations/BlockstunBwHigh
     Guid:
-      Value: 436537324347529463
-  ID: 3
+      Value: 343094922189032075
+  ID: 24
   Frames:
   - Position:
       X:
-        RawValue: -18940
+        RawValue: -22872
       Y:
-        RawValue: 86770
+        RawValue: 88276
       Z:
-        RawValue: -27591
+        RawValue: -28049
     Rotation:
       X:
-        RawValue: 19023200
+        RawValue: 18884020
       Y:
-        RawValue: 8588494
+        RawValue: 8003623
       Z:
-        RawValue: 2815294
+        RawValue: 3826982
     PoleLPosition:
       X:
         RawValue: 32964
