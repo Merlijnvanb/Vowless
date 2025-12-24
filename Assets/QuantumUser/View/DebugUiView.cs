@@ -61,7 +61,7 @@ namespace Quantum
 
         void LateUpdate()
         {
-            PredictedFrame.GetAllEntityRefs(entities);
+            PredictedPreviousFrame.GetAllEntityRefs(entities);
 
             foreach (var entity in entities)
             {
@@ -75,32 +75,32 @@ namespace Quantum
 
         private void UpdateDebugUI(EntityRef entity)
         {
-            if (PredictedFrame.TryGet<PlayerData>(entity, out var playerData))
+            if (PredictedPreviousFrame.TryGet<PlayerData>(entity, out var playerData))
             {
                 var pElements = Elements.Player;
 
                 ApplyData(pElements.InputLookVector, playerData.InputLookDirectionVector.ToUnityVector2().ToString("#.00"));
             }
 
-            if (PredictedFrame.TryGet<RoninData>(entity, out var roninData))
+            if (PredictedPreviousFrame.TryGet<RoninData>(entity, out var roninData))
             {
                 var rElements = Elements.Ronin;
                 
                 ApplyData(rElements.Devotion, roninData.Devotion.ToString());
                 ApplyData(rElements.TargetingSign, roninData.TargetingSign.ToString());
                 ApplyData(rElements.FacingSign, roninData.FacingSign.ToString());
-                ApplyData(rElements.CurrentState, PredictedFrame.FindAsset(roninData.CurrentState).name);
+                ApplyData(rElements.CurrentState, PredictedPreviousFrame.FindAsset(roninData.CurrentState).name);
                 ApplyData(rElements.StateFrame, roninData.StateFrame.ToString());
             }
 
-            if (PredictedFrame.TryGet<SaberData>(entity, out var saberData))
+            if (PredictedPreviousFrame.TryGet<SaberData>(entity, out var saberData))
             {
                 var sElements = Elements.Saber;
                 
                 ApplyData(sElements.Direction, saberData.Direction.Id.ToString());
                 ApplyData(sElements.AnimationId, saberData.CurrentAnimationID.ToString());
                 ApplyData(sElements.AnimFrameIndex, saberData.CurrentAnimationFrameIndex.ToString());
-                ApplyData(sElements.CurrentState, PredictedFrame.FindAsset(saberData.CurrentState).name);
+                ApplyData(sElements.CurrentState, PredictedPreviousFrame.FindAsset(saberData.CurrentState).name);
                 ApplyData(sElements.StateFrame, saberData.StateFrame.ToString());
             }
         }

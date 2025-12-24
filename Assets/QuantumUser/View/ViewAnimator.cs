@@ -88,8 +88,8 @@ namespace Quantum
 
         public override void OnUpdateView()
         {
-            if (!PredictedFrame.TryGet<RoninData>(EntityRef, out var ronin)) return;
-            if (!PredictedFrame.TryGet<SaberData>(EntityRef, out var saber)) return;
+            if (!PredictedPreviousFrame.TryGet<RoninData>(EntityRef, out var ronin)) return;
+            if (!PredictedPreviousFrame.TryGet<SaberData>(EntityRef, out var saber)) return;
             
             UpdateAnimations(ronin, saber);
         }
@@ -101,7 +101,7 @@ namespace Quantum
         
         private void UpdateSaberAnimation(SaberData saber)
         {
-            if (!PredictedFrame.TryFindAsset(saber.Constants, out var constants)) return;
+            if (!PredictedPreviousFrame.TryFindAsset(saber.Constants, out var constants)) return;
 
             if (!constants.SaberAnimations.TryGetValue(saber.CurrentAnimationID, out var animation)) return;
             var frame = animation.Frames[saber.CurrentAnimationFrameIndex];

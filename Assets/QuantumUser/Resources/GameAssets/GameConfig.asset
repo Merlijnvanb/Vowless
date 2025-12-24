@@ -62,7 +62,7 @@ MonoBehaviour:
   MaxDistance:
     RawValue: 327680
   StartDistance:
-    RawValue: 262144
+    RawValue: 196608
   PreBattleTimeFrames: 180
   BattleTimeFrames: 0
   PostBattleTimeFrames: 300

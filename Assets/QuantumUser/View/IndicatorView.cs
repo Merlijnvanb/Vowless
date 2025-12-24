@@ -9,7 +9,7 @@ namespace Quantum
 
         public override void OnUpdateView()
         {
-            if (!PredictedFrame.TryGet<PlayerData>(EntityRef, out var player))
+            if (!PredictedPreviousFrame.TryGet<PlayerData>(EntityRef, out var player))
                 return;
             
             var directionVector = player.InputLookDirectionVector.ToUnityVector2();

@@ -9,10 +9,13 @@ namespace Quantum
 
         void Update()
         {
-            if (PredictedFrame.TryGet<RoninData>(PredictedFrame.Global->Ronin1, out var ronin1))
+            if (PredictedPreviousFrame == null)
+                return;
+            
+            if (PredictedPreviousFrame.TryGet<RoninData>(PredictedPreviousFrame.Global->Ronin1, out var ronin1))
                 SetPosition(ronin1, P1Target);
             
-            if (PredictedFrame.TryGet<RoninData>(PredictedFrame.Global->Ronin2, out var ronin2))
+            if (PredictedPreviousFrame.TryGet<RoninData>(PredictedPreviousFrame.Global->Ronin2, out var ronin2))
                 SetPosition(ronin2, P2Target);
         }
 

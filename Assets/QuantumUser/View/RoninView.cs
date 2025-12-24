@@ -8,7 +8,7 @@ namespace Quantum
 
         public override void OnUpdateView()
         {
-            if (!PredictedFrame.TryGet<RoninData>(EntityRef, out var ronin))
+            if (!PredictedPreviousFrame.TryGet<RoninData>(EntityRef, out var ronin))
                 return;
 
             var pos = ronin.Position.ToUnityVector2();

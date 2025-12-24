@@ -8,8 +8,8 @@ namespace Quantum
         
         public override void OnUpdateView()
         {
-            if (!PredictedFrame.TryGet<RoninData>(EntityRef, out var ronin) || 
-                !PredictedFrame.TryFindAsset(PredictedFrame.RuntimeConfig.GameConfig, out var config))
+            if (!PredictedPreviousFrame.TryGet<RoninData>(EntityRef, out var ronin) || 
+                !PredictedPreviousFrame.TryFindAsset(PredictedPreviousFrame.RuntimeConfig.GameConfig, out var config))
                 return;
             
             var devotion = ronin.Devotion.AsFloat;

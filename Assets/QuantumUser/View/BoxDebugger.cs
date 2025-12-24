@@ -26,11 +26,11 @@ namespace Quantum
 
         void LateUpdate()
         {
-            PredictedFrame.GetAllEntityRefs(entities);
+            PredictedPreviousFrame.GetAllEntityRefs(entities);
 
             foreach (var entity in entities)
             {
-                if (PredictedFrame.TryGet<RoninData>(entity, out var ronin))
+                if (PredictedPreviousFrame.TryGet<RoninData>(entity, out var ronin))
                 {
                     UpdateBoxes(ronin);
                 }
@@ -41,7 +41,7 @@ namespace Quantum
         {
             if (debugData.Hurtboxes)
             {
-                if (PredictedFrame.TryResolveList(ronin.HurtBoxes, out var hurtboxes))
+                if (PredictedPreviousFrame.TryResolveList(ronin.HurtBoxes, out var hurtboxes))
                 {
                     for (int i = 0; i < hurtboxes.Count; i++)
                     {
@@ -52,7 +52,7 @@ namespace Quantum
                 }
             }
 
-            if (PredictedFrame.TryResolveList(ronin.HitBoxes, out var hitboxes))
+            if (PredictedPreviousFrame.TryResolveList(ronin.HitBoxes, out var hitboxes))
             {
                 for (int i = 0; i < hitboxes.Count; i++)
                 {
