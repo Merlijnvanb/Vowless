@@ -67,7 +67,7 @@ namespace Quantum
             if (yDir < -config.AnalogMoveDeadZone)
                 digitalY -= 1;
             
-            Log.Debug("digitalX: " + digitalX + ", digitalY: " + digitalY);
+            //Log.Debug("digitalX: " + digitalX + ", digitalY: " + digitalY);
             
             return new FPVector2(digitalX, digitalY);
         }

@@ -52,7 +52,7 @@ namespace Quantum {
   public unsafe partial class Frame {
     public unsafe partial struct FrameEvents {
       static partial void GetEventTypeCountCodeGen(ref Int32 eventCount) {
-        eventCount = 4;
+        eventCount = 5;
       }
       static partial void GetParentEventIDCodeGen(Int32 eventID, ref Int32 parentEventID) {
         switch (eventID) {
@@ -64,6 +64,7 @@ namespace Quantum {
           case EventOnHit.ID: result = typeof(EventOnHit); return;
           case EventOnReceivedHit.ID: result = typeof(EventOnReceivedHit); return;
           case EventOnSpawnedEntity.ID: result = typeof(EventOnSpawnedEntity); return;
+          case EventVfxDeflect.ID: result = typeof(EventVfxDeflect); return;
           default: break;
         }
       }
@@ -84,6 +85,13 @@ namespace Quantum {
       public EventOnSpawnedEntity OnSpawnedEntity(EntityRef entity) {
         var ev = _f.Context.AcquireEvent<EventOnSpawnedEntity>(EventOnSpawnedEntity.ID);
         ev.entity = entity;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventVfxDeflect VfxDeflect(EntityRef entity, CombatResult result) {
+        var ev = _f.Context.AcquireEvent<EventVfxDeflect>(EventVfxDeflect.ID);
+        ev.entity = entity;
+        ev.result = result;
         _f.AddEvent(ev);
         return ev;
       }
@@ -164,6 +172,33 @@ namespace Quantum {
       unchecked {
         var hash = 47;
         hash = hash * 31 + entity.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventVfxDeflect : EventBase {
+    public new const Int32 ID = 4;
+    public EntityRef entity;
+    public CombatResult result;
+    protected EventVfxDeflect(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventVfxDeflect() : 
+        base(4, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 53;
+        hash = hash * 31 + entity.GetHashCode();
+        hash = hash * 31 + result.GetHashCode();
         return hash;
       }
     }

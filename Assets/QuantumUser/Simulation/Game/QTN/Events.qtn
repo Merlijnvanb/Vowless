@@ -14,3 +14,9 @@ event OnSpawnedEntity
 {
     entity_ref entity;
 }
+
+event VfxDeflect
+{
+    entity_ref entity;
+    CombatResult result;
+}

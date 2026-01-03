@@ -34,6 +34,10 @@ namespace Quantum
 
             frame.Events.OnHit(result.Attacker, result);
             frame.Events.OnReceivedHit(result.Defender, result);
+            
+            if (result.SaberHit) frame.Events.VfxDeflect(result.Defender, result);
+            Log.Debug("Fired deflect event.");
+            
         }
 
         private CombatContext SetupContext(Frame frame, EntityRef entity)

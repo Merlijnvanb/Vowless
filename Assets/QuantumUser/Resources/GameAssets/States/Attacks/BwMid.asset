@@ -75,4 +75,11 @@ MonoBehaviour:
     RawValue: 1310720
   TurnAround: 1
   EndingDirection: 1
+  VisualDirection:
+    X:
+      RawValue: 16384
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 65536
   AnimationID: 13

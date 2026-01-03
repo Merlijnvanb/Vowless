@@ -17,7 +17,8 @@ namespace Quantum
         public FP DevotionGain;
         public bool TurnAround;
         public SaberDirection EndingDirection;
-        
+
+        public FPVector3 VisualDirection;
         public AnimationID AnimationID;
 
         public override void EnterState(Frame frame, EntityRef entity)
