@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Particles: {fileID: 1581278099044375016}
-  UpdatesPerSecond: 12
+  UpdatesPerSecond: 24
   Duration: 1
 --- !u!198 &1581278099044375016
 ParticleSystem:

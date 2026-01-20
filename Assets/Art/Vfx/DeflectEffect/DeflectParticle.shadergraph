@@ -1229,7 +1229,7 @@
     "m_ObjectId": "40517ce039b9473fb1c07d5cbe076941",
     "m_Title": "Sample Velocity",
     "m_Position": {
-        "x": -1110.0,
+        "x": -1110.0001220703125,
         "y": 2.0
     }
 }
