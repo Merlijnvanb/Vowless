@@ -11,15 +11,18 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 252570606a1844344a71e2f30c4040f5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -88,20 +91,24 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
+    - _BottomEdge1: 0
+    - _BottomEdge2: 0.94
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Cull: 0
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _DstBlendAlpha: 0
+    - _DstBlend: 10
+    - _DstBlendAlpha: 10
     - _Edge1: 0
     - _Edge1_1: 0.42
     - _Edge2: 1.69
     - _Edge2_1: 1.25
     - _EnvironmentReflections: 1
+    - _Float: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossinessSource: 0
@@ -115,20 +122,27 @@ Material:
     - _ReceiveShadows: 1
     - _SampleGI: 0
     - _Scale: 6.66
+    - _SepEdge1: 0
+    - _SepEdge2: 1
     - _Shininess: 0
     - _Smoothness: 0.5
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _SrcBlendAlpha: 1
     - _Strength: 0.26
-    - _Surface: 0
+    - _Surface: 1
+    - _TopEdge1: 0
+    - _TopEdge2: 0
+    - _WindNoiseScale: 1
     - _WorkflowMode: 1
-    - _WorldSpaceRotation: 15.71
+    - _WorldSpaceRotation: 0
     - _XRMotionVectorsPass: 1
-    - _ZWrite: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -138,6 +152,8 @@ Material:
     - _Offset: {r: 0.18, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 0.79, g: 6.01, b: 0, a: 0}
+    - _WindOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _WindTiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4694063211916468876

@@ -20,3 +20,8 @@ event VfxDeflect
     entity_ref entity;
     CombatResult result;
 }
+
+event VfxTurnRegular
+{
+    entity_ref entity;
+}

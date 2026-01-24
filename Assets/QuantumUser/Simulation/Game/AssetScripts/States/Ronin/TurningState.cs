@@ -11,6 +11,8 @@ namespace Quantum
             
             ronin->StateFrame = 0;
             ronin->FacingSign *= -1;
+
+            frame.Events.VfxTurnRegular(entity);
         }
 
         public override void UpdateState(Frame frame, EntityRef entity)
