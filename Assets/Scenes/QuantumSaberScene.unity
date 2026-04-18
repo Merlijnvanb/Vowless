@@ -8527,6 +8527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab214f8029d0f54fb3a1bbe2b16de68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instanceHandling: 0
   currentSessionId: 505625335
   m_assetsFolder: Assets/MeshSyncAssets
   m_rootObject: {fileID: 1871444500}
@@ -8819,7 +8820,6 @@ MonoBehaviour:
   m_clientInstancedEntities:
     m_keys: []
     m_values: []
-  instanceHandling: 0
   m_autoStartServer: 0
   m_serverPort: 8080
   m_foldServerSettings: 1

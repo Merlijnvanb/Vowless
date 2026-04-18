@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: QuantumGameGizmosSettings
   m_EditorClassIdentifier: 
   Settings:
-    IconScale: 1
+    IconScale: 2.32
     SelectedBrightness: 1.1
     DebugDraw:
       Enabled: 1
