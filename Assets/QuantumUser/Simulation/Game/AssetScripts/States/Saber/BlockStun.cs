@@ -13,9 +13,9 @@ namespace Quantum
         {
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             var constants = frame.FindAsset(saber->Constants);
-            saber->StateFrame--;
+            saber->StateContext.StateFrame--;
 
-            if (saber->StateFrame == 0)
+            if (saber->StateContext.StateFrame == 0)
             {
                 frame.Signals.OnSwitchSaberState(entity, constants.States.Holding);
             }

@@ -58,8 +58,7 @@ namespace Quantum
             ronin->HurtBoxes = frame.AllocateList<HurtBox>();
             ronin->IgnoreCollision = false;
             ronin->CurrentState = config.StartingRoninState;
-            ronin->StateFrame = 0;
-            ronin->HasHit = false;
+            ronin->StateContext = default;
 
 
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
@@ -86,7 +85,7 @@ namespace Quantum
 
             saber->Direction = directionData;
             saber->CurrentState = config.StartingSaberState;
-            saber->StateFrame = 0;
+            saber->StateContext = default;
         }
     }
 }

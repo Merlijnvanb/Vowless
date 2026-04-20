@@ -10,7 +10,7 @@ namespace Quantum
         public override void UpdateState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            ronin->StateFrame++;
+            ronin->StateContext.StateFrame++;
             
             ApplyWalk(frame, entity);
             

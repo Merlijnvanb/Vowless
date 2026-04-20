@@ -782,6 +782,28 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct RoninStateContext {
+    public const Int32 SIZE = 8;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    public Int32 StateFrame;
+    [FieldOffset(4)]
+    public QBoolean HasHit;
+    public override readonly Int32 GetHashCode() {
+      unchecked { 
+        var hash = 9209;
+        hash = hash * 31 + StateFrame.GetHashCode();
+        hash = hash * 31 + HasHit.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (RoninStateContext*)ptr;
+        serializer.Stream.Serialize(&p->StateFrame);
+        QBoolean.Serialize(&p->HasHit, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   [Serializable()]
   public unsafe partial struct SaberDirectionData {
     public const Int32 SIZE = 24;
@@ -809,6 +831,24 @@ namespace Quantum {
         QList.Serialize(&p->Boxes, serializer, Statics.SerializeBoxRect);
         serializer.Stream.Serialize((Int32*)&p->Id);
         FPVector2.Serialize(&p->Vector, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct SaberStateContext {
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    public Int32 StateFrame;
+    public override readonly Int32 GetHashCode() {
+      unchecked { 
+        var hash = 6269;
+        hash = hash * 31 + StateFrame.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (SaberStateContext*)ptr;
+        serializer.Stream.Serialize(&p->StateFrame);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -943,30 +983,28 @@ namespace Quantum {
   public unsafe partial struct RoninData : Quantum.IComponent {
     public const Int32 SIZE = 88;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(32)]
+    [FieldOffset(24)]
     public AssetRef<RoninConstants> Constants;
-    [FieldOffset(48)]
+    [FieldOffset(40)]
     public FP Devotion;
     [FieldOffset(56)]
     public FPVector2 Position;
     [FieldOffset(72)]
     public FPVector2 Velocity;
-    [FieldOffset(8)]
+    [FieldOffset(4)]
     public Int32 TargetingSign;
     [FieldOffset(0)]
     public Int32 FacingSign;
-    [FieldOffset(20)]
-    public QListPtr<HitBox> HitBoxes;
-    [FieldOffset(24)]
-    public QListPtr<HurtBox> HurtBoxes;
-    [FieldOffset(16)]
-    public QBoolean IgnoreCollision;
-    [FieldOffset(40)]
-    public AssetRef<RoninStateBase> CurrentState;
-    [FieldOffset(4)]
-    public Int32 StateFrame;
     [FieldOffset(12)]
-    public QBoolean HasHit;
+    public QListPtr<HitBox> HitBoxes;
+    [FieldOffset(16)]
+    public QListPtr<HurtBox> HurtBoxes;
+    [FieldOffset(8)]
+    public QBoolean IgnoreCollision;
+    [FieldOffset(32)]
+    public AssetRef<RoninStateBase> CurrentState;
+    [FieldOffset(48)]
+    public RoninStateContext StateContext;
     public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 5387;
@@ -980,8 +1018,7 @@ namespace Quantum {
         hash = hash * 31 + HurtBoxes.GetHashCode();
         hash = hash * 31 + IgnoreCollision.GetHashCode();
         hash = hash * 31 + CurrentState.GetHashCode();
-        hash = hash * 31 + StateFrame.GetHashCode();
-        hash = hash * 31 + HasHit.GetHashCode();
+        hash = hash * 31 + StateContext.GetHashCode();
         return hash;
       }
     }
@@ -996,15 +1033,14 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (RoninData*)ptr;
         serializer.Stream.Serialize(&p->FacingSign);
-        serializer.Stream.Serialize(&p->StateFrame);
         serializer.Stream.Serialize(&p->TargetingSign);
-        QBoolean.Serialize(&p->HasHit, serializer);
         QBoolean.Serialize(&p->IgnoreCollision, serializer);
         QList.Serialize(&p->HitBoxes, serializer, Statics.SerializeHitBox);
         QList.Serialize(&p->HurtBoxes, serializer, Statics.SerializeHurtBox);
         AssetRef.Serialize(&p->Constants, serializer);
         AssetRef.Serialize(&p->CurrentState, serializer);
         FP.Serialize(&p->Devotion, serializer);
+        Quantum.RoninStateContext.Serialize(&p->StateContext, serializer);
         FPVector2.Serialize(&p->Position, serializer);
         FPVector2.Serialize(&p->Velocity, serializer);
     }
@@ -1024,7 +1060,7 @@ namespace Quantum {
     [FieldOffset(24)]
     public AssetRef<SaberStateBase> CurrentState;
     [FieldOffset(8)]
-    public Int32 StateFrame;
+    public SaberStateContext StateContext;
     public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 11173;
@@ -1033,7 +1069,7 @@ namespace Quantum {
         hash = hash * 31 + (Int32)CurrentAnimationID;
         hash = hash * 31 + CurrentAnimationFrameIndex.GetHashCode();
         hash = hash * 31 + CurrentState.GetHashCode();
-        hash = hash * 31 + StateFrame.GetHashCode();
+        hash = hash * 31 + StateContext.GetHashCode();
         return hash;
       }
     }
@@ -1048,7 +1084,7 @@ namespace Quantum {
         var p = (SaberData*)ptr;
         serializer.Stream.Serialize((Int32*)&p->CurrentAnimationID);
         serializer.Stream.Serialize(&p->CurrentAnimationFrameIndex);
-        serializer.Stream.Serialize(&p->StateFrame);
+        Quantum.SaberStateContext.Serialize(&p->StateContext, serializer);
         AssetRef.Serialize(&p->Constants, serializer);
         AssetRef.Serialize(&p->CurrentState, serializer);
         Quantum.SaberDirectionData.Serialize(&p->Direction, serializer);
@@ -1348,10 +1384,12 @@ namespace Quantum {
       typeRegistry.Register(typeof(QueryOptions), 2);
       typeRegistry.Register(typeof(RNGSession), RNGSession.SIZE);
       typeRegistry.Register(typeof(Quantum.RoninData), Quantum.RoninData.SIZE);
+      typeRegistry.Register(typeof(Quantum.RoninStateContext), Quantum.RoninStateContext.SIZE);
       typeRegistry.Register(typeof(Quantum.SaberBlockType), 4);
       typeRegistry.Register(typeof(Quantum.SaberData), Quantum.SaberData.SIZE);
       typeRegistry.Register(typeof(Quantum.SaberDirection), 4);
       typeRegistry.Register(typeof(Quantum.SaberDirectionData), Quantum.SaberDirectionData.SIZE);
+      typeRegistry.Register(typeof(Quantum.SaberStateContext), Quantum.SaberStateContext.SIZE);
       typeRegistry.Register(typeof(Shape2D), Shape2D.SIZE);
       typeRegistry.Register(typeof(Shape3D), Shape3D.SIZE);
       typeRegistry.Register(typeof(SpringJoint), SpringJoint.SIZE);

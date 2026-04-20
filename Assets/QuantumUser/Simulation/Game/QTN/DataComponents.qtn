@@ -27,8 +27,7 @@ component RoninData
     bool IgnoreCollision;
     
     asset_ref<RoninStateBase> CurrentState;
-    int StateFrame;
-    bool HasHit;
+    RoninStateContext StateContext;
 }
 
 component SaberData
@@ -41,5 +40,5 @@ component SaberData
     int CurrentAnimationFrameIndex;
     
     asset_ref<SaberStateBase> CurrentState;
-    int StateFrame;
+    SaberStateContext StateContext;
 }

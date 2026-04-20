@@ -9,7 +9,7 @@ namespace Quantum
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             
-            ronin->StateFrame = 0;
+            ronin->StateContext.StateFrame = 0;
             ronin->FacingSign *= -1;
             ronin->IgnoreCollision = true;
         }
@@ -17,11 +17,11 @@ namespace Quantum
         public override void UpdateState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            ronin->StateFrame++;
+            ronin->StateContext.StateFrame++;
             
             ApplyMovement(frame, entity);
             
-            if (ronin->StateFrame > Duration)
+            if (ronin->StateContext.StateFrame > Duration)
             {
                 ronin->IgnoreCollision = false;
                 

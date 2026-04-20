@@ -83,7 +83,7 @@ namespace Quantum
             if (!cAttacker.IsAttacking)
                 return result;
 
-            if (attRonin->HasHit)
+            if (attRonin->StateContext.HasHit)
                 return result;
             
             var attAttackState = frame.FindAsset(cAttacker.AttackState);
@@ -100,7 +100,7 @@ namespace Quantum
             result.AttackState = attAttackState;
             result.MidPoint = midPoint;
             result.SaberHit = saberHit;
-            attRonin->HasHit = true;
+            attRonin->StateContext.HasHit = true;
             
             var defSaber = frame.Unsafe.GetPointer<SaberData>(cDefender.Entity);
 

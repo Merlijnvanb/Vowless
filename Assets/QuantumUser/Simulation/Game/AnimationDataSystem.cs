@@ -24,7 +24,7 @@ namespace Quantum
         {
             var saber = filter.Saber;
             var saberConstants = frame.FindAsset(saber->Constants);
-            var stateFrame = saber->StateFrame;
+            var stateFrame = saber->StateContext.StateFrame;
 
             if (!saberConstants.SaberAnimations.TryGetValue(filter.Saber->CurrentAnimationID, out var currentAnimation))
             {

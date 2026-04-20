@@ -11,13 +11,13 @@ namespace Quantum
         public virtual void EnterState(Frame frame, EntityRef entity)
         {
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
-            saber->StateFrame = 0;
+            saber->StateContext.StateFrame = 0;
         }
 
         public virtual void UpdateState(Frame frame, EntityRef entity)
         {
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
-            saber->StateFrame++;
+            saber->StateContext.StateFrame++;
         }
 
         public virtual AnimationID GetAnimationID(Frame frame, EntityRef entity)

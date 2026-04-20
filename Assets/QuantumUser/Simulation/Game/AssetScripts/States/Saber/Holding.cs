@@ -7,7 +7,7 @@ namespace Quantum
         public override void UpdateState(Frame frame, EntityRef entity)
         {
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
-            saber->StateFrame++;
+            saber->StateContext.StateFrame++;
             
             saber->Direction = PollDirection(frame, entity);
         }

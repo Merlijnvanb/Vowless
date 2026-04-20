@@ -90,7 +90,7 @@ namespace Quantum
                 ApplyData(rElements.TargetingSign, roninData.TargetingSign.ToString());
                 ApplyData(rElements.FacingSign, roninData.FacingSign.ToString());
                 ApplyData(rElements.CurrentState, PredictedPreviousFrame.FindAsset(roninData.CurrentState).name);
-                ApplyData(rElements.StateFrame, roninData.StateFrame.ToString());
+                ApplyData(rElements.StateFrame, roninData.StateContext.StateFrame.ToString());
             }
 
             if (PredictedPreviousFrame.TryGet<SaberData>(entity, out var saberData))
@@ -101,7 +101,7 @@ namespace Quantum
                 ApplyData(sElements.AnimationId, saberData.CurrentAnimationID.ToString());
                 ApplyData(sElements.AnimFrameIndex, saberData.CurrentAnimationFrameIndex.ToString());
                 ApplyData(sElements.CurrentState, PredictedPreviousFrame.FindAsset(saberData.CurrentState).name);
-                ApplyData(sElements.StateFrame, saberData.StateFrame.ToString());
+                ApplyData(sElements.StateFrame, saberData.StateContext.StateFrame.ToString());
             }
         }
 

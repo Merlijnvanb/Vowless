@@ -4515,7 +4515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6740837655621b3449c565a5103283b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LimitFramerate: 1
+  LimitFramerate: 0
   TargetFramerate: 60
 --- !u!43 &824482747
 Mesh:

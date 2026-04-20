@@ -188,8 +188,7 @@ namespace Quantum.Prototypes {
     public Quantum.Prototypes.HurtBoxPrototype[] HurtBoxes = {};
     public QBoolean IgnoreCollision;
     public AssetRef<RoninStateBase> CurrentState;
-    public Int32 StateFrame;
-    public QBoolean HasHit;
+    public Quantum.Prototypes.RoninStateContextPrototype StateContext;
     partial void MaterializeUser(Frame frame, ref Quantum.RoninData result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.RoninData component = default;
@@ -225,6 +224,17 @@ namespace Quantum.Prototypes {
         }
         result.IgnoreCollision = this.IgnoreCollision;
         result.CurrentState = this.CurrentState;
+        this.StateContext.Materialize(frame, ref result.StateContext, in context);
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.RoninStateContext))]
+  public unsafe partial class RoninStateContextPrototype : StructPrototype {
+    public Int32 StateFrame;
+    public QBoolean HasHit;
+    partial void MaterializeUser(Frame frame, ref Quantum.RoninStateContext result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.RoninStateContext result, in PrototypeMaterializationContext context = default) {
         result.StateFrame = this.StateFrame;
         result.HasHit = this.HasHit;
         MaterializeUser(frame, ref result, in context);
@@ -238,7 +248,7 @@ namespace Quantum.Prototypes {
     public Quantum.QEnum32<AnimationID> CurrentAnimationID;
     public Int32 CurrentAnimationFrameIndex;
     public AssetRef<SaberStateBase> CurrentState;
-    public Int32 StateFrame;
+    public Quantum.Prototypes.SaberStateContextPrototype StateContext;
     partial void MaterializeUser(Frame frame, ref Quantum.SaberData result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.SaberData component = default;
@@ -251,7 +261,7 @@ namespace Quantum.Prototypes {
         result.CurrentAnimationID = this.CurrentAnimationID;
         result.CurrentAnimationFrameIndex = this.CurrentAnimationFrameIndex;
         result.CurrentState = this.CurrentState;
-        result.StateFrame = this.StateFrame;
+        this.StateContext.Materialize(frame, ref result.StateContext, in context);
         MaterializeUser(frame, ref result, in context);
     }
   }
@@ -276,6 +286,16 @@ namespace Quantum.Prototypes {
             list.Add(tmp);
           }
         }
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.SaberStateContext))]
+  public unsafe partial class SaberStateContextPrototype : StructPrototype {
+    public Int32 StateFrame;
+    partial void MaterializeUser(Frame frame, ref Quantum.SaberStateContext result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.SaberStateContext result, in PrototypeMaterializationContext context = default) {
+        result.StateFrame = this.StateFrame;
         MaterializeUser(frame, ref result, in context);
     }
   }

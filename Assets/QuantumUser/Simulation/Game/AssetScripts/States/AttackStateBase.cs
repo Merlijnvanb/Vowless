@@ -24,8 +24,8 @@ namespace Quantum
         public override void EnterState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            ronin->StateFrame = 0;
-            ronin->HasHit = false;
+            ronin->StateContext.StateFrame = 0;
+            ronin->StateContext.HasHit = false;
             
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             var saberConstants = frame.FindAsset(saber->Constants);
@@ -45,7 +45,7 @@ namespace Quantum
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
             var rConstants =  frame.FindAsset(ronin->Constants);
-            ronin->StateFrame++;
+            ronin->StateContext.StateFrame++;
             
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             var saberConstants = frame.FindAsset(saber->Constants);
@@ -58,11 +58,11 @@ namespace Quantum
             {
                 foreach (var window in TurnCancelWindows)
                 {
-                    if (ronin->StateFrame >= window.StartEndFrame.X && ronin->StateFrame <= window.StartEndFrame.Y)
+                    if (ronin->StateContext.StateFrame >= window.StartEndFrame.X && ronin->StateContext.StateFrame <= window.StartEndFrame.Y)
                     {
                         var cost = window.CancelCost;
 
-                        if (window.HasWhiffCost && !ronin->HasHit)
+                        if (window.HasWhiffCost && !ronin->StateContext.HasHit)
                         {
                             cost = window.WhiffCost;
                         }
@@ -95,7 +95,7 @@ namespace Quantum
 
             if (input.Attack.WasPressed)
             {
-                if (ronin->HasHit)
+                if (ronin->StateContext.HasHit)
                 {
                     if (TurnAround)
                     {
@@ -122,7 +122,7 @@ namespace Quantum
                 }
             }
             
-            if (ronin->StateFrame > Duration)
+            if (ronin->StateContext.StateFrame > Duration)
             {
                 if (TurnAround)
                 {
@@ -143,7 +143,7 @@ namespace Quantum
         // {
         //     var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
         //     
-        //     return ronin->StateFrame > StartupFrames && ronin->StateFrame <= StartupFrames + ActiveFrames;
+        //     return ronin->StateContext.StateFrame > StartupFrames && ronin->StateContext.StateFrame <= StartupFrames + ActiveFrames;
         // }
     }
 }

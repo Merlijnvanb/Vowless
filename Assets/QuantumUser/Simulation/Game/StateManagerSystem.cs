@@ -34,6 +34,7 @@ namespace Quantum
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
             ronin->CurrentState = state;
+            ronin->StateContext = default;
             
             var stateAsset = frame.FindAsset<RoninStateBase>(state);
             stateAsset.EnterState(frame, entity);
@@ -47,6 +48,7 @@ namespace Quantum
         {
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             saber->CurrentState = state;
+            saber->StateContext = default;
             
             var stateAsset = frame.FindAsset<SaberStateBase>(state);
             stateAsset.EnterState(frame, entity);
@@ -96,7 +98,7 @@ namespace Quantum
                     var attackAsset = frame.FindAsset(result.AttackState);
             
                     OnSwitchSaberState(frame, entity, saberConstants.States.BlockStun);
-                    saber->StateFrame = attackAsset.ReceivedBlockStun;
+                    saber->StateContext.StateFrame = attackAsset.ReceivedBlockStun;
                     
                     break;
                 

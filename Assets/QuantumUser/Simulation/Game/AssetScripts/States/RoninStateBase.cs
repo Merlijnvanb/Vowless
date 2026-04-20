@@ -43,13 +43,13 @@ namespace Quantum
         public virtual void EnterState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            ronin->StateFrame = 0;
+            ronin->StateContext.StateFrame = 0;
         }
 
         public virtual void UpdateState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            ronin->StateFrame++;
+            ronin->StateContext.StateFrame++;
             
             if (AlwaysCancelable)
             {
@@ -64,7 +64,7 @@ namespace Quantum
             
             foreach (var data in Movements)
             {
-                if (ronin->StateFrame >= data.StartEndFrame.X && ronin->StateFrame < data.StartEndFrame.Y)
+                if (ronin->StateContext.StateFrame >= data.StartEndFrame.X && ronin->StateContext.StateFrame < data.StartEndFrame.Y)
                 {
                     ronin->Position += new FPVector2(
                         data.MoveVector.X * ronin->FacingSign * frame.DeltaTime, 

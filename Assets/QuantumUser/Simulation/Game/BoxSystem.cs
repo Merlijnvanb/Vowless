@@ -12,10 +12,10 @@ namespace Quantum
             var sConstants = frame.FindAsset(filter.Saber->Constants);
             
             var rCurrentState = frame.FindAsset(filter.Ronin->CurrentState);
-            var rStateFrame = filter.Ronin->StateFrame;
+            var rStateFrame = filter.Ronin->StateContext.StateFrame;
 
             var sCurrentState = frame.FindAsset(filter.Saber->CurrentState);
-            var sStateFrame = filter.Saber->StateFrame;
+            var sStateFrame = filter.Saber->StateContext.StateFrame;
             
             var hitBoxes = frame.ResolveList<HitBox>(filter.Ronin->HitBoxes);
             var hurtBoxes = frame.ResolveList<HurtBox>(filter.Ronin->HurtBoxes);

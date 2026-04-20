@@ -1,3 +1,14 @@
+struct RoninStateContext
+{
+    int StateFrame;
+    bool HasHit;
+}
+
+struct SaberStateContext
+{
+    int StateFrame;
+}
+
 struct CombatResult
 {
     CombatResultType Type;
