@@ -12,20 +12,23 @@ component PlayerData
 component RoninData
 {
     asset_ref<RoninConstants> Constants;
-    
+
     FP Devotion;
-    
+
     FPVector2 Position;
     FPVector2 Velocity;
-    
+
     int TargetingSign;
     int FacingSign;
-    
+
     list<HitBox> HitBoxes;
     list<HurtBox> HurtBoxes;
-    
+
     bool IgnoreCollision;
-    
+
+    AnimationID CurrentRoninAnimationID;
+    int CurrentRoninAnimationFrameIndex;
+
     asset_ref<RoninStateBase> CurrentState;
     RoninStateContext StateContext;
 }
@@ -38,7 +41,8 @@ component SaberData
 
     AnimationID CurrentAnimationID;
     int CurrentAnimationFrameIndex;
-    
+    AnimationID AttackAnimationID;
+
     asset_ref<SaberStateBase> CurrentState;
     SaberStateContext StateContext;
 }

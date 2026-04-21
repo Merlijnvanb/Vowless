@@ -1,11 +1,13 @@
 namespace Quantum
 {
     using Photon.Deterministic;
+    using System.Collections.Generic;
 
     public class RoninConstants : AssetObject
     {
         public FP PushRange;
         public BoxRect BaseRect;
+        public Dictionary<AnimationID, RoninAnimationData> RoninAnimations = new();
         
         [System.Serializable]
         public struct StateData
@@ -20,22 +22,21 @@ namespace Quantum
         [System.Serializable]
         public struct AttackData
         {
-            public ForwardHigh ForwardHigh;
-            public ForwardMid ForwardMid;
-            public ForwardLow ForwardLow;
-            
-            public BackwardHigh BackwardHigh;
-            public BackwardMid BackwardMid;
-            public BackwardLow BackwardLow;
-            
-            
-            public TurnedForwardHigh TurnedForwardHigh;
-            public TurnedForwardMid TurnedForwardMid;
-            public TurnedForwardLow TurnedForwardLow;
-            
-            public TurnedBackwardHigh TurnedBackwardHigh;
-            public TurnedBackwardMid TurnedBackwardMid;
-            public TurnedBackwardLow TurnedBackwardLow;
+            public AttackStateBase ForwardHigh;
+            public AttackStateBase ForwardMid;
+            public AttackStateBase ForwardLow;
+
+            public AttackStateBase BackwardHigh;
+            public AttackStateBase BackwardMid;
+            public AttackStateBase BackwardLow;
+
+            public AttackStateBase TurnedForwardHigh;
+            public AttackStateBase TurnedForwardMid;
+            public AttackStateBase TurnedForwardLow;
+
+            public AttackStateBase TurnedBackwardHigh;
+            public AttackStateBase TurnedBackwardMid;
+            public AttackStateBase TurnedBackwardLow;
         }
         
         public StateData States;

@@ -187,6 +187,8 @@ namespace Quantum.Prototypes {
     [DynamicCollectionAttribute()]
     public Quantum.Prototypes.HurtBoxPrototype[] HurtBoxes = {};
     public QBoolean IgnoreCollision;
+    public Quantum.QEnum32<AnimationID> CurrentRoninAnimationID;
+    public Int32 CurrentRoninAnimationFrameIndex;
     public AssetRef<RoninStateBase> CurrentState;
     public Quantum.Prototypes.RoninStateContextPrototype StateContext;
     partial void MaterializeUser(Frame frame, ref Quantum.RoninData result, in PrototypeMaterializationContext context);
@@ -223,6 +225,8 @@ namespace Quantum.Prototypes {
           }
         }
         result.IgnoreCollision = this.IgnoreCollision;
+        result.CurrentRoninAnimationID = this.CurrentRoninAnimationID;
+        result.CurrentRoninAnimationFrameIndex = this.CurrentRoninAnimationFrameIndex;
         result.CurrentState = this.CurrentState;
         this.StateContext.Materialize(frame, ref result.StateContext, in context);
         MaterializeUser(frame, ref result, in context);
@@ -247,6 +251,7 @@ namespace Quantum.Prototypes {
     public Quantum.Prototypes.SaberDirectionDataPrototype Direction;
     public Quantum.QEnum32<AnimationID> CurrentAnimationID;
     public Int32 CurrentAnimationFrameIndex;
+    public Quantum.QEnum32<AnimationID> AttackAnimationID;
     public AssetRef<SaberStateBase> CurrentState;
     public Quantum.Prototypes.SaberStateContextPrototype StateContext;
     partial void MaterializeUser(Frame frame, ref Quantum.SaberData result, in PrototypeMaterializationContext context);
@@ -260,6 +265,7 @@ namespace Quantum.Prototypes {
         this.Direction.Materialize(frame, ref result.Direction, in context);
         result.CurrentAnimationID = this.CurrentAnimationID;
         result.CurrentAnimationFrameIndex = this.CurrentAnimationFrameIndex;
+        result.AttackAnimationID = this.AttackAnimationID;
         result.CurrentState = this.CurrentState;
         this.StateContext.Materialize(frame, ref result.StateContext, in context);
         MaterializeUser(frame, ref result, in context);

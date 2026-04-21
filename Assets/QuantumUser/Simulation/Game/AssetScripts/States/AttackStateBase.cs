@@ -20,15 +20,22 @@ namespace Quantum
 
         public FPVector3 VisualDirection;
         public AnimationID AnimationID;
+        public AnimationID RoninAnimationID;
+
+        public override AnimationID GetAnimationID(Frame frame, EntityRef entity)
+        {
+            return RoninAnimationID;
+        }
 
         public override void EnterState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
             ronin->StateContext.StateFrame = 0;
             ronin->StateContext.HasHit = false;
-            
+
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             var saberConstants = frame.FindAsset(saber->Constants);
+            saber->AttackAnimationID = AnimationID;
 
             if (saberConstants.DirectionData.TryGetValue(EndingDirection, out var newDir))
             {

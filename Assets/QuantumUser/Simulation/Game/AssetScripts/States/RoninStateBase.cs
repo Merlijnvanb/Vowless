@@ -40,6 +40,11 @@ namespace Quantum
 
         public HurtBoxData[] HurtBoxes;
 
+        public virtual AnimationID GetAnimationID(Frame frame, EntityRef entity)
+        {
+            return AnimationID.Idle;
+        }
+
         public virtual void EnterState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
@@ -73,135 +78,68 @@ namespace Quantum
             }
         }
 
-        protected virtual RoninStateBase GetNextState(Frame frame, EntityRef entity)
-        {
-            var player = frame.Unsafe.GetPointer<PlayerData>(entity);
-            var input = InputUtils.GetInput(frame, entity);
-            
-            var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            var rConstants = frame.FindAsset<RoninConstants>(ronin->Constants);
-            
-            var saber = frame.Unsafe.GetPointer<SaberData>(entity);
-            var sConstants = frame.FindAsset<SaberConstants>(saber->Constants);
+        protected RoninStateBase GetNextState(Frame frame, EntityRef entity)
+            => GetNextState(frame, entity, out _);
 
-            if (input.Attack.WasPressed)
-            {
-                var dir = saber->Direction;
-                
-                if (player->InputLookDirectionVector != FPVector2.Zero)
-                {
-                    var signedInput = new FPVector2(player->InputLookDirectionVector.X * ronin->FacingSign, player->InputLookDirectionVector.Y);
-                    dir = InputUtils.SnapToDirection(frame, signedInput, sConstants);
-                }
-                
-                var turned = ronin->TargetingSign != ronin->FacingSign;
-                switch (dir.Id)
-                {
-                    case SaberDirection.FwHigh:
-                        return turned ? rConstants.Attacks.TurnedForwardHigh : rConstants.Attacks.ForwardHigh;
-                    
-                    case SaberDirection.FwMid:
-                        return turned ? rConstants.Attacks.TurnedForwardMid : rConstants.Attacks.ForwardMid;
-                    
-                    case SaberDirection.FwLow:
-                        return turned ? rConstants.Attacks.TurnedForwardLow : rConstants.Attacks.ForwardLow;
-                    
-                    
-                    case SaberDirection.BwHigh:
-                        return turned ? rConstants.Attacks.TurnedBackwardHigh : rConstants.Attacks.BackwardHigh;
-                    
-                    case SaberDirection.BwMid:
-                        return turned ? rConstants.Attacks.TurnedBackwardMid : rConstants.Attacks.BackwardMid;
-                    
-                    case SaberDirection.BwLow:
-                        return turned ? rConstants.Attacks.TurnedBackwardLow : rConstants.Attacks.BackwardLow;
-                }
-            }
-            // if (input.Block)
-            //     // return block
-            if (input.Turn.WasPressed)
-            {
-                var signedInput = FPMath.SignZeroInt(player->InputMoveDirectionVector.X);
-                
-                if ((int)player->InputMoveDirectionVector.X == ronin->FacingSign)
-                    return rConstants.States.TurningStateForward;
-                
-                if ((int)player->InputMoveDirectionVector.X == -ronin->FacingSign)
-                    return rConstants.States.TurningStateBackward;
-                
-                return rConstants.States.TurningState;
-            }
-            
-            if (player->InputMoveDirectionVector.X != 0)
-                return rConstants.States.WalkState;
-
-            return rConstants.States.IdleState;
-        }
-        
         protected virtual RoninStateBase GetNextState(Frame frame, EntityRef entity, out SaberDirectionData newDir)
         {
             var player = frame.Unsafe.GetPointer<PlayerData>(entity);
             var input = InputUtils.GetInput(frame, entity);
-            
+
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
             var rConstants = frame.FindAsset<RoninConstants>(ronin->Constants);
-            
+
             var saber = frame.Unsafe.GetPointer<SaberData>(entity);
             var sConstants = frame.FindAsset<SaberConstants>(saber->Constants);
 
             newDir = saber->Direction;
 
-            
             if (input.Attack.WasPressed)
             {
                 var dir = saber->Direction;
-                
+
                 if (player->InputLookDirectionVector != FPVector2.Zero)
                 {
                     var signedInput = new FPVector2(player->InputLookDirectionVector.X * ronin->FacingSign, player->InputLookDirectionVector.Y);
                     dir = InputUtils.SnapToDirection(frame, signedInput, sConstants);
                 }
-                
+
                 newDir = dir;
-                
+
                 var turned = ronin->TargetingSign != ronin->FacingSign;
                 switch (dir.Id)
                 {
                     case SaberDirection.FwHigh:
                         return turned ? rConstants.Attacks.TurnedForwardHigh : rConstants.Attacks.ForwardHigh;
-                    
+
                     case SaberDirection.FwMid:
                         return turned ? rConstants.Attacks.TurnedForwardMid : rConstants.Attacks.ForwardMid;
-                    
+
                     case SaberDirection.FwLow:
                         return turned ? rConstants.Attacks.TurnedForwardLow : rConstants.Attacks.ForwardLow;
-                    
-                    
+
                     case SaberDirection.BwHigh:
                         return turned ? rConstants.Attacks.TurnedBackwardHigh : rConstants.Attacks.BackwardHigh;
-                    
+
                     case SaberDirection.BwMid:
                         return turned ? rConstants.Attacks.TurnedBackwardMid : rConstants.Attacks.BackwardMid;
-                    
+
                     case SaberDirection.BwLow:
                         return turned ? rConstants.Attacks.TurnedBackwardLow : rConstants.Attacks.BackwardLow;
                 }
             }
-            // if (input.Block)
-            //     // return block
+
             if (input.Turn.WasPressed)
             {
-                var signedInput = FPMath.SignZeroInt(player->InputMoveDirectionVector.X);
-                
                 if ((int)player->InputMoveDirectionVector.X == ronin->FacingSign)
                     return rConstants.States.TurningStateForward;
-                
+
                 if ((int)player->InputMoveDirectionVector.X == -ronin->FacingSign)
                     return rConstants.States.TurningStateBackward;
-                
+
                 return rConstants.States.TurningState;
             }
-            
+
             if (player->InputMoveDirectionVector.X != 0)
                 return rConstants.States.WalkState;
 

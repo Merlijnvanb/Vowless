@@ -4,6 +4,8 @@ namespace Quantum
   
     public unsafe class WalkState : RoninStateBase
     {
+        public override AnimationID GetAnimationID(Frame frame, EntityRef entity) => AnimationID.Walking;
+
         public FP ForwardWalkSpeed;
         public FP BackwardWalkSpeed;
 

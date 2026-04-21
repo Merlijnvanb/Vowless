@@ -14,11 +14,8 @@ namespace Quantum
         
         public override AnimationID GetAnimationID(Frame frame, EntityRef entity)
         {
-            var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
-            var state = frame.FindAsset(ronin->CurrentState);
-            var attack = state as AttackStateBase;
-
-            return attack.AnimationID;
+            var saber = frame.Unsafe.GetPointer<SaberData>(entity);
+            return saber->AttackAnimationID;
         }
     }
 }

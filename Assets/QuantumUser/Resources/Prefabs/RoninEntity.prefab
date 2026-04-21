@@ -1452,8 +1452,9 @@ GameObject:
   - component: {fileID: 5332785106493752682}
   - component: {fileID: 2420751035579890612}
   - component: {fileID: 2559887243039811127}
+  - component: {fileID: 6307357388821990297}
+  - component: {fileID: 6530717528704691356}
   - component: {fileID: -3547579157743900269}
-  - component: {fileID: 6967210643948333554}
   m_Layer: 0
   m_Name: RoninEntity
   m_TagString: Untagged
@@ -2525,12 +2526,16 @@ MonoBehaviour:
     HurtBoxes: []
     IgnoreCollision:
       Value: 0
+    CurrentRoninAnimationID:
+      Value: 0
+    CurrentRoninAnimationFrameIndex: 0
     CurrentState:
       Id:
         Value: 0
-    StateFrame: 0
-    HasHit:
-      Value: 0
+    StateContext:
+      StateFrame: 0
+      HasHit:
+        Value: 0
 --- !u!114 &2559887243039811127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2544,6 +2549,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 6663124639870244934}
+--- !u!114 &6307357388821990297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5739739609065002220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e75aeb66135c153482b17a44162b53b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Quantum.SaberAnimationView
+  HiltMeshFilter: {fileID: 2054461694114402595}
+  BladeMeshFilter: {fileID: 1244497157067270774}
+  SaberTransform: {fileID: 2277950264125174177}
+  PoleLTransform: {fileID: 5463493312291765465}
+  PoleRTransform: {fileID: 8677135314392030938}
+  BaseHiltMesh: {fileID: 5466095229097390328, guid: 16a139391304b7248a2e581a101a71bc, type: 3}
+  BaseBladeMesh: {fileID: 7401353886334607404, guid: 16a139391304b7248a2e581a101a71bc, type: 3}
+--- !u!114 &6530717528704691356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5739739609065002220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca373a827c446d5882344a925cc540f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Quantum.SaberHitReactionView
+  SaberTransform: {fileID: 2277950264125174177}
+  BladeStartTransform: {fileID: 439682332375054905}
+  BladeEndTransform: {fileID: 3199934831796049035}
 --- !u!114 &-3547579157743900269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2572,31 +2611,13 @@ MonoBehaviour:
     CurrentAnimationID:
       Value: 0
     CurrentAnimationFrameIndex: 0
+    AttackAnimationID:
+      Value: 0
     CurrentState:
       Id:
         Value: 0
-    StateFrame: 0
---- !u!114 &6967210643948333554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5739739609065002220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d095629b9c04d4446a38adf29c72ceb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HiltMeshFilter: {fileID: 2054461694114402595}
-  BladeMeshFilter: {fileID: 1244497157067270774}
-  SaberTransform: {fileID: 2277950264125174177}
-  PoleLTransform: {fileID: 5463493312291765465}
-  PoleRTransform: {fileID: 8677135314392030938}
-  BladeStartTransform: {fileID: 439682332375054905}
-  BladeEndTransform: {fileID: 3199934831796049035}
-  BaseHiltMesh: {fileID: 5466095229097390328, guid: 16a139391304b7248a2e581a101a71bc, type: 3}
-  BaseBladeMesh: {fileID: 7401353886334607404, guid: 16a139391304b7248a2e581a101a71bc, type: 3}
+    StateContext:
+      StateFrame: 0
 --- !u!1 &6008970828228290686
 GameObject:
   m_ObjectHideFlags: 0

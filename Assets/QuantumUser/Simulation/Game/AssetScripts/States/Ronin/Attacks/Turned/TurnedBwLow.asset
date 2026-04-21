@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a736dbd9f282ee042b3c6848a323d5ad, type: 3}
+  m_Name: TurnedBwLow
+  m_EditorClassIdentifier: Quantum.Simulation::Quantum.AttackStateBase
+  Identifier:
+    Path: QuantumUser/Simulation/Game/AssetScripts/States/Ronin/Attacks/Turned/TurnedBwLow
+    Guid:
+      Value: 529000891228497250
+  Duration: 0
+  AlwaysCancelable: 0
+  CanSwitchTarget: 0
+  TurnCancelWindows: []
+  Movements: []
+  HurtBoxes: []
+  Height: 0
+  HitBoxes: []
+  ReceivedBlockStun: 0
+  DevotionGain:
+    RawValue: 0
+  TurnAround: 0
+  EndingDirection: 0
+  VisualDirection:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  AnimationID: 0
+  RoninAnimationID: 0

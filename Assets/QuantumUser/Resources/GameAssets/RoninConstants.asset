@@ -36,15 +36,15 @@ MonoBehaviour:
     TurningStateForward: {fileID: 11400000, guid: e143092e923543d4787ebc6ddfacf8a2, type: 2}
     TurningStateBackward: {fileID: 11400000, guid: 4579e1037989d5b4b9e4fa2f2a9d53d0, type: 2}
   Attacks:
-    ForwardHigh: {fileID: 11400000, guid: 5d2e9d3ed917c2546baac2219411b731, type: 2}
-    ForwardMid: {fileID: 11400000, guid: 1b41de263193de44781b90d6a831c562, type: 2}
-    ForwardLow: {fileID: 11400000, guid: af24d3c20b253b142800d721b623c5aa, type: 2}
-    BackwardHigh: {fileID: 11400000, guid: 1aaaf7afc9ad0934ba987638df184d16, type: 2}
-    BackwardMid: {fileID: 11400000, guid: 808d32a6dc932214caac24a9453b4f43, type: 2}
-    BackwardLow: {fileID: 11400000, guid: ab701cf89f3e42e4d8103015f5b50721, type: 2}
-    TurnedForwardHigh: {fileID: 11400000, guid: 4d5aeaaa7cfc14f44bb6124f0f11e84b, type: 2}
-    TurnedForwardMid: {fileID: 11400000, guid: 0bdeaa92c21b8264c9c590cf8035f063, type: 2}
-    TurnedForwardLow: {fileID: 11400000, guid: d447e9f13e49fb447aa6d7d72daa6fd1, type: 2}
-    TurnedBackwardHigh: {fileID: 11400000, guid: 9df90cc6046a81c44915c2846ac316ca, type: 2}
-    TurnedBackwardMid: {fileID: 11400000, guid: 14fef98c2dfae6740aa2f41b0f8c292b, type: 2}
-    TurnedBackwardLow: {fileID: 11400000, guid: 0194ae9b257d81247ad8252b81ea3cda, type: 2}
+    ForwardHigh: {fileID: 11400000, guid: 4ee8616dac9a264d1b381e4755cdb909, type: 2}
+    ForwardMid: {fileID: 11400000, guid: 0237b3bec21a2898ba95626d2fbc10a6, type: 2}
+    ForwardLow: {fileID: 11400000, guid: 82ce87c35dd390b208e1e91c2ffbb18d, type: 2}
+    BackwardHigh: {fileID: 11400000, guid: 6c39aab9b04cb536699a5c74adbe6df1, type: 2}
+    BackwardMid: {fileID: 11400000, guid: 87bc1ea478dfb8445873afa8293750ab, type: 2}
+    BackwardLow: {fileID: 11400000, guid: 4983659d18f8884b59d097f495fe4871, type: 2}
+    TurnedForwardHigh: {fileID: 11400000, guid: 1ff2df3de98f7ecd28aa5dad68137749, type: 2}
+    TurnedForwardMid: {fileID: 11400000, guid: 8a56343e8bfdc8ca6b8d2482724dd635, type: 2}
+    TurnedForwardLow: {fileID: 11400000, guid: 6632f1d49e5ecbe30bd3cab4c8c1232f, type: 2}
+    TurnedBackwardHigh: {fileID: 11400000, guid: d1fc7151fa8fe7096832c2a6c0d4162e, type: 2}
+    TurnedBackwardMid: {fileID: 11400000, guid: c92cb80e3d1dd9123bc0d70c8d872e66, type: 2}
+    TurnedBackwardLow: {fileID: 11400000, guid: 33d623af96772c608a085a8b453985c3, type: 2}
