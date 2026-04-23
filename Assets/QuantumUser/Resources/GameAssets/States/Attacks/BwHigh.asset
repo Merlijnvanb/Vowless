@@ -9,77 +9,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cb5f244e0f1fce4d9e96fc966622795, type: 3}
+  m_Script: {fileID: 11500000, guid: a736dbd9f282ee042b3c6848a323d5ad, type: 3}
   m_Name: BwHigh
   m_EditorClassIdentifier: 
   Identifier:
     Path: QuantumUser/Resources/GameAssets/States/Attacks/BwHigh
     Guid:
       Value: 528983137728019811
-  Duration: 90
+  Duration: 0
   AlwaysCancelable: 0
   CanSwitchTarget: 0
-  TurnCancelWindows:
-  - StartEndFrame:
-      X: 10
-      Y: 30
-    CancelCost:
-      RawValue: 655360
-    HasWhiffCost: 0
-    WhiffCost:
-      RawValue: 0
-  - StartEndFrame:
-      X: 46
-      Y: 90
-    CancelCost:
-      RawValue: 655360
-    HasWhiffCost: 1
-    WhiffCost:
-      RawValue: 1638400
+  TurnCancelWindows: []
   Movements: []
-  HurtBoxes:
-  - UseBaseRect: 1
-    Rect:
-      Position:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      WidthHeight:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-    AlwaysActive: 1
-    StartEndFrame:
-      X: 0
-      Y: 0
-  Height: 2
-  HitBoxes:
-  - Rect:
-      Position:
-        X:
-          RawValue: 65536
-        Y:
-          RawValue: 65536
-      WidthHeight:
-        X:
-          RawValue: 78643
-        Y:
-          RawValue: 78643
-    StartEndFrame:
-      X: 44
-      Y: 45
-  ReceivedBlockStun: 45
+  HurtBoxes: []
+  Height: 0
+  HitBoxes: []
+  ReceivedBlockStun: 0
   DevotionGain:
-    RawValue: 1310720
-  TurnAround: 1
+    RawValue: 0
+  TurnAround: 0
   EndingDirection: 0
   VisualDirection:
     X:
-      RawValue: 32768
+      RawValue: 0
     Y:
-      RawValue: -65536
+      RawValue: 0
     Z:
       RawValue: 0
-  AnimationID: 12
+  AnimationID: 0
+  RoninAnimationID: 0

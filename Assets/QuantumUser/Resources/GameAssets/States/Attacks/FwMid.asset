@@ -9,69 +9,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f276a142445f9b4687bb5506c6a44f2, type: 3}
+  m_Script: {fileID: 11500000, guid: a736dbd9f282ee042b3c6848a323d5ad, type: 3}
   m_Name: FwMid
   m_EditorClassIdentifier: 
   Identifier:
     Path: QuantumUser/Resources/GameAssets/States/Attacks/FwMid
     Guid:
       Value: 385278573926430743
-  Duration: 60
+  Duration: 0
   AlwaysCancelable: 0
   CanSwitchTarget: 0
-  TurnCancelWindows:
-  - StartEndFrame:
-      X: 26
-      Y: 60
-    CancelCost:
-      RawValue: 655360
-    HasWhiffCost: 1
-    WhiffCost:
-      RawValue: 1638400
+  TurnCancelWindows: []
   Movements: []
-  HurtBoxes:
-  - UseBaseRect: 1
-    Rect:
-      Position:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      WidthHeight:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-    AlwaysActive: 1
-    StartEndFrame:
-      X: 0
-      Y: 0
-  Height: 1
-  HitBoxes:
-  - Rect:
-      Position:
-        X:
-          RawValue: 72090
-        Y:
-          RawValue: 54067
-      WidthHeight:
-        X:
-          RawValue: 65536
-        Y:
-          RawValue: 16384
-    StartEndFrame:
-      X: 24
-      Y: 25
-  ReceivedBlockStun: 20
+  HurtBoxes: []
+  Height: 0
+  HitBoxes: []
+  ReceivedBlockStun: 0
   DevotionGain:
-    RawValue: 327680
+    RawValue: 0
   TurnAround: 0
-  EndingDirection: 4
+  EndingDirection: 0
   VisualDirection:
     X:
-      RawValue: 16384
+      RawValue: 0
     Y:
       RawValue: 0
     Z:
-      RawValue: -65536
-  AnimationID: 10
+      RawValue: 0
+  AnimationID: 0
+  RoninAnimationID: 0
