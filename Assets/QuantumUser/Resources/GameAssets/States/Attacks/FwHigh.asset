@@ -22,7 +22,7 @@ MonoBehaviour:
   TurnCancelWindows: []
   Movements: []
   HurtBoxes: []
-  Height: 0
+  Height: 2
   HitBoxes: []
   ReceivedBlockStun: 0
   DevotionGain:
