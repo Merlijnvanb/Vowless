@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1830165640794660883}
   - component: {fileID: 6252553034739008998}
   - component: {fileID: 5462525666075043273}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PointLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 6256526524246957182}
   - component: {fileID: 8016552933697216385}
   - component: {fileID: 4257804152797713953}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7489430674661561479}
   - component: {fileID: 8330742284359626719}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6663124639870244934}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 3269149041599964561}
   - component: {fileID: 1832002347044488918}
   - component: {fileID: 8973633933078610409}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6399438106673408203}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 8611410577654050262}
   - component: {fileID: 4337084387912506438}
   - component: {fileID: 7354928463059376049}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148824556605163780}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6796054, y: 0.03772693, z: -0.3631388, w: 0.636273}
+  m_LocalRotation: {x: -0.6734933, y: 0.034254562, z: -0.36348277, w: 0.6427392}
   m_LocalPosition: {x: 0.18335345, y: -0.1283474, z: 0.11139324}
   m_LocalScale: {x: 0.05, y: 0.1, z: 0.015}
   m_ConstrainProportionsScale: 0
@@ -581,7 +581,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2277950264125174177}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Saber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -620,7 +620,7 @@ GameObject:
   - component: {fileID: 8247413949485338546}
   - component: {fileID: 8562992651034039459}
   - component: {fileID: 6059474172165896923}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DevotionHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -710,7 +710,7 @@ GameObject:
   - component: {fileID: 2143879119646018137}
   - component: {fileID: 2918048889150254324}
   - component: {fileID: 786534723186455599}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -725,7 +725,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3045977156414152183}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.48951188, y: 0.54053247, z: 0.2730046, w: 0.6274323}
+  m_LocalRotation: {x: -0.47304076, y: 0.54744476, z: 0.25886497, w: 0.6399419}
   m_LocalPosition: {x: 0.43335345, y: -0.30334747, z: -0.013606772}
   m_LocalScale: {x: 0.05, y: 0.1, z: 0.015}
   m_ConstrainProportionsScale: 0
@@ -822,7 +822,7 @@ GameObject:
   - component: {fileID: 1073572053436368855}
   - component: {fileID: 2054461694114402595}
   - component: {fileID: 5371896447284470710}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hilt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -913,7 +913,7 @@ GameObject:
   - component: {fileID: 5207092563441967796}
   - component: {fileID: 230860827404887028}
   - component: {fileID: 6371711845055040337}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -928,7 +928,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3422470941304570399}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.56223476, y: -0.36825833, z: -0.45328197, w: 0.58550274}
+  m_LocalRotation: {x: -0.5374582, y: -0.38674778, z: -0.43761265, w: 0.6083256}
   m_LocalPosition: {x: 0.42053932, y: -0.32082492, z: 0.014766455}
   m_LocalScale: {x: 0.05, y: 0.1, z: 0.015}
   m_ConstrainProportionsScale: 0
@@ -1023,7 +1023,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5463493312291765465}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1054,7 +1054,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4234864516986677277}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SaberIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1089,7 +1089,7 @@ GameObject:
   - component: {fileID: 7610129408460216091}
   - component: {fileID: 4498949176997834907}
   - component: {fileID: 2886534445718119261}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1199,7 +1199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8330205401635920424}
   - component: {fileID: 8496358478317244329}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1248,7 +1248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3769866019014632531}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1280,7 +1280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6357327390409442107}
   - component: {fileID: 7950954190639832129}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: VfxSystems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1326,7 +1326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2465818231862432712}
   - component: {fileID: 2137941793091283031}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1416,7 +1416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8677135314392030938}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1455,7 +1455,7 @@ GameObject:
   - component: {fileID: 6307357388821990297}
   - component: {fileID: 6530717528704691356}
   - component: {fileID: -3547579157743900269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoninEntity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2629,7 +2629,7 @@ GameObject:
   - component: {fileID: 572233894535685987}
   - component: {fileID: 1244497157067270774}
   - component: {fileID: 5556521707769744527}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2719,7 +2719,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7879233012905938557}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Effector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2753,7 +2753,7 @@ GameObject:
   - component: {fileID: 7369573147179338553}
   - component: {fileID: 4224679724367385603}
   - component: {fileID: 4460570299881917835}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2768,7 +2768,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6447201227670714731}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.57226384, y: 0.3862888, z: -0.09850046, w: 0.7166539}
+  m_LocalRotation: {x: -0.5611478, y: 0.38472438, z: -0.10444384, w: 0.7253908}
   m_LocalPosition: {x: 0.17053932, y: -0.14582491, z: -0.110233545}
   m_LocalScale: {x: 0.05, y: 0.1, z: 0.015}
   m_ConstrainProportionsScale: 0
@@ -2864,7 +2864,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9058300865797494460}
   - component: {fileID: 6114807520269428743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2920,7 +2920,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8584373172385090019}
   - component: {fileID: 5686118948386645845}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2975,7 +2975,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 439682332375054905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3006,7 +3006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7232597050189947266}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightArmTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3037,7 +3037,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5355806891629845892}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftArmTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3070,7 +3070,7 @@ GameObject:
   - component: {fileID: 4946900226618065030}
   - component: {fileID: 2093776802823269977}
   - component: {fileID: 6391366564163535654}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DevotionBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3143,7 +3143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7334242505929837431}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Effector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3174,7 +3174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3199934831796049035}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3208,7 +3208,7 @@ GameObject:
   - component: {fileID: 4063721993194710368}
   - component: {fileID: 1583314136652565362}
   - component: {fileID: 1918417203693869918}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3320,7 +3320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8124362219288798277}
   - component: {fileID: 1757976496979805435}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: InputIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
