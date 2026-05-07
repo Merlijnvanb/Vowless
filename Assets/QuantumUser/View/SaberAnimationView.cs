@@ -7,8 +7,8 @@ namespace Quantum
         public MeshFilter HiltMeshFilter;
         public MeshFilter BladeMeshFilter;
         public Transform SaberTransform;
-        public Transform PoleLTransform;
-        public Transform PoleRTransform;
+        //public Transform PoleLTransform;
+        //public Transform PoleRTransform;
 
         public Mesh BaseHiltMesh;
         public Mesh BaseBladeMesh;
@@ -25,8 +25,8 @@ namespace Quantum
                 frame.Position.ToUnityVector3(),
                 Quaternion.Euler(frame.Rotation.ToUnityVector3()));
 
-            PoleLTransform.localPosition = frame.PoleLPosition.ToUnityVector3();
-            PoleRTransform.localPosition = frame.PoleRPosition.ToUnityVector3();
+            //PoleLTransform.localPosition = frame.PoleLPosition.ToUnityVector3();
+            //PoleRTransform.localPosition = frame.PoleRPosition.ToUnityVector3();
 
             HiltMeshFilter.mesh = frame.HiltMesh != null ? frame.HiltMesh : BaseHiltMesh;
             BladeMeshFilter.mesh = frame.BladeMesh != null ? frame.BladeMesh : BaseBladeMesh;
