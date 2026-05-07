@@ -160,82 +160,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 145951390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da6cfc4db3b3914ba74ddf4f084f975, type: 3}
+  m_Script: {fileID: 11500000, guid: c5f81264725831facbd491287974e31b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  SaberTransform: {fileID: 0}
-  PoleLPosition: {fileID: 0}
-  PoleRPosition: {fileID: 0}
-  Animation: {fileID: 11400000, guid: 17a3f87f88d14424186b54cf892233b6, type: 2}
-  Frames:
-  - Position:
-      X:
-        RawValue: 26214
-      Y:
-        RawValue: 32768
-      Z:
-        RawValue: 0
-    Rotation:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 22937600
-    PoleLPosition:
-      X:
-        RawValue: 24903
-      Y:
-        RawValue: -33357
-      Z:
-        RawValue: 917
-    PoleRPosition:
-      X:
-        RawValue: 15925
-      Y:
-        RawValue: -32964
-      Z:
-        RawValue: -11599
-    HiltMesh: {fileID: 0}
-    BladeMesh: {fileID: 0}
-    StartEndFrame:
-      X: 1
-      Y: 1
-  CurrentFrame:
-    Position:
-      X:
-        RawValue: 26214
-      Y:
-        RawValue: 32768
-      Z:
-        RawValue: 0
-    Rotation:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 22937600
-    PoleLPosition:
-      X:
-        RawValue: 24903
-      Y:
-        RawValue: -33357
-      Z:
-        RawValue: 917
-    PoleRPosition:
-      X:
-        RawValue: 15925
-      Y:
-        RawValue: -32964
-      Z:
-        RawValue: -11599
-    HiltMesh: {fileID: 0}
-    BladeMesh: {fileID: 0}
-    StartEndFrame:
-      X: 1
-      Y: 1
-  Loop: 1
+  m_EditorClassIdentifier: '::'
 --- !u!1 &267070715
 GameObject:
   m_ObjectHideFlags: 0

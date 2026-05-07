@@ -98,8 +98,8 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _BladeIntensity: 3
-    - _BladeRadius: 1.15
+    - _BladeIntensity: 2.5
+    - _BladeRadius: 0.8
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
