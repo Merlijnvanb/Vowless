@@ -11,11 +11,5 @@ namespace Quantum
             
             //saber->Direction = GetDirection(frame, entity);
         }
-        
-        public override AnimationID GetAnimationID(Frame frame, EntityRef entity)
-        {
-            var saber = frame.Unsafe.GetPointer<SaberData>(entity);
-            return saber->AttackAnimationID;
-        }
     }
 }

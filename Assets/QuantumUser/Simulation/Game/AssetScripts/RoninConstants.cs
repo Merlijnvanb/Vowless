@@ -7,7 +7,6 @@ namespace Quantum
     {
         public FP PushRange;
         public BoxRect BaseRect;
-        public Dictionary<AnimationID, RoninAnimationData> RoninAnimations = new();
         
         [System.Serializable]
         public struct StateData

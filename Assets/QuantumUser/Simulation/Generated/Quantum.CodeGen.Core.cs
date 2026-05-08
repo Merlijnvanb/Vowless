@@ -981,33 +981,29 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct RoninData : Quantum.IComponent {
-    public const Int32 SIZE = 96;
+    public const Int32 SIZE = 88;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(32)]
-    public AssetRef<RoninConstants> Constants;
-    [FieldOffset(48)]
-    public FP Devotion;
-    [FieldOffset(64)]
-    public FPVector2 Position;
-    [FieldOffset(80)]
-    public FPVector2 Velocity;
-    [FieldOffset(12)]
-    public Int32 TargetingSign;
-    [FieldOffset(8)]
-    public Int32 FacingSign;
-    [FieldOffset(20)]
-    public QListPtr<HitBox> HitBoxes;
     [FieldOffset(24)]
-    public QListPtr<HurtBox> HurtBoxes;
-    [FieldOffset(16)]
-    public QBoolean IgnoreCollision;
-    [FieldOffset(0)]
-    public AnimationID CurrentRoninAnimationID;
-    [FieldOffset(4)]
-    public Int32 CurrentRoninAnimationFrameIndex;
+    public AssetRef<RoninConstants> Constants;
     [FieldOffset(40)]
-    public AssetRef<RoninStateBase> CurrentState;
+    public FP Devotion;
     [FieldOffset(56)]
+    public FPVector2 Position;
+    [FieldOffset(72)]
+    public FPVector2 Velocity;
+    [FieldOffset(4)]
+    public Int32 TargetingSign;
+    [FieldOffset(0)]
+    public Int32 FacingSign;
+    [FieldOffset(12)]
+    public QListPtr<HitBox> HitBoxes;
+    [FieldOffset(16)]
+    public QListPtr<HurtBox> HurtBoxes;
+    [FieldOffset(8)]
+    public QBoolean IgnoreCollision;
+    [FieldOffset(32)]
+    public AssetRef<RoninStateBase> CurrentState;
+    [FieldOffset(48)]
     public RoninStateContext StateContext;
     public override readonly Int32 GetHashCode() {
       unchecked { 
@@ -1021,8 +1017,6 @@ namespace Quantum {
         hash = hash * 31 + HitBoxes.GetHashCode();
         hash = hash * 31 + HurtBoxes.GetHashCode();
         hash = hash * 31 + IgnoreCollision.GetHashCode();
-        hash = hash * 31 + (Int32)CurrentRoninAnimationID;
-        hash = hash * 31 + CurrentRoninAnimationFrameIndex.GetHashCode();
         hash = hash * 31 + CurrentState.GetHashCode();
         hash = hash * 31 + StateContext.GetHashCode();
         return hash;
@@ -1038,8 +1032,6 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (RoninData*)ptr;
-        serializer.Stream.Serialize((Int32*)&p->CurrentRoninAnimationID);
-        serializer.Stream.Serialize(&p->CurrentRoninAnimationFrameIndex);
         serializer.Stream.Serialize(&p->FacingSign);
         serializer.Stream.Serialize(&p->TargetingSign);
         QBoolean.Serialize(&p->IgnoreCollision, serializer);
@@ -1055,30 +1047,21 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct SaberData : Quantum.IComponent {
-    public const Int32 SIZE = 56;
+    public const Int32 SIZE = 48;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
-    public AssetRef<SaberConstants> Constants;
-    [FieldOffset(32)]
-    public SaberDirectionData Direction;
-    [FieldOffset(4)]
-    public AnimationID CurrentAnimationID;
     [FieldOffset(8)]
-    public Int32 CurrentAnimationFrameIndex;
-    [FieldOffset(0)]
-    public AnimationID AttackAnimationID;
+    public AssetRef<SaberConstants> Constants;
     [FieldOffset(24)]
+    public SaberDirectionData Direction;
+    [FieldOffset(16)]
     public AssetRef<SaberStateBase> CurrentState;
-    [FieldOffset(12)]
+    [FieldOffset(0)]
     public SaberStateContext StateContext;
     public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 11173;
         hash = hash * 31 + Constants.GetHashCode();
         hash = hash * 31 + Direction.GetHashCode();
-        hash = hash * 31 + (Int32)CurrentAnimationID;
-        hash = hash * 31 + CurrentAnimationFrameIndex.GetHashCode();
-        hash = hash * 31 + (Int32)AttackAnimationID;
         hash = hash * 31 + CurrentState.GetHashCode();
         hash = hash * 31 + StateContext.GetHashCode();
         return hash;
@@ -1093,9 +1076,6 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (SaberData*)ptr;
-        serializer.Stream.Serialize((Int32*)&p->AttackAnimationID);
-        serializer.Stream.Serialize((Int32*)&p->CurrentAnimationID);
-        serializer.Stream.Serialize(&p->CurrentAnimationFrameIndex);
         Quantum.SaberStateContext.Serialize(&p->StateContext, serializer);
         AssetRef.Serialize(&p->Constants, serializer);
         AssetRef.Serialize(&p->CurrentState, serializer);

@@ -33,8 +33,8 @@ namespace Quantum
         public struct SaberElements
         {
             public Element Direction;
-            public Element AnimationId;
-            public Element AnimFrameIndex;
+            //public Element AnimationId;
+            //public Element AnimFrameIndex;
             public Element CurrentState;
             public Element StateFrame;
         }
@@ -98,8 +98,8 @@ namespace Quantum
                 var sElements = Elements.Saber;
                 
                 ApplyData(sElements.Direction, saberData.Direction.Id.ToString());
-                ApplyData(sElements.AnimationId, saberData.CurrentAnimationID.ToString());
-                ApplyData(sElements.AnimFrameIndex, saberData.CurrentAnimationFrameIndex.ToString());
+                //ApplyData(sElements.AnimationId, saberData.CurrentAnimationID.ToString());
+                //ApplyData(sElements.AnimFrameIndex, saberData.CurrentAnimationFrameIndex.ToString());
                 ApplyData(sElements.CurrentState, PredictedPreviousFrame.FindAsset(saberData.CurrentState).name);
                 ApplyData(sElements.StateFrame, saberData.StateContext.StateFrame.ToString());
             }

@@ -26,9 +26,6 @@ component RoninData
 
     bool IgnoreCollision;
 
-    AnimationID CurrentRoninAnimationID;
-    int CurrentRoninAnimationFrameIndex;
-
     asset_ref<RoninStateBase> CurrentState;
     RoninStateContext StateContext;
 }
@@ -39,10 +36,14 @@ component SaberData
     
     SaberDirectionData Direction;
 
-    AnimationID CurrentAnimationID;
-    int CurrentAnimationFrameIndex;
-    AnimationID AttackAnimationID;
-
     asset_ref<SaberStateBase> CurrentState;
     SaberStateContext StateContext;
 }
+
+//component AnimationData
+//{
+//    AnimationID UpperAnimationID;
+//    AnimationID LowerAnimationID;
+//    int UpperAnimationFrameIndex;
+//    int LowerAnimationFrameIndex;
+//}

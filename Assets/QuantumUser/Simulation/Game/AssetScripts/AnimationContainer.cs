@@ -9,7 +9,7 @@ namespace Quantum
         LegsOnly
     }
 
-    public class AnimationData : AssetObject
+    public class AnimationContainer : AssetObject
     {
         public AnimationType Type;
     }

@@ -28,8 +28,7 @@ namespace Quantum
         public Dictionary<SaberDirection, SaberDirectionData> DirectionData;
         [SerializeField] private SaberDirectionEditorData[] directionData;
         
-        public Dictionary<AnimationID, SaberAnimationData> SaberAnimations;
-        [SerializeField] private SaberAnimationData[] saberAnimations;
+        
         
         public FP InputMagnitudeThreshold;
         public FPVector2 SaberStartEndLength;
@@ -56,13 +55,6 @@ namespace Quantum
                 };
                 
                 DirectionData.TryAdd(data.Id, newData);
-            }
-            
-            SaberAnimations = new Dictionary<AnimationID, SaberAnimationData>();
-            
-            foreach (var anim in saberAnimations)
-            {
-                SaberAnimations.TryAdd(anim.ID, anim);
             }
         }
     }
