@@ -7171,12 +7171,6 @@ MonoBehaviour:
       Direction:
         Text: {fileID: 139665226}
         Description: Direction
-      AnimationId:
-        Text: {fileID: 597111002}
-        Description: AnimationId
-      AnimFrameIndex:
-        Text: {fileID: 129694769}
-        Description: AnimFrameIndex
       CurrentState:
         Text: {fileID: 2035118319}
         Description: CurrentState
@@ -7545,12 +7539,6 @@ MonoBehaviour:
       Direction:
         Text: {fileID: 450541305}
         Description: Direction
-      AnimationId:
-        Text: {fileID: 611569618}
-        Description: AnimationId
-      AnimFrameIndex:
-        Text: {fileID: 561049295}
-        Description: AnimFrameIndex
       CurrentState:
         Text: {fileID: 1789680295}
         Description: CurrentState
