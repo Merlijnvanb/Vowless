@@ -9,12 +9,13 @@ public enum AnimationType
     Lower
 }
 
-public enum AnimatableElement
+public enum AnimatableElement // (edit: misschien ooit nog) UITSTEEKSEL DINGETJE UIT HAND MAAK HET IN BLENDER NIET VERGETEN (geen menselijke hand maar een soort blobje)
 {
     Legs,
     Arms,
-    HandL,
-    HandR,
+    Head,
+    //HandL,
+    //HandR,
     Handle,
     Blade
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6663124639870244934}
   m_Layer: 6
-  m_Name: Root
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1594,9 +1594,6 @@ MonoBehaviour:
     HurtBoxes: []
     IgnoreCollision:
       Value: 0
-    CurrentRoninAnimationID:
-      Value: 0
-    CurrentRoninAnimationFrameIndex: 0
     CurrentState:
       Id:
         Value: 0
@@ -1629,11 +1626,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e75aeb66135c153482b17a44162b53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Quantum.SaberAnimationView
-  HiltMeshFilter: {fileID: 0}
-  BladeMeshFilter: {fileID: 0}
-  SaberTransform: {fileID: 0}
-  BaseHiltMesh: {fileID: 325854464527872706, guid: 67f841569b64575acba70cb81233cf07, type: 3}
-  BaseBladeMesh: {fileID: -9197926950183919025, guid: 67f841569b64575acba70cb81233cf07, type: 3}
 --- !u!114 &6530717528704691356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1674,11 +1666,6 @@ MonoBehaviour:
         Y:
           RawValue: 0
       Boxes: []
-    CurrentAnimationID:
-      Value: 0
-    CurrentAnimationFrameIndex: 0
-    AttackAnimationID:
-      Value: 0
     CurrentState:
       Id:
         Value: 0
@@ -1956,9 +1943,13 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -1784697365129576405, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
       propertyPath: m_Name
-      value: Body
+      value: Mesh
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
       propertyPath: m_Layer
@@ -1971,6 +1962,10 @@ PrefabInstance:
     - target: {fileID: 2562628193056298499, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2562628193056298499, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8704100185053878735, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

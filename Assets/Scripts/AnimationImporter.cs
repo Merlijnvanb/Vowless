@@ -35,7 +35,14 @@ public class AnimationImporter : MonoBehaviour
 
     private void FillAnimationData(AnimationData data)
     {
+        FrameContainer[] genFrameArray = new FrameContainer[Frames.Length];
         
+        for (int i = 0; i < Frames.Length; i++)
+        {
+            var genFrame = new FrameContainer();
+
+            genFrameArray[i] = genFrame;
+        }
     }
 
     private string GetAssetPath()
@@ -43,6 +50,7 @@ public class AnimationImporter : MonoBehaviour
         var path = new StringBuilder();
 
         path.Append(SaveLocation);
+        path.Append(Info.Type + "/");
         path.Append(Info.ID.ToString());
         path.Append(Info.Type.ToString());
         
@@ -52,6 +60,7 @@ public class AnimationImporter : MonoBehaviour
         }
         
         path.Append(SaveNameSuffix);
+        path.Append(".asset");
 
         return path.ToString();
     }
