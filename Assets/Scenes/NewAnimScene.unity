@@ -167,11 +167,15 @@ MonoBehaviour:
   SaveNameSuffix: test
   Info:
     ID: 7
-    Type: 1
+    Type: 2
     IsLoop: 0
     IsSaberDirDependent: 0
     SaberDirection: 1
-  Frames: []
+  Frames:
+  - Object: {fileID: 919132149155446097, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
+    Span:
+      x: 0
+      y: 5
 --- !u!1 &267070715
 GameObject:
   m_ObjectHideFlags: 0
