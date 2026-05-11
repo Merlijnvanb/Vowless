@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "unity": {
+      "type": "stdio",
+      "command": "/home/merlijnvanb/.unity/relay/relay_linux",
+      "args": [
+        "--mcp",
+        "--project-path",
+        "/home/merlijnvanb/GitRepos/Vowless"
+      ]
+    }
+  }
+}

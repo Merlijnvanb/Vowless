@@ -1,9 +1,12 @@
+using System;
 using System.Text;
 using UnityEngine;
 using Unity.Mathematics;
 using Quantum;
 using Sirenix.OdinInspector;
 using UnityEditor;
+using System.Collections.Generic;
+using System.Linq;
 
 [System.Serializable]
 public struct ImportedFrame
@@ -35,14 +38,58 @@ public class AnimationImporter : MonoBehaviour
 
     private void FillAnimationData(AnimationData data)
     {
-        FrameContainer[] genFrameArray = new FrameContainer[Frames.Length];
+        var genFrameArray = new FrameContainer[Frames.Length];
+        var elementList = new List<AnimatableElement>();
+            
+        switch (Info.Type)
+        {
+            case AnimationType.Full:
+                elementList.AddRange((AnimatableElement[])Enum.GetValues(typeof(AnimatableElement)));
+                break;
+            
+            case AnimationType.Lower:
+                elementList.Add(AnimatableElement.Legs);
+                break;
+            
+            case AnimationType.Upper:
+                elementList.AddRange(Enum.GetValues(typeof(AnimatableElement)).Cast<AnimatableElement>().Where(e => e != AnimatableElement.Legs));
+                break;
+        }
         
         for (int i = 0; i < Frames.Length; i++)
         {
-            var genFrame = new FrameContainer();
-
-            genFrameArray[i] = genFrame;
+            genFrameArray[i] = GetFrameData(Frames[i], elementList);
         }
+
+        data.Info = Info;
+        data.Frames = genFrameArray;
+    }
+
+    private FrameContainer GetFrameData(ImportedFrame frame, List<AnimatableElement> elementEnums)
+    {
+        var frameElements = new List<FrameElement>();
+
+        foreach (var element in elementEnums)
+        {
+            var transform = frame.Object.transform.Find(element + "_MESH");
+            var mesh = transform.GetComponent<MeshFilter>().sharedMesh;
+
+            frameElements.Add(new FrameElement
+            {
+                Element = element,
+
+                Mesh = mesh,
+                LocalPosition = transform.localPosition,
+                LocalRotation = transform.localRotation,
+                LocalScale = transform.localScale
+            });
+        }
+        
+        return new FrameContainer
+        {
+            FrameElements = frameElements.ToArray(),
+            Span = frame.Span
+        };
     }
 
     private string GetAssetPath()

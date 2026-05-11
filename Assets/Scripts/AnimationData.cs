@@ -45,8 +45,9 @@ public struct FrameElement
     public AnimatableElement Element;
 
     public Mesh Mesh;
-    public Vector3 Position;
-    public Quaternion Rotation;
+    public Vector3 LocalPosition;
+    public Quaternion LocalRotation;
+    public Vector3 LocalScale;
 }
 
 [CreateAssetMenu(fileName = "AnimationData", menuName = "Scriptable Objects/AnimationData")]

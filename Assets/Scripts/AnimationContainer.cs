@@ -29,7 +29,7 @@ public class AnimationContainer : ScriptableObject
 
     void OnEnable()
     {
-        foreach (var anim in full)
+        foreach (var anim in full ?? Array.Empty<AnimationData>())
         {
             if (anim.Info.IsSaberDirDependent)
             {
@@ -53,7 +53,7 @@ public class AnimationContainer : ScriptableObject
                 Debug.Log("Error adding id: " + anim.Info.ID + " to _upper dictionary.");
         }
         
-        foreach (var anim in lower)
+        foreach (var anim in lower ?? Array.Empty<AnimationData>())
         {
             if (anim.Info.IsSaberDirDependent)
             {
@@ -69,7 +69,7 @@ public class AnimationContainer : ScriptableObject
                 Debug.Log("Error adding id: " + anim.Info.ID + " to _lower dictionary.");
         }
         
-        foreach (var anim in upper)
+        foreach (var anim in upper ?? Array.Empty<AnimationData>())
         {
             if (anim.Info.IsSaberDirDependent)
             {
