@@ -9,25 +9,28 @@ public enum AnimationType
     Lower
 }
 
-public enum AnimatableElement // (edit: misschien ooit nog) UITSTEEKSEL DINGETJE UIT HAND MAAK HET IN BLENDER NIET VERGETEN (geen menselijke hand maar een soort blobje)
+public enum CurveID
 {
-    Legs,
-    Arms,
+    //Persistent
+    LowerBodyC,
+    LowerBodyL,
+    LowerBodyR,
+    UpperBodyC,
+    UpperBodyL,
+    UpperBodyR,
     Head,
-    //HandL,
-    //HandR,
     Handle,
-    Blade
+    Blade,
+    
+    Transient
 }
 
 [System.Serializable]
 public struct AnimationInfo
 {
     public AnimationID ID;
-    
     public AnimationType Type;
     public bool IsLoop;
-
     public bool IsSaberDirDependent;
     public SaberDirection SaberDirection;
 }
@@ -35,19 +38,18 @@ public struct AnimationInfo
 [System.Serializable]
 public struct FrameContainer
 {
-    public FrameElement[] FrameElements;
     public int2 Span;
+    public FrameCurveContainer[] Persistent;
+    public FrameCurveContainer[] Transient;
 }
 
 [System.Serializable]
-public struct FrameElement
+public struct FrameCurveContainer
 {
-    public AnimatableElement Element;
-
-    public Mesh Mesh;
-    public Vector3 LocalPosition;
-    public Quaternion LocalRotation;
-    public Vector3 LocalScale;
+    public CurveID ID;
+    public Vector3 Origin; // local position
+    public Vector3 Rotation; // local rotation in radians
+    public Vector3[] Points; // in local space relative to origin and rotation
 }
 
 [CreateAssetMenu(fileName = "AnimationData", menuName = "Scriptable Objects/AnimationData")]
