@@ -21,8 +21,6 @@ public enum CurveID
     Head,
     Handle,
     Blade,
-    
-    Transient
 }
 
 [System.Serializable]
@@ -48,7 +46,7 @@ public struct FrameCurveContainer
 {
     public CurveID ID;
     public Vector3 Origin; // local position
-    public Vector3 Rotation; // local rotation in radians
+    public Vector3 Rotation; // local rotation (eulerAngles)
     public Vector3[] Points; // in local space relative to origin and rotation
 }
 

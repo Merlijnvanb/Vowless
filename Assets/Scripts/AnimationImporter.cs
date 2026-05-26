@@ -53,7 +53,7 @@ public class AnimationImporter : MonoBehaviour
 
     private void FillAnimationData(AnimationData data)
     {
-        string path = Path.Combine(Application.streamingAssetsPath, JsonFileName);
+        string path = Path.Combine(Application.streamingAssetsPath, "AnimationDataJSON/" + JsonFileName + ".json");
         string jsonText = File.ReadAllText(path);
         var raw = JsonConvert.DeserializeObject<RawAnimationData>(jsonText);
 
@@ -88,7 +88,7 @@ public class AnimationImporter : MonoBehaviour
     {
         return new FrameCurveContainer
         {
-            ID = persistent ? Enum.Parse<CurveID>(raw.id) : CurveID.Transient,
+            ID = persistent ? Enum.Parse<CurveID>(raw.id) : 0,
             Origin = ConvertPosition(raw.origin),
             Rotation = ConvertRotation(raw.rotation),
             Points = raw.points.Select(ConvertPosition).ToArray()
@@ -97,15 +97,15 @@ public class AnimationImporter : MonoBehaviour
 
     private Vector3 ConvertPosition(float[] raw)
     {
-        return new Vector3(-raw[0], raw[2], raw[1]);
+        return new Vector3(raw[0], raw[2], raw[1]);
     }
 
     private Vector3 ConvertRotation(float[] raw)
     {
         return new Vector3(
-            raw[0] * Mathf.Deg2Rad,
-            -raw[2] * Mathf.Deg2Rad,
-            -raw[1] * Mathf.Deg2Rad
+            -raw[0] * Mathf.Rad2Deg,
+            -raw[2] * Mathf.Rad2Deg,
+            -raw[1] * Mathf.Rad2Deg
         );
     }
 
