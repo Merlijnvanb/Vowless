@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using NetTopologySuite.Geometries;
@@ -6,39 +7,47 @@ using NetTopologySuite.Triangulate.Polygon;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class CurveRenderer : MonoBehaviour
 {
-    public FrameCurveContainer CurrentCurve;
+    //public FrameCurveContainer CurrentCurve;
+    private int _curveSampleRate;
 
     private Vector3[] points;
     private MeshFilter meshFilter;
     private Mesh mesh;
 
-    private Vector2[] projectedPoints = new Vector2[48];
+    private Vector2[] projectedPoints;
     private Coordinate[] coords;
-    private int[] tris = new int[138];
+    private int[] tris;
     private GeometryFactory factory = new GeometryFactory();
-    private Dictionary<(double, double), int> indexLookup = new Dictionary<(double, double), int>(48);
+    private Dictionary<(double, double), int> indexLookup;
 
-    void Start()
+    public void Initialize(int curveSampleRate)
     {
+        _curveSampleRate = curveSampleRate;
+
+        points = Array.Empty<Vector3>();
         meshFilter = GetComponent<MeshFilter>();
         mesh = new Mesh();
         meshFilter.sharedMesh = mesh;
+        
+        projectedPoints = new Vector2[_curveSampleRate];
+        tris = new int[(_curveSampleRate - 2) * 3];
+        indexLookup = new Dictionary<(double, double), int>(_curveSampleRate);
 
-        coords = new Coordinate[49];
-        for (int i = 0; i < 49; i++)
+        coords = new Coordinate[_curveSampleRate + 1];
+        for (int i = 0; i < _curveSampleRate + 1; i++)
             coords[i] = new Coordinate();
     }
 
-    void FixedUpdate()
+    public void UpdateMesh(FrameCurveContainer curve)
     {
-        transform.localPosition = CurrentCurve.Origin;
-        transform.localEulerAngles = CurrentCurve.Rotation;
-        points = CurrentCurve.Points;
+        transform.localPosition = curve.Origin;
+        transform.localEulerAngles = curve.Rotation;
+        points = curve.Points;
 
         GenerateMesh();
     }
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
         Gizmos.matrix = transform.localToWorldMatrix;
 
@@ -56,15 +65,15 @@ public class CurveRenderer : MonoBehaviour
         bool reversed = SignedArea(projectedPoints) < 0f;
 
         indexLookup.Clear();
-        for (int i = 0; i < 48; i++)
+        for (int i = 0; i < _curveSampleRate; i++)
         {
-            int src = reversed ? (47 - i) : i;
+            int src = reversed ? ((_curveSampleRate - 1) - i) : i;
             coords[i].X = projectedPoints[src].x;
             coords[i].Y = projectedPoints[src].y;
             indexLookup[(coords[i].X, coords[i].Y)] = src;
         }
-        coords[48].X = coords[0].X;
-        coords[48].Y = coords[0].Y;
+        coords[_curveSampleRate].X = coords[0].X;
+        coords[_curveSampleRate].Y = coords[0].Y;
 
         var ring = factory.CreateLinearRing(coords);
         var polygon = factory.CreatePolygon(ring);
