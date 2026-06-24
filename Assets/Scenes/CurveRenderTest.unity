@@ -323,7 +323,7 @@ MonoBehaviour:
   TransientPoolSize: 10
   PersistentParent: {fileID: 314226728}
   TransientParent: {fileID: 390423548}
-  Data: {fileID: 11400000, guid: e27012f652caba3a6b6d53e465ee6f70, type: 2}
+  Data: {fileID: 11400000, guid: 3e3c25ab7ec3724ff88074178de452de, type: 2}
   RendererPrefab: {fileID: 219233293669363010, guid: d1ba6e0f52853159f9dda4251e36c276, type: 3}
 --- !u!1 &1289209333
 GameObject:
@@ -481,15 +481,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f81264725831facbd491287974e31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationImporter
-  JsonFileName: BitLessWeirdTest
+  JsonFileName: IdleBase_frames
   SaveLocation: Assets/Resources/Animations/
-  SaveNameSuffix: Testie
+  SaveNameSuffix: 
   Info:
-    ID: 0
+    ID: 6
     Type: 0
-    IsLoop: 0
-    IsSaberDirDependent: 0
-    SaberDirection: 0
+    IsLoop: 1
+    IsSaberDirDependent: 1
+    SaberDirection: 6
 --- !u!4 &1737256840
 Transform:
   m_ObjectHideFlags: 0

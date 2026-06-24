@@ -22,6 +22,7 @@ public class AnimationImporter : MonoBehaviour
     private struct RawFrame
     {
         public int duration;
+        public List<RawCurveEntry> guide;
         public List<RawCurveEntry> persistent;
         public List<RawCurveEntry> transient;
     }
@@ -73,6 +74,7 @@ public class AnimationImporter : MonoBehaviour
             genFrameArray[i] = new FrameContainer
             {
                 Span = new int2(cursor, cursor + duration - 1),
+                Guide = rawFrame.guide.Select(r => ConvertCurveEntry(r, false)).ToArray(),
                 Persistent = rawFrame.persistent.Select(r => ConvertCurveEntry(r, true)).ToArray(),
                 Transient = rawFrame.transient.Select(r => ConvertCurveEntry(r, false)).ToArray()
             };

@@ -13,6 +13,8 @@ enum SaberDirection
     BwLow,
     BwMid,
     BwHigh,
+    
+    None,
 }
 
 enum SaberBlockType

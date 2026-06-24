@@ -2,7 +2,7 @@ namespace Quantum
 {
     using UnityEngine;
 
-    public class SaberView : QuantumEntityViewComponent<IQuantumViewContext>
+    public class DirIndicatorView : QuantumEntityViewComponent<IQuantumViewContext>
     {
         public Transform Indicator;
 

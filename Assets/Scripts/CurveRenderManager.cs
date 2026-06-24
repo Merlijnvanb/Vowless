@@ -10,7 +10,6 @@ public class CurveRenderManager : MonoBehaviour
     public Transform PersistentParent;
     public Transform TransientParent;
     
-    public AnimationData Data; // just prototyping stuff for now
     public GameObject RendererPrefab;
     
     private Dictionary<CurveID, CurveRenderer> pRenderers;
@@ -40,14 +39,30 @@ public class CurveRenderManager : MonoBehaviour
             
             var renderer = obj.GetComponent<CurveRenderer>();
             renderer.Initialize(CurveSampleRate);
+            renderer.Disable();
             tRenderers[i] = renderer;
-            
-            obj.SetActive(false);
+        }
+    }
+
+    public void RenderFrame(FrameContainer container)
+    {
+        foreach (var pCurve in container.Persistent)
+        {
+            pRenderers[pCurve.ID].UpdateMesh(pCurve);
+        }
+        
+        if (container.Transient.Length >= TransientPoolSize)
+        {
+            Debug.LogWarning("Transient pool size exceeded");
+            return;
         }
 
-        foreach (var curve in Data.Frames[0].Persistent)
+        for (int i = 0; i < TransientPoolSize; i++)
         {
-            pRenderers[curve.ID].GetComponent<CurveRenderer>().UpdateMesh(curve);
+            if (i < container.Transient.Length)
+                tRenderers[i].UpdateMesh(container.Transient[i]);
+            else
+                tRenderers[i].Disable();
         }
     }
 }

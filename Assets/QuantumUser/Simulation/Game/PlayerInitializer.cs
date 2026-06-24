@@ -68,19 +68,11 @@ namespace Quantum
             saber->Constants = saberConstants;
 
             // setup base direction
-            var directionEditorData = config.BaseSaberDirection;
-            var directionBoxes = frame.AllocateList<BoxRect>();
-
-            foreach (var box in directionEditorData.Boxes)
-            {
-                directionBoxes.Add(box);
-            }
 
             var directionData = new SaberDirectionData()
             {
-                Id = directionEditorData.Id,
-                Vector = directionEditorData.Vector,
-                Boxes = directionBoxes
+                Id = SaberDirection.None,
+                Vector = FPVector2.Zero
             };
 
             saber->Direction = directionData;

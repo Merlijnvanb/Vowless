@@ -12,6 +12,7 @@ public class CurveRenderer : MonoBehaviour
 
     private Vector3[] points;
     private MeshFilter meshFilter;
+    private MeshRenderer meshRenderer;
     private Mesh mesh;
 
     private Vector2[] projectedPoints;
@@ -26,7 +27,9 @@ public class CurveRenderer : MonoBehaviour
 
         points = Array.Empty<Vector3>();
         meshFilter = GetComponent<MeshFilter>();
+        meshRenderer = GetComponent<MeshRenderer>();
         mesh = new Mesh();
+        mesh.MarkDynamic();
         meshFilter.sharedMesh = mesh;
         
         projectedPoints = new Vector2[_curveSampleRate];
@@ -45,6 +48,13 @@ public class CurveRenderer : MonoBehaviour
         points = curve.Points;
 
         GenerateMesh();
+        
+        meshRenderer.enabled = true;
+    }
+
+    public void Disable()
+    {
+        meshRenderer.enabled = false;
     }
 
     void OnDrawGizmosSelected()
@@ -89,9 +99,8 @@ public class CurveRenderer : MonoBehaviour
             tris[t++] = indexLookup[(tri.GetCoordinate(2).X, tri.GetCoordinate(2).Y)];
         }
 
-        mesh.Clear();
-        mesh.vertices = points;
-        mesh.triangles = tris;
+        mesh.SetVertices(points);
+        mesh.SetIndices(tris, 0, t, MeshTopology.Triangles, 0);
         mesh.RecalculateNormals();
     }
 

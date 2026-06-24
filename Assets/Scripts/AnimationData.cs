@@ -37,6 +37,7 @@ public struct AnimationInfo
 public struct FrameContainer
 {
     public int2 Span;
+    public FrameCurveContainer[] Guide;
     public FrameCurveContainer[] Persistent;
     public FrameCurveContainer[] Transient;
 }
