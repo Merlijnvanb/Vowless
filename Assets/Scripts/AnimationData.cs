@@ -2,11 +2,14 @@ using UnityEngine;
 using Unity.Mathematics;
 using Quantum;
 
-public enum AnimationType
+public enum AnimationID
 {
-    Full,
-    Upper,
-    Lower
+    Idle,
+    Walk,
+    
+    TurningStationary,
+    TurningForward,
+    TurningBackward,
 }
 
 public enum CurveID
@@ -27,8 +30,9 @@ public enum CurveID
 public struct AnimationInfo
 {
     public AnimationID ID;
-    public AnimationType Type;
     public bool IsLoop;
+    public bool IsPartial;
+    public CurveID[] PartialCurves;
     public bool IsSaberDirDependent;
     public SaberDirection SaberDirection;
 }

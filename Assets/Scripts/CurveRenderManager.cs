@@ -46,9 +46,12 @@ public class CurveRenderManager : MonoBehaviour
 
     public void RenderFrame(FrameContainer container)
     {
-        foreach (var pCurve in container.Persistent)
+        foreach (var kvp in pRenderers)
         {
-            pRenderers[pCurve.ID].UpdateMesh(pCurve);
+            if (TryGetCurve(container.Persistent, kvp.Key, out var result))
+                kvp.Value.UpdateMesh(result);
+            else
+                kvp.Value.Disable();
         }
         
         if (container.Transient.Length >= TransientPoolSize)
@@ -64,5 +67,19 @@ public class CurveRenderManager : MonoBehaviour
             else
                 tRenderers[i].Disable();
         }
+    }
+
+    private bool TryGetCurve(FrameCurveContainer[] curves, CurveID curveID, out FrameCurveContainer result)
+    {
+        result = default;
+        foreach (var curve in curves)
+        {
+            if (curve.ID != curveID)
+                continue;
+            
+            result = curve;
+            return true;
+        }
+        return false;
     }
 }

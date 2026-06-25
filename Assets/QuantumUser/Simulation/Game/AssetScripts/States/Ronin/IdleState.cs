@@ -4,8 +4,6 @@ namespace Quantum
     
     public unsafe class IdleState : RoninStateBase
     {
-        public override AnimationID GetAnimationID(Frame frame, EntityRef entity) => AnimationID.Idle;
-
         public override void UpdateState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);

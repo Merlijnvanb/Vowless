@@ -26,11 +26,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6357327390409442107}
-  - {fileID: 1116331500137047452}
+  - {fileID: 2571271999659009414}
   m_Father: {fileID: 2764658168729158878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &989436464829487882
@@ -65,6 +65,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7892097195981232033}
+  - {fileID: 8124362219288798277}
   m_Father: {fileID: 2764658168729158878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -225,7 +226,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 50
---- !u!1 &4743806866055941783
+--- !u!1 &2428931187286717678
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,142 +234,111 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4234864516986677277}
+  - component: {fileID: 3687215134948508980}
   m_Layer: 6
-  m_Name: SaberIndicator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &4234864516986677277
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4743806866055941783}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5688268608877888690}
-  m_Father: {fileID: 2764658168729158878}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5119085355933961115
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5688268608877888690}
-  - component: {fileID: 7610129408460216091}
-  - component: {fileID: 4498949176997834907}
-  - component: {fileID: 2886534445718119261}
-  m_Layer: 6
-  m_Name: Mesh
+  m_Name: Persistent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5688268608877888690
+--- !u!4 &3687215134948508980
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119085355933961115}
+  m_GameObject: {fileID: 2428931187286717678}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.05, z: 0.01}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4234864516986677277}
+  m_Father: {fileID: 2571271999659009414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7610129408460216091
-MeshFilter:
+--- !u!1 &2509069085487493498
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119085355933961115}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4498949176997834907
-MeshRenderer:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5355973895662757114}
+  m_Layer: 6
+  m_Name: Transient
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5355973895662757114
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119085355933961115}
+  m_GameObject: {fileID: 2509069085487493498}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2571271999659009414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5416549912380033306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2571271999659009414}
+  - component: {fileID: 2320796390793277440}
+  m_Layer: 6
+  m_Name: RenderManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2571271999659009414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416549912380033306}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.70710576, z: -0, w: 0.70710784}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3687215134948508980}
+  - {fileID: 5355973895662757114}
+  m_Father: {fileID: 6663124639870244934}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &2320796390793277440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416549912380033306}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31b37c55349a19344ad71682d662e372, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2886534445718119261
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119085355933961115}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea86916d690dc4a99e9289e4397abff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurveRenderManager
+  CurveSampleRate: 48
+  TransientPoolSize: 10
+  PersistentParent: {fileID: 3687215134948508980}
+  TransientParent: {fileID: 5355973895662757114}
+  RendererPrefab: {fileID: 219233293669363010, guid: d1ba6e0f52853159f9dda4251e36c276, type: 3}
 --- !u!1 &5516595533012094773
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,8 +490,7 @@ GameObject:
   - component: {fileID: 5332785106493752682}
   - component: {fileID: 2420751035579890612}
   - component: {fileID: 2559887243039811127}
-  - component: {fileID: 6307357388821990297}
-  - component: {fileID: 6530717528704691356}
+  - component: {fileID: 7228623389461256494}
   - component: {fileID: -3547579157743900269}
   m_Layer: 6
   m_Name: RoninEntity
@@ -545,8 +514,6 @@ Transform:
   m_Children:
   - {fileID: 6663124639870244934}
   - {fileID: 955709748870146901}
-  - {fileID: 8124362219288798277}
-  - {fileID: 4234864516986677277}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1916552862043584871
@@ -829,9 +796,7 @@ MonoBehaviour:
     PlayerRef:
       _index: 0
     InputHistory:
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -841,9 +806,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -853,9 +816,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -865,9 +826,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -877,9 +836,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -889,9 +846,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -901,9 +856,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -913,9 +866,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -925,9 +876,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -937,9 +886,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -949,9 +896,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -961,9 +906,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -973,9 +916,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -985,9 +926,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -997,9 +936,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1009,9 +946,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1021,9 +956,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1033,9 +966,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1045,9 +976,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1057,9 +986,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1069,9 +996,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1081,9 +1006,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1093,9 +1016,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1105,9 +1026,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1117,9 +1036,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1129,9 +1046,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1141,9 +1056,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1153,9 +1066,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1165,9 +1076,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1177,9 +1086,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1189,9 +1096,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1201,9 +1106,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1213,9 +1116,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1225,9 +1126,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1237,9 +1136,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1249,9 +1146,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1261,9 +1156,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1273,9 +1166,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1285,9 +1176,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1297,9 +1186,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1309,9 +1196,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1321,9 +1206,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1333,9 +1216,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1345,9 +1226,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1357,9 +1236,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1369,9 +1246,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1381,9 +1256,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1393,9 +1266,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1405,9 +1276,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1417,9 +1286,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1429,9 +1296,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1441,9 +1306,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1453,9 +1316,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1465,9 +1326,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1477,9 +1336,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1489,9 +1346,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1501,9 +1356,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1513,9 +1366,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1525,9 +1376,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1537,9 +1386,7 @@ MonoBehaviour:
           RawValue: 0
         Y:
           RawValue: 0
-    - IsMouseInput:
-        Value: 0
-      MoveDir:
+    - MoveDir:
         X:
           RawValue: 0
         Y:
@@ -1614,19 +1461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 6663124639870244934}
---- !u!114 &6307357388821990297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5739739609065002220}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e75aeb66135c153482b17a44162b53b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Quantum.SaberAnimationView
---- !u!114 &6530717528704691356
+--- !u!114 &7228623389461256494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1635,12 +1470,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5739739609065002220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca373a827c446d5882344a925cc540f, type: 3}
+  m_Script: {fileID: 11500000, guid: cece034de70620b0d9a487a2c14e8942, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Quantum.SaberHitReactionView
-  SaberTransform: {fileID: 0}
-  BladeStartTransform: {fileID: 439682332375054905}
-  BladeEndTransform: {fileID: 3199934831796049035}
+  m_EditorClassIdentifier: Assembly-CSharp::Quantum.AnimationView
+  Container: {fileID: 11400000, guid: 97007d5a90dfffc70ba751f9d2f361eb, type: 2}
+  Map: {fileID: 11400000, guid: 811e1281104ad8f5b90f332d9350da23, type: 2}
+  RenderManager: {fileID: 2320796390793277440}
 --- !u!114 &-3547579157743900269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1671,37 +1506,6 @@ MonoBehaviour:
         Value: 0
     StateContext:
       StateFrame: 0
---- !u!1 &7830543608133234168
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 439682332375054905}
-  m_Layer: 6
-  m_Name: Start
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &439682332375054905
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7830543608133234168}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.00259, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 3403827307634916723}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8360477714733644008
 GameObject:
   m_ObjectHideFlags: 0
@@ -1777,37 +1581,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 50
---- !u!1 &8714852991313243253
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3199934831796049035}
-  m_Layer: 6
-  m_Name: End
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3199934831796049035
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8714852991313243253}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.01399, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 3403827307634916723}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9040283309969519828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,13 +1606,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9040283309969519828}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0.75}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.992, z: 0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2465818231862432712}
-  m_Father: {fileID: 2764658168729158878}
+  m_Father: {fileID: 955709748870146901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1757976496979805435
 MonoBehaviour:
@@ -1855,194 +1628,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Indicator: {fileID: 2465818231862432712}
   Range: 1
---- !u!1001 &645343956607042167
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6663124639870244934}
-    m_Modifications:
-    - target: {fileID: -8988318735456834159, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -7197853540381678917, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: a00486006f3385f449b9a2b46755f1d7, type: 2}
-    - target: {fileID: -5060056005916838376, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: -4438260117392147075, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: -2110266782022389815, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: -1784697365129576405, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: -1784697365129576405, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_Name
-      value: Mesh
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1548626146156990295, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2562628193056298499, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2562628193056298499, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8704100185053878735, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: db3d81703d16f4f46896c9f99954142f, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -6356714265002868988, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 439682332375054905}
-    - targetCorrespondingSourceObject: {fileID: -6356714265002868988, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3199934831796049035}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4179030238512573392}
-  m_SourcePrefab: {fileID: 100100000, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
---- !u!1 &303378593458634534 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-  m_PrefabInstance: {fileID: 645343956607042167}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4179030238512573392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303378593458634534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e585be8a8bf31439901afa1820e6796, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  baseMaterial: {fileID: 2100000, guid: d58a654c63e0f36ec85f54db3e4b372d, type: 2}
-  renderers:
-  - {fileID: 3445659213731697976}
-  - {fileID: 6964876912374814849}
-  - {fileID: 2543884772431878495}
-  - {fileID: 5954898467165429087}
-  - {fileID: 2931246853309302382}
-  BladeStart: {fileID: 439682332375054905}
-  BladeEnd: {fileID: 3199934831796049035}
---- !u!4 &1116331500137047452 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-  m_PrefabInstance: {fileID: 645343956607042167}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &2543884772431878495 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3150559654494460712, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-  m_PrefabInstance: {fileID: 645343956607042167}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &2931246853309302382 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2330992771579085849, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-  m_PrefabInstance: {fileID: 645343956607042167}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3403827307634916723 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -6356714265002868988, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-  m_PrefabInstance: {fileID: 645343956607042167}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &3445659213731697976 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2820880799635969871, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-  m_PrefabInstance: {fileID: 645343956607042167}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5954898467165429087 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -2715472165877326040, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-  m_PrefabInstance: {fileID: 645343956607042167}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &6964876912374814849 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -1703330090409420042, guid: 1f8475d9ccea061548293887fc820f3e, type: 3}
-  m_PrefabInstance: {fileID: 645343956607042167}
-  m_PrefabAsset: {fileID: 0}

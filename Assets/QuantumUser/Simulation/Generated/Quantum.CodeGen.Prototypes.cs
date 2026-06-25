@@ -120,7 +120,6 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.Input))]
   public unsafe partial class InputPrototype : StructPrototype {
-    public QBoolean IsMouseInput;
     public FPVector2 MoveDir;
     public FPVector2 LookDir;
     public Button Block;
@@ -128,7 +127,6 @@ namespace Quantum.Prototypes {
     public Button Turn;
     partial void MaterializeUser(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context = default) {
-        result.IsMouseInput = this.IsMouseInput;
         result.MoveDir = this.MoveDir;
         result.LookDir = this.LookDir;
         result.Block = this.Block;

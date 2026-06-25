@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: IdleFullNone
   m_EditorClassIdentifier: Assembly-CSharp::AnimationData
   Info:
-    ID: 6
-    Type: 0
+    ID: 0
     IsLoop: 1
+    IsPartial: 0
+    PartialCurves: 
     IsSaberDirDependent: 1
     SaberDirection: 6
   Frames:

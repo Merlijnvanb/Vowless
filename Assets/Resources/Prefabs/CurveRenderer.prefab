@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6303689473307093731}
   - component: {fileID: 6089373540199223890}
   - component: {fileID: 348113764534186819}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CurveRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,11 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b60ea500e8df9fa8e4a8f2229631e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurveRenderer
-  CurrentCurve:
-    ID: 0
-    Origin: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0}
-    Points: []
 --- !u!33 &6089373540199223890
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -20,11 +20,6 @@ namespace Quantum
             saber->StateContext.StateFrame++;
         }
 
-        public virtual AnimationID GetAnimationID(Frame frame, EntityRef entity)
-        {
-            return AnimationID.HoldingFwMid;
-        }
-
         protected virtual SaberDirectionData PollDirection(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);

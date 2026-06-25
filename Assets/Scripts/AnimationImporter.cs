@@ -114,11 +114,12 @@ public class AnimationImporter : MonoBehaviour
     private string GetAssetPath()
     {
         var path = new StringBuilder();
-
+        var folderPath = Info.IsPartial ? "Partial/" : "Base/";
+        
         path.Append(SaveLocation);
-        path.Append(Info.Type + "/");
+        path.Append(folderPath);
         path.Append(Info.ID.ToString());
-        path.Append(Info.Type.ToString());
+        path.Append(folderPath);
         
         if (Info.IsSaberDirDependent)
         {

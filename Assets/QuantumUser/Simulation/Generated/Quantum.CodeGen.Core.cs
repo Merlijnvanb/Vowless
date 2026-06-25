@@ -49,35 +49,6 @@ namespace Quantum {
   using RuntimeInitializeOnLoadMethodAttribute = UnityEngine.RuntimeInitializeOnLoadMethodAttribute;
   #endif //;
   
-  public enum AnimationID : int {
-    HoldingFwHigh,
-    HoldingFwMid,
-    HoldingFwLow,
-    HoldingBwHigh,
-    HoldingBwMid,
-    HoldingBwLow,
-    Idle,
-    Walking,
-    Turning,
-    AttackFwHigh,
-    AttackFwMid,
-    AttackFwLow,
-    AttackBwHigh,
-    AttackBwMid,
-    AttackBwLow,
-    AttackTurnedFwHigh,
-    AttackTurnedFwMid,
-    AttackTurnedFwLow,
-    AttackTurnedBwHigh,
-    AttackTurnedBwMid,
-    AttackTurnedBwLow,
-    BlockStunFwHigh,
-    BlockStunFwMid,
-    BlockStunFwLow,
-    BlockStunBwHigh,
-    BlockStunBwMid,
-    BlockStunBwLow,
-  }
   public enum AttackHeight : int {
     Low,
     Mid,
@@ -711,22 +682,19 @@ namespace Quantum {
   public unsafe partial struct Input {
     public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(0)]
-    public QBoolean IsMouseInput;
     [FieldOffset(56)]
     public FPVector2 MoveDir;
     [FieldOffset(40)]
     public FPVector2 LookDir;
-    [FieldOffset(16)]
+    [FieldOffset(12)]
     public Button Block;
-    [FieldOffset(4)]
+    [FieldOffset(0)]
     public Button Attack;
-    [FieldOffset(28)]
+    [FieldOffset(24)]
     public Button Turn;
     public override readonly Int32 GetHashCode() {
       unchecked { 
         var hash = 19249;
-        hash = hash * 31 + IsMouseInput.GetHashCode();
         hash = hash * 31 + MoveDir.GetHashCode();
         hash = hash * 31 + LookDir.GetHashCode();
         hash = hash * 31 + Block.GetHashCode();
@@ -756,7 +724,6 @@ namespace Quantum {
     }
     static partial void SerializeCodeGen(void* ptr, FrameSerializer serializer) {
         var p = (Input*)ptr;
-        QBoolean.Serialize(&p->IsMouseInput, serializer);
         Button.Serialize(&p->Attack, serializer);
         Button.Serialize(&p->Block, serializer);
         Button.Serialize(&p->Turn, serializer);
@@ -1187,7 +1154,6 @@ namespace Quantum {
     partial void SetPlayerInputCodeGen(PlayerRef player, Input input) {
       if ((int)player >= (int)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
       var i = _globals->input.GetPointer(player);
-      i->IsMouseInput = input.IsMouseInput;
       i->MoveDir = input.MoveDir;
       i->LookDir = input.LookDir;
       i->Block = i->Block.Update(this.Number, input.Block);
@@ -1292,7 +1258,6 @@ namespace Quantum {
       SerializeBoxRect = Quantum.BoxRect.Serialize;
     }
     static partial void RegisterSimulationTypesGen(TypeRegistry typeRegistry) {
-      typeRegistry.Register(typeof(Quantum.AnimationID), 4);
       typeRegistry.Register(typeof(AssetGuid), AssetGuid.SIZE);
       typeRegistry.Register(typeof(AssetRef), AssetRef.SIZE);
       typeRegistry.Register(typeof(Quantum.AttackHeight), 4);
@@ -1404,7 +1369,6 @@ namespace Quantum {
     [Preserve()]
     public static void EnsureNotStrippedGen() {
       FramePrinter.EnsureNotStripped();
-      FramePrinter.EnsurePrimitiveNotStripped<Quantum.AnimationID>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AttackHeight>();
       FramePrinter.EnsurePrimitiveNotStripped<CallbackFlags>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.CombatResultType>();

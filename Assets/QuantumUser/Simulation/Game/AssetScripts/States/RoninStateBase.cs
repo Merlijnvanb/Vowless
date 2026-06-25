@@ -40,11 +40,6 @@ namespace Quantum
 
         public HurtBoxData[] HurtBoxes;
 
-        public virtual AnimationID GetAnimationID(Frame frame, EntityRef entity)
-        {
-            return AnimationID.Idle;
-        }
-
         public virtual void EnterState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);

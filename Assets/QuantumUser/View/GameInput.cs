@@ -31,8 +31,6 @@ namespace Quantum
         
         private Quantum.Input GetInputs(Quantum.Input i, bool isMouse)
         {
-            i.IsMouseInput = isMouse;
-
             i.MoveDir = currentInput.MoveDir;
             i.LookDir = currentInput.LookDir;
 

@@ -6,83 +6,63 @@ using Quantum;
 [CreateAssetMenu(fileName = "AnimationContainer", menuName = "Scriptable Objects/AnimationContainer")]
 public class AnimationContainer : ScriptableObject
 {
-    [SerializeField] private AnimationData[] full;
-    [SerializeField] private AnimationData[] lower;
-    [SerializeField] private AnimationData[] upper;
-
-    private Dictionary<AnimationID, AnimationData> _lower = new();
-    private Dictionary<AnimationID, AnimationData> _upper = new();
-    private Dictionary<(AnimationID, SaberDirection), AnimationData> _lowerDirDep = new();
-    private Dictionary<(AnimationID, SaberDirection), AnimationData> _upperDirDep = new();
-
-    public AnimationData GetLower(AnimationID id, SaberDirection direction)
+    public struct CategorizedHolder
     {
-        if (_lowerDirDep.TryGetValue((id, direction), out var anim)) return anim;
-        return _lower[id];
+        public AnimationData[] Bases;
+        public AnimationData[] Partials;
     }
     
-    public AnimationData GetUpper(AnimationID id, SaberDirection direction)
+    [SerializeField] private AnimationData[] bases;
+    [SerializeField] private AnimationData[] partials;
+
+    private Dictionary<AnimationID, CategorizedHolder> library = new Dictionary<AnimationID, CategorizedHolder>();
+
+    public bool TryGetHolder(AnimationID id, out CategorizedHolder outHolder)
     {
-        if (_upperDirDep.TryGetValue((id, direction), out var anim)) return anim;
-        return _upper[id];
+        outHolder = default;
+        
+        if (!library.TryGetValue(id, out var holder))
+            return false;
+        
+        outHolder = holder;
+        return true;
     }
 
     void OnEnable()
     {
-        foreach (var anim in full ?? Array.Empty<AnimationData>())
+        library.Clear();
+
+        foreach (var value in Enum.GetValues(typeof(AnimationID)))
         {
-            if (anim.Info.IsSaberDirDependent)
+            var baseList = new List<AnimationData>();
+            var partialList = new List<AnimationData>();
+
+            foreach (var baseAnim in bases)
             {
-                if (!_lowerDirDep.TryAdd((anim.Info.ID, anim.Info.SaberDirection), anim))
-                {
-                    Debug.Log("Error adding id: " + anim.Info.ID + " with dir:" + anim.Info.SaberDirection + " to _lowerDirDep dictionary.");
-                }
+                if (baseAnim.Info.ID != (AnimationID)value)
+                    continue;
                 
-                if (!_upperDirDep.TryAdd((anim.Info.ID, anim.Info.SaberDirection), anim))
-                {
-                    Debug.Log("Error adding id: " + anim.Info.ID + " with dir:" + anim.Info.SaberDirection + " to _upperDirDep dictionary.");
-                }
-
-                continue;
+                baseList.Add(baseAnim);
             }
-            
-            if (!_lower.TryAdd(anim.Info.ID, anim))
-                Debug.Log("Error adding id: " + anim.Info.ID + " to _lower dictionary.");
-            
-            if (!_upper.TryAdd(anim.Info.ID, anim))
-                Debug.Log("Error adding id: " + anim.Info.ID + " to _upper dictionary.");
-        }
-        
-        foreach (var anim in lower ?? Array.Empty<AnimationData>())
-        {
-            if (anim.Info.IsSaberDirDependent)
+
+            foreach (var partialAnim in partials)
             {
-                if (!_lowerDirDep.TryAdd((anim.Info.ID, anim.Info.SaberDirection), anim))
-                {
-                    Debug.Log("Error adding id: " + anim.Info.ID + " with dir:" + anim.Info.SaberDirection + " to _lowerDirDep dictionary.");
-                }
-
-                continue;
+                if (partialAnim.Info.ID != (AnimationID)value)
+                    continue;
+                
+                partialList.Add(partialAnim);
             }
             
-            if (!_lower.TryAdd(anim.Info.ID, anim))
-                Debug.Log("Error adding id: " + anim.Info.ID + " to _lower dictionary.");
-        }
-        
-        foreach (var anim in upper ?? Array.Empty<AnimationData>())
-        {
-            if (anim.Info.IsSaberDirDependent)
+            var holder = new CategorizedHolder
             {
-                if (!_upperDirDep.TryAdd((anim.Info.ID, anim.Info.SaberDirection), anim))
-                {
-                    Debug.Log("Error adding id: " + anim.Info.ID + " with dir:" + anim.Info.SaberDirection + " to _upperDirDep dictionary.");
-                }
+                Bases = baseList.ToArray(),
+                Partials = partialList.ToArray()
+            };
 
-                continue;
+            if (!library.TryAdd((AnimationID)value, holder))
+            {
+                Debug.LogError($"{(AnimationID)value} already added to animation library");
             }
-            
-            if (!_upper.TryAdd(anim.Info.ID, anim))
-                Debug.Log("Error adding id: " + anim.Info.ID + " to _upper dictionary.");
         }
     }
 }

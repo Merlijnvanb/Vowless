@@ -10,7 +10,10 @@ namespace Quantum
         public override void OnUpdateView()
         {
             if (!PredictedPreviousFrame.TryGet<PlayerData>(EntityRef, out var player))
+            {
+                Debug.Log("no player found");
                 return;
+            }
             
             var directionVector = player.InputLookDirectionVector.ToUnityVector2();
             Indicator.localPosition = new Vector3(directionVector.x * Range, directionVector.y * Range, Indicator.localPosition.z);

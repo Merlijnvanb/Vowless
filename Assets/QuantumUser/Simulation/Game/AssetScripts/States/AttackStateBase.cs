@@ -19,7 +19,6 @@ namespace Quantum
         public SaberDirection EndingDirection;
 
         public FPVector3 VisualDirection;
-        public AnimationID AnimationID;
 
         public override void EnterState(Frame frame, EntityRef entity)
         {

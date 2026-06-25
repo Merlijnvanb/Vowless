@@ -101,7 +101,7 @@ public class CurveRenderer : MonoBehaviour
 
         mesh.SetVertices(points);
         mesh.SetIndices(tris, 0, t, MeshTopology.Triangles, 0);
-        mesh.RecalculateNormals();
+        //mesh.RecalculateNormals();
     }
 
     private Vector3 ComputeNormal() // Computes normal using Newell's algorithm

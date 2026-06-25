@@ -4,8 +4,6 @@ namespace Quantum
 
     public unsafe class TurningStateForward : RoninStateBase
     {
-        public override AnimationID GetAnimationID(Frame frame, EntityRef entity) => AnimationID.Turning;
-
         public override void EnterState(Frame frame, EntityRef entity)
         {
             var ronin = frame.Unsafe.GetPointer<RoninData>(entity);
