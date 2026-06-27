@@ -31,8 +31,11 @@ public struct AnimationInfo
 {
     public AnimationID ID;
     public bool IsLoop;
+    public int Duration;
+    
     public bool IsPartial;
     public CurveID[] PartialCurves;
+    
     public bool IsSaberDirDependent;
     public SaberDirection SaberDirection;
 }
@@ -41,9 +44,9 @@ public struct AnimationInfo
 public struct FrameContainer
 {
     public int2 Span;
-    public FrameCurveContainer[] Guide;
     public FrameCurveContainer[] Persistent;
     public FrameCurveContainer[] Transient;
+    public FrameCurveContainer[] Guide;
 }
 
 [System.Serializable]
@@ -53,11 +56,12 @@ public struct FrameCurveContainer
     public Vector3 Origin; // local position
     public Vector3 Rotation; // local rotation (eulerAngles)
     public Vector3[] Points; // in local space relative to origin and rotation
+    public int[] Triangles; // baked triangle indices into Points (computed at import)
 }
 
 [CreateAssetMenu(fileName = "AnimationData", menuName = "Scriptable Objects/AnimationData")]
 public class AnimationData : ScriptableObject
 {
-    public AnimationInfo Info;
-    public FrameContainer[] Frames;
+    [ReadOnly]public AnimationInfo Info;
+    [ReadOnly]public FrameContainer[] Frames;
 }

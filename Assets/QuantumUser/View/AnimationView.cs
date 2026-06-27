@@ -1,9 +1,10 @@
-using System;
-
 namespace Quantum
 {
+    using System;
+    using System.Linq;
     using UnityEngine;
     using Unity.Mathematics;
+    using System.Collections.Generic;
 
     public class AnimationView : QuantumEntityViewComponent<IQuantumViewContext>
     {
@@ -11,7 +12,17 @@ namespace Quantum
         public StateAnimationMap Map;
         public CurveRenderManager RenderManager;
 
+        // Reused per-frame buffers to avoid heap allocations in the hot path.
+        private readonly Dictionary<CurveID, FrameCurveContainer> _persistent = new();
+        private readonly List<FrameCurveContainer> _transient = new();
+        private readonly List<AnimationData> _partials = new();
+
         public override void OnUpdateView()
+        {
+            UpdateAnimation();
+        }
+
+        private void UpdateAnimation()
         {
             if (!PredictedFrame.TryGet<RoninData>(EntityRef, out var ronin) ||
                 !PredictedFrame.TryGet<SaberData>(EntityRef, out var saber))
@@ -19,48 +30,119 @@ namespace Quantum
 
             var roninState = PredictedFrame.FindAsset(ronin.CurrentState);
             var saberState = PredictedFrame.FindAsset(saber.CurrentState);
-
-            if (!Map.TryGet(roninState, out var animID))
-                return;
-
-            if (!Container.TryGetHolder(animID, out var animHolder))
-                return;
             
-            var dirDependent = false;
-            AnimationData baseAnimData = null;
-                    
-            foreach (var baseAnim in animHolder.Bases)
-            {
-                if (baseAnim.Info.IsSaberDirDependent)
-                    dirDependent = true;
+            _persistent.Clear();
+            _transient.Clear();
 
-                if (!dirDependent)
-                    return;
-                
-                if (saber.Direction.Id == baseAnim.Info.SaberDirection)
-                    baseAnimData = baseAnim;
-            }
-
-            var container = new FrameContainer
+            RenderContainer FinalContainer = new RenderContainer
             {
-                Span = new int2(0, 0),
-                Guide = Array.Empty<FrameCurveContainer>(),
-                Persistent = Array.Empty<FrameCurveContainer>(),
-                Transient = Array.Empty<FrameCurveContainer>()
+                Persistent = _persistent,
+                Transient = _transient
+                //Guide = new List<FrameCurveContainer>()
             };
             
-            if (baseAnimData != null)
+            if (!Map.TryGet(roninState, out var animID))
             {
-                foreach (var frame in baseAnimData.Frames)
+                Debug.LogWarning("Couldn't get AnimID from map with state: " + roninState.name);
+                RenderManager.RenderFrame(FinalContainer);
+                return;
+            }
+
+            if (!Container.TryGetHolder(animID, out var animHolder))
+            {
+                Debug.LogWarning("Couldn't get animHolder from animID: " + animID);
+                RenderManager.RenderFrame(FinalContainer);
+                return;
+            }
+
+            var stateFrame = ronin.StateContext.StateFrame;
+            
+            if (TryGetBase(animHolder, saber, out var baseData))
+            {
+                var frameIndex = baseData.Info.IsLoop ? stateFrame % baseData.Info.Duration : stateFrame;
+                
+                foreach (var frame in baseData.Frames)
                 {
-                    if (IsWithinSpan(ronin.StateContext.StateFrame, frame.Span))
+                    if (!IsWithinSpan(frameIndex, frame.Span))
+                        continue;
+
+                    foreach (var curves in frame.Persistent)
                     {
-                        container = frame;
+                        FinalContainer.Persistent[curves.ID] = curves;
                     }
+
+                    FinalContainer.Transient.AddRange(frame.Transient);
                 }
             }
             
-            RenderManager.RenderFrame(container);
+            if (TryGetPartials(animHolder, saber))
+            {
+                foreach (var data in _partials)
+                {
+                    var frameIndex = data.Info.IsLoop ? stateFrame % data.Info.Duration : stateFrame;
+
+                    foreach (var frame in data.Frames)
+                    {
+                        if (!IsWithinSpan(frameIndex, frame.Span))
+                            continue;
+
+                        foreach (var curves in frame.Persistent)
+                        {
+                            if (data.Info.PartialCurves.Contains(curves.ID))
+                                FinalContainer.Persistent[curves.ID] = curves;
+                        }
+
+                        FinalContainer.Transient.AddRange(frame.Transient);
+                    }
+                }
+            }
+
+            RenderManager.RenderFrame(FinalContainer);
+        }
+
+        private bool TryGetBase(AnimationContainer.CategorizedHolder holder, SaberData saber, out AnimationData data)
+        {
+            data = null;
+
+            if (holder.Bases == null || holder.Bases.Length == 0 || holder.Bases[0] == null)
+                return false;
+            
+            if (holder.Bases[0].Info.IsSaberDirDependent) // this shit sucks ass
+            {
+                foreach (var b in holder.Bases)
+                {
+                    if (saber.Direction.Id != b.Info.SaberDirection)
+                        continue;
+
+                    data = b;
+                    return true;
+                }
+            }
+            else
+            {
+                data = holder.Bases[0];
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TryGetPartials(AnimationContainer.CategorizedHolder holder, SaberData saber)
+        {
+            _partials.Clear();
+
+            if (holder.Partials == null || holder.Partials.Length == 0 || holder.Partials[0] == null)
+                return false;
+
+            foreach (var p in holder.Partials)
+            {
+                if (saber.Direction.Id != p.Info.SaberDirection && holder.Partials[0].Info.IsSaberDirDependent)
+                    continue;
+
+                _partials.Add(p);
+            }
+
+            return _partials.Count > 0;
         }
         
         private bool IsWithinSpan(int value, int2 span)

@@ -69,31 +69,35 @@ public class AnimationImporter : MonoBehaviour
         for (int i = 0; i < sortedFrame.Count; i++)
         {
             var rawFrame = sortedFrame[i];
-            int duration =  rawFrame.duration;
+            int duration = rawFrame.duration > 0 ? rawFrame.duration : 1;
 
             genFrameArray[i] = new FrameContainer
             {
                 Span = new int2(cursor, cursor + duration - 1),
-                Guide = rawFrame.guide.Select(r => ConvertCurveEntry(r, false)).ToArray(),
                 Persistent = rawFrame.persistent.Select(r => ConvertCurveEntry(r, true)).ToArray(),
-                Transient = rawFrame.transient.Select(r => ConvertCurveEntry(r, false)).ToArray()
+                Transient = rawFrame.transient.Select(r => ConvertCurveEntry(r, false)).ToArray(),
+                Guide = rawFrame.guide.Select(r => ConvertCurveEntry(r, false)).ToArray()
             };
             
             cursor += duration;
         }
 
         data.Info = Info;
+        data.Info.Duration = cursor > 0 ? cursor : 1;
         data.Frames = genFrameArray;
     }
 
     private FrameCurveContainer ConvertCurveEntry(RawCurveEntry raw, bool persistent)
     {
+        var points = raw.points.Select(ConvertPosition).ToArray();
+
         return new FrameCurveContainer
         {
             ID = persistent ? Enum.Parse<CurveID>(raw.id) : 0,
             Origin = ConvertPosition(raw.origin),
             Rotation = ConvertRotation(raw.rotation),
-            Points = raw.points.Select(ConvertPosition).ToArray()
+            Points = points,
+            Triangles = CurveTriangulator.Triangulate(points)
         };
     }
 
@@ -114,10 +118,10 @@ public class AnimationImporter : MonoBehaviour
     private string GetAssetPath()
     {
         var path = new StringBuilder();
-        var folderPath = Info.IsPartial ? "Partial/" : "Base/";
+        var folderPath = Info.IsPartial ? "Partial" : "Base";
         
         path.Append(SaveLocation);
-        path.Append(folderPath);
+        path.Append(folderPath + "/");
         path.Append(Info.ID.ToString());
         path.Append(folderPath);
         

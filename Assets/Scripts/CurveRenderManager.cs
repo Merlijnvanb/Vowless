@@ -2,6 +2,13 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
+public struct RenderContainer
+{
+    public Dictionary<CurveID, FrameCurveContainer> Persistent;
+    public List<FrameCurveContainer> Transient;
+    //public List<FrameCurveContainer> Guide;
+}
+
 public class CurveRenderManager : MonoBehaviour
 {
     public int CurveSampleRate = 48;
@@ -44,17 +51,20 @@ public class CurveRenderManager : MonoBehaviour
         }
     }
 
-    public void RenderFrame(FrameContainer container)
+    public void RenderFrame(RenderContainer container)
     {
+        if (pRenderers == null || tRenderers == null)
+            return;
+        
         foreach (var kvp in pRenderers)
         {
-            if (TryGetCurve(container.Persistent, kvp.Key, out var result))
-                kvp.Value.UpdateMesh(result);
+            if (container.Persistent.TryGetValue(kvp.Key, out var curve))
+                kvp.Value.UpdateMesh(curve);
             else
                 kvp.Value.Disable();
         }
         
-        if (container.Transient.Length >= TransientPoolSize)
+        if (container.Transient.Count >= TransientPoolSize)
         {
             Debug.LogWarning("Transient pool size exceeded");
             return;
@@ -62,24 +72,10 @@ public class CurveRenderManager : MonoBehaviour
 
         for (int i = 0; i < TransientPoolSize; i++)
         {
-            if (i < container.Transient.Length)
+            if (i < container.Transient.Count)
                 tRenderers[i].UpdateMesh(container.Transient[i]);
             else
                 tRenderers[i].Disable();
         }
-    }
-
-    private bool TryGetCurve(FrameCurveContainer[] curves, CurveID curveID, out FrameCurveContainer result)
-    {
-        result = default;
-        foreach (var curve in curves)
-        {
-            if (curve.ID != curveID)
-                continue;
-            
-            result = curve;
-            return true;
-        }
-        return false;
     }
 }

@@ -71,7 +71,7 @@ namespace Quantum
 
             var directionData = new SaberDirectionData()
             {
-                Id = SaberDirection.None,
+                Id = SaberDirection.Neutral,
                 Vector = FPVector2.Zero
             };
 

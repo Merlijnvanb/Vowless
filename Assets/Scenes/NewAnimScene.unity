@@ -165,13 +165,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   JsonFileName: IdleBase_frames
   SaveLocation: Assets/Resources/Animations/
-  SaveNameSuffix: test
+  SaveNameSuffix: 
   Info:
-    ID: 6
-    Type: 0
+    ID: 0
     IsLoop: 1
-    IsSaberDirDependent: 0
-    SaberDirection: 1
+    Duration: 0
+    IsPartial: 0
+    PartialCurves: 
+    IsSaberDirDependent: 1
+    SaberDirection: 6
 --- !u!1 &267070715
 GameObject:
   m_ObjectHideFlags: 0

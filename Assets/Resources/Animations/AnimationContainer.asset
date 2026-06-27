@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: AnimationContainer
   m_EditorClassIdentifier: Assembly-CSharp::AnimationContainer
   bases:
-  - {fileID: 11400000, guid: 3e3c25ab7ec3724ff88074178de452de, type: 2}
+  - {fileID: 11400000, guid: bde5573cfcce9663eaf37e701e5382d5, type: 2}
   partials: []

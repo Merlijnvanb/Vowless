@@ -78,7 +78,7 @@ namespace Quantum {
     BwLow,
     BwMid,
     BwHigh,
-    None,
+    Neutral,
   }
   [System.FlagsAttribute()]
   public enum InputButtons : int {
