@@ -802,7 +802,7 @@ Transform:
   m_GameObject: {fileID: 152240711}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000000074184423, y: 0.000000029802326, z: 1.6481365e-16, w: 1}
-  m_LocalPosition: {x: -0, y: 1.234375, z: -5}
+  m_LocalPosition: {x: -0.00000023841858, y: 1.2238071, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -918,7 +918,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 3000
-  field of view: 50.229675
+  field of view: 48.22795
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -4499,7 +4499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6740837655621b3449c565a5103283b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LimitFramerate: 0
+  LimitFramerate: 1
   TargetFramerate: 60
 --- !u!43 &824482747
 Mesh:

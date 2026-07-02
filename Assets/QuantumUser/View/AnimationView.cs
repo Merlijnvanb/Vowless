@@ -11,8 +11,7 @@ namespace Quantum
         public AnimationContainer Container;
         public StateAnimationMap Map;
         public CurveRenderManager RenderManager;
-
-        // Reused per-frame buffers to avoid heap allocations in the hot path.
+        
         private readonly Dictionary<CurveID, FrameCurveContainer> _persistent = new();
         private readonly List<FrameCurveContainer> _transient = new();
         private readonly List<AnimationData> _partials = new();
@@ -34,7 +33,7 @@ namespace Quantum
             _persistent.Clear();
             _transient.Clear();
 
-            RenderContainer FinalContainer = new RenderContainer
+            RenderContainer finalContainer = new RenderContainer
             {
                 Persistent = _persistent,
                 Transient = _transient
@@ -44,14 +43,14 @@ namespace Quantum
             if (!Map.TryGet(roninState, out var animID))
             {
                 Debug.LogWarning("Couldn't get AnimID from map with state: " + roninState.name);
-                RenderManager.RenderFrame(FinalContainer);
+                RenderManager.RenderFrame(finalContainer);
                 return;
             }
 
             if (!Container.TryGetHolder(animID, out var animHolder))
             {
                 Debug.LogWarning("Couldn't get animHolder from animID: " + animID);
-                RenderManager.RenderFrame(FinalContainer);
+                RenderManager.RenderFrame(finalContainer);
                 return;
             }
 
@@ -68,10 +67,10 @@ namespace Quantum
 
                     foreach (var curves in frame.Persistent)
                     {
-                        FinalContainer.Persistent[curves.ID] = curves;
+                        finalContainer.Persistent[curves.ID] = curves;
                     }
 
-                    FinalContainer.Transient.AddRange(frame.Transient);
+                    finalContainer.Transient.AddRange(frame.Transient);
                 }
             }
             
@@ -89,15 +88,15 @@ namespace Quantum
                         foreach (var curves in frame.Persistent)
                         {
                             if (data.Info.PartialCurves.Contains(curves.ID))
-                                FinalContainer.Persistent[curves.ID] = curves;
+                                finalContainer.Persistent[curves.ID] = curves;
                         }
 
-                        FinalContainer.Transient.AddRange(frame.Transient);
+                        finalContainer.Transient.AddRange(frame.Transient);
                     }
                 }
             }
 
-            RenderManager.RenderFrame(FinalContainer);
+            RenderManager.RenderFrame(finalContainer);
         }
 
         private bool TryGetBase(AnimationContainer.CategorizedHolder holder, SaberData saber, out AnimationData data)
