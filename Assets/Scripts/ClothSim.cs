@@ -29,6 +29,8 @@ public class ClothSim : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Application.targetFrameRate = 60;
+        
         points = new Point[Resolution];
         constraints = new Constraint[Resolution - 1];
         
@@ -86,6 +88,11 @@ public class ClothSim : MonoBehaviour
         foreach (var point in points)
         {
             Gizmos.DrawSphere(point.Pos, 0.01f);
+        }
+
+        foreach (var constraint in constraints)
+        {
+            Gizmos.DrawLine(points[constraint.A].Pos, points[constraint.B].Pos);
         }
     }
 

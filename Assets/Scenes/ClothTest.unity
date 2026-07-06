@@ -446,11 +446,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ClothSim
   StartPoint: {x: 0, y: 0.5, z: 0}
   EndPoint: {x: 0, y: -0.5, z: 0}
-  Resolution: 25
+  Resolution: 35
   GravityVector: {x: 0, y: -9.81, z: 0}
-  WindVector: {x: 15, y: 0, z: 0}
+  WindVector: {x: 11.99, y: 0, z: 0}
   Damping: 0.99
-  Iterations: 15
+  Iterations: 50
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
