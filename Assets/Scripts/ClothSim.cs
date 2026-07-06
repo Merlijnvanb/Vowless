@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class ClothSim : MonoBehaviour
 {
-    public Vector3 StartPoint;
     public Vector3 EndPoint;
-    public int Resolution;
+    public int Resolution = 5;
     public Vector3 GravityVector;
     public Vector3 WindVector;
     public float Damping = 1f;
-    public int Iterations;
+    public int SubSteps = 1;
+    public int Iterations = 5;
+    public int SimStepPerSecond = 60;
+    public float MaxFrameTime = 0.05f;
     
     private Point[] points;
     private Constraint[] constraints;
+    private float accumulator;
+    private float simStep;
     
     private class Point
     {
@@ -29,18 +33,18 @@ public class ClothSim : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Application.targetFrameRate = 60;
-        
         points = new Point[Resolution];
         constraints = new Constraint[Resolution - 1];
+        accumulator = 0;
+        simStep = 1f / SimStepPerSecond;
         
-        var startToEnd = EndPoint - StartPoint;
+        var startToEnd = EndPoint - transform.position;
 
         for (int i = 0; i < Resolution; i++)
         {
             var point = new Point();
             
-            var pos = StartPoint + startToEnd / Resolution * i;
+            var pos = transform.position + startToEnd / (Resolution - 1) * i;
             point.Pos = pos;
             point.PreviousPos = pos;
             point.IsPinned = i == 0; //| i == Resolution - 1;
@@ -54,7 +58,7 @@ public class ClothSim : MonoBehaviour
 
             var a = points[i];
             var b = points[i + 1];
-            var length = Vector3.Distance(b.Pos, a.PreviousPos);
+            var length = Vector3.Distance(b.Pos, a.Pos);
 
             constraint.A = i;
             constraint.B = i + 1;
@@ -67,16 +71,33 @@ public class ClothSim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (var point in points)
-        {
-            Integrate(point);
-        }
+        points[0].Pos = transform.position;
 
-        for (int i = 0; i < Iterations; i++)
+        accumulator += Mathf.Min(Time.deltaTime, MaxFrameTime);
+        while (accumulator >= simStep)
         {
-            foreach (var constraint in constraints)
+            SimulateStep(simStep);
+            accumulator -= simStep;
+        }
+    }
+
+    private void SimulateStep(float dt)
+    {
+        dt /= SubSteps;
+        
+        for (int i = 0; i < SubSteps; i++)
+        {
+            foreach (var point in points)
             {
-                Constrain(constraint);
+                Integrate(point, dt);
+            }
+
+            for (int j = 0; j < Iterations; j++)
+            {
+                foreach (var constraint in constraints)
+                {
+                    Constrain(constraint);
+                }
             }
         }
     }
@@ -96,13 +117,13 @@ public class ClothSim : MonoBehaviour
         }
     }
 
-    private void Integrate(Point point)
+    private void Integrate(Point point, float dt)
     {
         if (point.IsPinned) return;
 
         var acceleration = WindVector + GravityVector;
         var velocity = (point.Pos - point.PreviousPos) * Damping;
-        var newPos = point.Pos + velocity + acceleration * (Time.deltaTime * Time.deltaTime);
+        var newPos = point.Pos + velocity + acceleration * (dt * dt);
         point.PreviousPos = point.Pos;
         point.Pos = newPos;
     }
@@ -122,12 +143,20 @@ public class ClothSim : MonoBehaviour
         var correction = 0.5f * diff * delta;
 
         if (a.IsPinned && b.IsPinned) return;
-        else if (a.IsPinned) b.Pos -= correction * 2;
-        else if (b.IsPinned) a.Pos += correction * 2;
-        else
+        
+        if (a.IsPinned)
         {
-            a.Pos += correction;
-            b.Pos -= correction;
+            b.Pos -= correction * 2;
+            return;
         }
+        
+        if (b.IsPinned)
+        {
+            a.Pos += correction * 2;
+            return;
+        }
+        
+        a.Pos += correction;
+        b.Pos -= correction;
     }
 }
