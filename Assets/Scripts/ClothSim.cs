@@ -1,21 +1,46 @@
+using System.Linq;
 using UnityEngine;
+using Unity.Mathematics;
 
 public class ClothSim : MonoBehaviour
 {
-    public Vector3 EndPoint;
-    public int Resolution = 5;
+    [System.Serializable]
+    public struct EditorOriginPoint
+    {
+        public Transform Transform;
+        public float PointsDistance;
+        public int PointsAmount;
+    }
+
+    [Header("Geometry")] 
+    public EditorOriginPoint[] OriginPoints;
+    public int MainIndex = 0;
+
+    [Header("Forces")]
     public Vector3 GravityVector;
     public Vector3 WindVector;
+    public float MainPullFactor = 1f;
     public float Damping = 1f;
+
+    [Header("Solver")]
     public int SubSteps = 1;
     public int Iterations = 5;
-    public int SimStepPerSecond = 60;
+
+    [Header("Timing")]
+    public int SimRatePerSecond = 60;
+    public int RenderRatePerSecond = 24;
     public float MaxFrameTime = 0.05f;
-    
-    private Point[] points;
-    private Constraint[] constraints;
-    private float accumulator;
+
+    // Simulation state
+    private Point[][] points; // ooit nog terug naar flat array van struct points met index offsets, deze classes cachen niet
+    private Constraint[][] constraints;
+    private float simAccumulator;
     private float simStep;
+
+    // Render state
+    private Vector3[][] renderPoints;
+    private float renderAccumulator;
+    private float renderStep;
     
     private class Point
     {
@@ -26,58 +51,90 @@ public class ClothSim : MonoBehaviour
 
     private struct Constraint
     {
-        public int A, B;
+        public int2 A, B;
         public float RestLength;
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        points = new Point[Resolution];
-        constraints = new Constraint[Resolution - 1];
-        accumulator = 0;
-        simStep = 1f / SimStepPerSecond;
+        points = new Point[OriginPoints.Length][];
+        constraints = new Constraint[OriginPoints.Length][];
+        renderPoints = new Vector3[OriginPoints.Length][];
         
-        var startToEnd = EndPoint - transform.position;
-
-        for (int i = 0; i < Resolution; i++)
+        for (int i = 0; i < points.Length; i++)
         {
-            var point = new Point();
+            var origin = OriginPoints[i];
+            points[i] = new Point[origin.PointsAmount];
+            constraints[i] = new Constraint[origin.PointsAmount - 1];
+            renderPoints[i] = new Vector3[origin.PointsAmount];
+
+            for (int j = 0; j < origin.PointsAmount; j++)
+            {
+                var point = new Point();
+                
+                var pos = origin.Transform.position + origin.PointsDistance * Vector3.down * j;
+                point.Pos = pos;
+                point.PreviousPos = pos;
+                point.IsPinned = j == 0; //| i == Resolution - 1;
             
-            var pos = transform.position + startToEnd / (Resolution - 1) * i;
-            point.Pos = pos;
-            point.PreviousPos = pos;
-            point.IsPinned = i == 0; //| i == Resolution - 1;
-            
-            points[i] = point;
+                points[i][j] = point;
+
+                if (j >= origin.PointsAmount - 1) continue;
+                
+                var constraint = new Constraint();
+                
+                constraint.A = new int2(i, j);
+                constraint.B = new int2(i, j + 1);
+                constraint.RestLength = origin.PointsDistance;
+                
+                constraints[i][j] = constraint;
+            }
         }
-
-        for (int i = 0; i < Resolution - 1; i++)
-        {
-            var constraint = new Constraint();
-
-            var a = points[i];
-            var b = points[i + 1];
-            var length = Vector3.Distance(b.Pos, a.Pos);
-
-            constraint.A = i;
-            constraint.B = i + 1;
-            constraint.RestLength = length;
-            
-            constraints[i] = constraint;
-        }
+        
+        simAccumulator = 0;
+        renderAccumulator = 0;
+        simStep = 1f / SimRatePerSecond;
+        renderStep = 1f / RenderRatePerSecond;
+        
+        FillRenderPoints();
     }
 
     // Update is called once per frame
     void Update()
     {
-        points[0].Pos = transform.position;
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i][0].Pos = OriginPoints[i].Transform.position;
+        }
+        
+        
+        var frameTime = Mathf.Min(Time.deltaTime, MaxFrameTime); // ooit nog even kijken naar anchor point interpolation
 
-        accumulator += Mathf.Min(Time.deltaTime, MaxFrameTime);
-        while (accumulator >= simStep)
+        simAccumulator += frameTime;
+        while (simAccumulator >= simStep)
         {
             SimulateStep(simStep);
-            accumulator -= simStep;
+            simAccumulator -= simStep;
+        }
+
+        renderAccumulator += frameTime;
+        if (renderAccumulator >= renderStep)
+        {
+            FillRenderPoints();
+            while (renderAccumulator >= renderStep)
+                renderAccumulator -= renderStep;
+        }
+    }
+
+    private void FillRenderPoints()
+    {
+        for (int i = 0; i < points.Length; i++)
+        {
+            for (int j = 0; j < points[i].Length; j++)
+            {
+                renderPoints[i][j] = points[i][j].Pos;
+            }
         }
     }
 
@@ -87,16 +144,32 @@ public class ClothSim : MonoBehaviour
         
         for (int i = 0; i < SubSteps; i++)
         {
-            foreach (var point in points)
+            for (int j = 0; j < points.Length; j++)
             {
-                Integrate(point, dt);
+                for (int k = 0; k < points[j].Length; k++)
+                {
+                    var point = points[j][k];
+                    var acceleration = WindVector + GravityVector;
+
+                    if (j < points.Length - 1)
+                    {
+                        var endPoint = points[j + 1][0];
+                        var t = (float)k / points[j].Length;
+                        acceleration = Vector3.Lerp((endPoint.Pos - point.Pos) * MainPullFactor, acceleration, t);
+                    }
+                    
+                    Integrate(point, acceleration, dt);
+                }
             }
 
             for (int j = 0; j < Iterations; j++)
             {
-                foreach (var constraint in constraints)
+                for (int k = 0; k < constraints.Length; k++)
                 {
-                    Constrain(constraint);
+                    for (int l = 0; l < constraints[k].Length; l++)
+                    {
+                        Constrain(constraints[k][l]);
+                    }
                 }
             }
         }
@@ -104,24 +177,30 @@ public class ClothSim : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (points == null) return;
+        if (renderPoints == null) return;
         
-        foreach (var point in points)
+        for (int i = 0; i < renderPoints.Length; i++)
         {
-            Gizmos.DrawSphere(point.Pos, 0.01f);
+            for (int j = 0; j < renderPoints[i].Length; j++)
+            {
+                Gizmos.DrawSphere(renderPoints[i][j], 0.01f);
+            }
         }
 
-        foreach (var constraint in constraints)
+        for (int i = 0; i < constraints.Length; i++)
         {
-            Gizmos.DrawLine(points[constraint.A].Pos, points[constraint.B].Pos);
+            for (int j = 0; j < constraints[i].Length; j++)
+            {
+                var c = constraints[i][j];
+                Gizmos.DrawLine(renderPoints[c.A.x][c.A.y], renderPoints[c.B.x][c.B.y]);
+            }
         }
     }
 
-    private void Integrate(Point point, float dt)
+    private void Integrate(Point point, Vector3 acceleration, float dt)
     {
         if (point.IsPinned) return;
-
-        var acceleration = WindVector + GravityVector;
+        
         var velocity = (point.Pos - point.PreviousPos) * Damping;
         var newPos = point.Pos + velocity + acceleration * (dt * dt);
         point.PreviousPos = point.Pos;
@@ -130,8 +209,8 @@ public class ClothSim : MonoBehaviour
 
     private void Constrain(Constraint constraint)
     {
-        var a = points[constraint.A];
-        var b = points[constraint.B];
+        var a = points[constraint.A.x][constraint.A.y];
+        var b = points[constraint.B.x][constraint.B.y];
         
         var delta = b.Pos - a.Pos;
         var dist = delta.magnitude;
