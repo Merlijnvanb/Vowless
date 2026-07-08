@@ -29,10 +29,18 @@ public class AmbientForce : MonoBehaviour
     public Vector2 DebugPlaneSize;
     public int2 DebugPlaneResolution;
 
+    [Header("Timing")] 
+    public float ScrollSpeed = 1f;
+    public Vector3 ScrollDirection;
+
+    [Header("Scaling")] 
+    public float SpiralScalar = 1f;
+    public float CurlScalar = 1f;
+
     [Header("Curl")] 
     public CurlMethod UsedCurlMethod;
-    public float CurlStrength = 1f;
     public float Epsilon = 0.001f;
+    public float NoiseScale = 1f;
 
     [Header("Potential")] 
     public Vector3x3 PotentialOffsets;
@@ -92,31 +100,54 @@ public class AmbientForce : MonoBehaviour
     
     public Vector3 SampleAmbient(Vector3 point)
     {
-        return SampleCurl(point) * CurlStrength;
+        var scrollVector = ScrollDirection.normalized * (ScrollSpeed * Time.time);
+        var pScrolled = point + scrollVector;
+        
+        return SampleSpiral(point) * SpiralScalar + SampleCurl(pScrolled) * CurlScalar;
+    }
+
+    private Vector3 SampleSpiral(Vector3 point)
+    {
+        var axis = SpiralAxis.normalized;
+        
+        var offset = point - FocalPoint.position;
+        var radialOffset = offset - Vector3.Dot(offset, axis) * axis;
+        var radius = Mathf.Max(radialOffset.magnitude, MinRadius);
+        var radialDir = radialOffset / radius;
+        var tangentialDir = Vector3.Cross(axis, radialDir);
+        var distance = Mathf.Max(offset.magnitude, MinRadius);
+        
+        var sinkVel = (-SinkStrength / distance) * (offset / distance);
+        var vortexVel = (VortexStrength / radius) * tangentialDir;
+        
+        return (sinkVel + vortexVel);
     }
 
     private Vector3 SampleCurl(Vector3 point)
     {
         var curl = Vector3.zero;
+        var pScaled = point * NoiseScale;
         
         switch (UsedCurlMethod)
         {
             case CurlMethod.FiniteDifference:
-                var dNdx = GetPotential(point + new Vector3(Epsilon, 0f, 0f)) - GetPotential(point - new Vector3(Epsilon, 0f, 0f));
-                var dNdy = GetPotential(point + new Vector3(0f, Epsilon, 0f)) - GetPotential(point - new Vector3(0f, Epsilon, 0f));
-                var dNdz = GetPotential(point + new Vector3(0f, 0f, Epsilon)) - GetPotential(point - new Vector3(0f, 0f, Epsilon));
+                
+                var dNdx = GetPotential(pScaled + new Vector3(Epsilon, 0f, 0f)) - GetPotential(pScaled - new Vector3(Epsilon, 0f, 0f));
+                var dNdy = GetPotential(pScaled + new Vector3(0f, Epsilon, 0f)) - GetPotential(pScaled - new Vector3(0f, Epsilon, 0f));
+                var dNdz = GetPotential(pScaled + new Vector3(0f, 0f, Epsilon)) - GetPotential(pScaled - new Vector3(0f, 0f, Epsilon));
 
                 curl.x = dNdy.z - dNdz.y;
                 curl.y = dNdz.x - dNdx.z;
                 curl.z = dNdx.y - dNdy.x;
+                curl *= 300f;
                 
                 break;
             
             case CurlMethod.CrossProduct:
-                noise.snoise(point + PotentialOffsets.X * PotentialOffsetScalar, out float3 gradF);
-                noise.snoise(point + PotentialOffsets.Y * PotentialOffsetScalar, out float3 gradG);
+                noise.snoise(pScaled + PotentialOffsets.X * PotentialOffsetScalar, out float3 gradF);
+                noise.snoise(pScaled + PotentialOffsets.Y * PotentialOffsetScalar, out float3 gradG);
 
-                curl = Vector3.Cross(gradF, gradG);
+                curl = Vector3.Cross(gradF, gradG).normalized;
                 
                 break;
         }

@@ -399,26 +399,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   DebugStrandEnabled: 1
-  DebugStrandIterations: 50
-  DebugStrandStepSize: 0.25
+  DebugStrandIterations: 150
+  DebugStrandStepSize: 0.1
   DebugPlaneEnabled: 0
   DebugPlaneSize: {x: 2, y: 1}
   DebugPlaneResolution:
-    x: 10
+    x: 15
     y: 5
+  ScrollSpeed: 1
+  ScrollDirection: {x: 1, y: 0, z: 0}
+  SpiralScalar: 1
+  CurlScalar: 1
   UsedCurlMethod: 0
-  CurlStrength: 50
   Epsilon: 0.001
+  NoiseScale: 0.05
   PotentialOffsets:
     X: {x: 1, y: 0, z: 0}
     Y: {x: 0, y: 1, z: 0}
     Z: {x: 0, y: 0, z: 1}
   PotentialOffsetScalar: 1000
-  FocalPoint: {fileID: 0}
-  SpiralAxis: {x: 0, y: 0, z: 0}
-  VortexStrength: 0
-  SinkStrength: 0
-  MinRadius: 0
+  FocalPoint: {fileID: 1782417879}
+  SpiralAxis: {x: 0, y: 0, z: 1}
+  VortexStrength: -10
+  SinkStrength: 250
+  MinRadius: 0.001
 --- !u!4 &343450604
 Transform:
   m_ObjectHideFlags: 0
@@ -428,7 +432,7 @@ Transform:
   m_GameObject: {fileID: 343450602}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.275, y: -0.407, z: -1.317}
+  m_LocalPosition: {x: 10.49, y: 0.16, z: -12.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -563,6 +567,37 @@ MonoBehaviour:
   SimRatePerSecond: 60
   RenderRatePerSecond: 24
   MaxFrameTime: 0.05
+--- !u!1 &1782417878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1782417879}
+  m_Layer: 0
+  m_Name: FocalPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1782417879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782417878}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -571,3 +606,4 @@ SceneRoots:
   - {fileID: 18005323}
   - {fileID: 1434535268}
   - {fileID: 343450604}
+  - {fileID: 1782417879}
