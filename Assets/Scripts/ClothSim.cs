@@ -153,8 +153,8 @@ public class ClothSim : MonoBehaviour
 
                     if (j < points.Length - 1)
                     {
-                        var endPoint = points[j + 1][0];
-                        var t = (float)k / points[j].Length;
+                        var endPoint = points[j + 1][^1];
+                        var t = (float)k / (points[j].Length - 1);
                         acceleration = Vector3.Lerp((endPoint.Pos - point.Pos) * MainPullFactor, acceleration, t);
                     }
                     
