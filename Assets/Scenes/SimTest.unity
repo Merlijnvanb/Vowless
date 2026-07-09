@@ -401,27 +401,27 @@ MonoBehaviour:
   FocalPoint: {fileID: 1782417879}
   SpiralAxis: {x: 0, y: 0, z: 1}
   VortexStrength: 25
-  SinkStrength: 250
+  SinkStrength: 200
   MinRadius: 10
-  SpiralScalar: 3
+  SpiralScalar: 2
   UsedCurlMethod: 0
   CurlScalar: 1
-  NoiseScale: 0.01
+  NoiseScale: 0.001
   Epsilon: 0.001
   PotentialOffsets:
     X: {x: 1, y: 0, z: 0}
     Y: {x: 0, y: 1, z: 0}
     Z: {x: 0, y: 0, z: 1}
-  PotentialOffsetScalar: 1000
-  ScrollSpeed: 1
+  PotentialOffsetScalar: 100
+  ScrollSpeed: 0
   ScrollDirection: {x: 1, y: 0, z: 0}
-  DebugParticleEnabled: 0
-  DebugParticleLifeTime: 15
+  DebugParticleEnabled: 1
+  DebugParticleLifeTime: 30
   DebugParticleStepSize: 1
-  DebugStrandEnabled: 0
+  DebugStrandEnabled: 1
   DebugStrandIterations: 150
   DebugStrandStepSize: 0.25
-  DebugPlaneEnabled: 0
+  DebugPlaneEnabled: 1
   DebugPlaneSize: {x: 2, y: 1}
   DebugPlaneResolution:
     x: 15
@@ -435,7 +435,7 @@ Transform:
   m_GameObject: {fileID: 343450602}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 70.2, y: -29.2, z: -38.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
