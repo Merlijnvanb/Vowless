@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Unity.Mathematics;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 
 public class AmbientForce : MonoBehaviour
 {
@@ -18,44 +19,70 @@ public class AmbientForce : MonoBehaviour
         FiniteDifference,
         CrossProduct
     }
-
-    [Header("DebugStrand")] 
-    public bool DebugStrandEnabled;
-    public int DebugStrandIterations;
-    public float DebugStrandStepSize;
-
-    [Header("DebugPlane")] 
-    public bool DebugPlaneEnabled;
-    public Vector2 DebugPlaneSize;
-    public int2 DebugPlaneResolution;
-
-    [Header("Timing")] 
-    public float ScrollSpeed = 1f;
-    public Vector3 ScrollDirection;
-
-    [Header("Scaling")] 
-    public float SpiralScalar = 1f;
-    public float CurlScalar = 1f;
-
-    [Header("Curl")] 
-    public CurlMethod UsedCurlMethod;
-    public float Epsilon = 0.001f;
-    public float NoiseScale = 1f;
-
-    [Header("Potential")] 
-    public Vector3x3 PotentialOffsets;
-    public float PotentialOffsetScalar = 1f;
-
-    [Header("Spiral Sink")] 
-    public Transform FocalPoint;
-    public Vector3 SpiralAxis;
-    public float VortexStrength;
-    public float SinkStrength;
-    public float MinRadius;
     
+    [TitleGroup("Spiral Sink")] public Transform FocalPoint;
+    [TitleGroup("Spiral Sink")] public Vector3 SpiralAxis;
+    [TitleGroup("Spiral Sink")] public float VortexStrength;
+    [TitleGroup("Spiral Sink")] public float SinkStrength;
+    [TitleGroup("Spiral Sink")] public float MinRadius;
+    [TitleGroup("Spiral Sink")] public float SpiralScalar = 1f;
+
+    [TitleGroup("Curl")] public CurlMethod UsedCurlMethod;
+    [TitleGroup("Curl")] public float CurlScalar = 1f;
+    [TitleGroup("Curl")] public float NoiseScale = 1f;
+    [TitleGroup("Curl")] public float Epsilon = 0.001f;
+
+    [TitleGroup("Curl/Potential")] public Vector3x3 PotentialOffsets;
+    [TitleGroup("Curl/Potential")] public float PotentialOffsetScalar = 1f;
+
+    [TitleGroup("Curl/Scroll")] public float ScrollSpeed = 1f;
+    [TitleGroup("Curl/Scroll")] public Vector3 ScrollDirection;
+
+    [TitleGroup("Debug")]
+    [TitleGroup("Debug/Particle")] public bool DebugParticleEnabled;
+    [TitleGroup("Debug/Particle")] public float DebugParticleLifeTime;
+    [TitleGroup("Debug/Particle")] public float DebugParticleStepSize;
+    [TitleGroup("Debug/Particle"), Button("Spawn Debug Particle")]
+    public void SpawnParticle() => SpawnDebugParticle();
+
+    [TitleGroup("Debug/Strand")] public bool DebugStrandEnabled;
+    [TitleGroup("Debug/Strand")] public int DebugStrandIterations;
+    [TitleGroup("Debug/Strand")] public float DebugStrandStepSize;
+
+    [TitleGroup("Debug/Plane")] public bool DebugPlaneEnabled;
+    [TitleGroup("Debug/Plane")] public Vector2 DebugPlaneSize;
+    [TitleGroup("Debug/Plane")] public int2 DebugPlaneResolution;
+
+    private float debugParticleLife;
+    private Vector3 debugParticlePosition;
+    private List<Vector3> debugParticlePosList;
+
 
     void OnDrawGizmos()
     {
+        if (DebugParticleEnabled && debugParticlePosList != null)
+        {
+            if (debugParticleLife > 0)
+            {
+                var ambientVector = SampleAmbient(debugParticlePosition);
+                var delta = ambientVector * DebugParticleStepSize;
+                debugParticlePosition += delta;
+                debugParticlePosList.Add(debugParticlePosition);
+
+                debugParticleLife -= Time.deltaTime;
+            }
+            
+            for (int i = 0; i < debugParticlePosList.Count; i++)
+            {
+                Gizmos.DrawSphere(debugParticlePosList[i], 0.01f);
+
+                if (i >= debugParticlePosList.Count - 1) 
+                    break;
+                    
+                Gizmos.DrawLine(debugParticlePosList[i], debugParticlePosList[i + 1]);
+            }
+        }
+        
         if (DebugStrandEnabled)
         {
             var strand = transform.position;
@@ -96,6 +123,17 @@ public class AmbientForce : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void SpawnDebugParticle()
+    {
+        if (debugParticlePosList == null)
+            debugParticlePosList = new List<Vector3>();
+
+        debugParticlePosList.Clear();
+        debugParticleLife = DebugParticleLifeTime;
+        debugParticlePosition = transform.position;
+        DebugParticleEnabled = true;
     }
     
     public Vector3 SampleAmbient(Vector3 point)

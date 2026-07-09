@@ -398,31 +398,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed2548641c6c3c6a8061fb228ce1429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  DebugStrandEnabled: 1
-  DebugStrandIterations: 150
-  DebugStrandStepSize: 0.1
-  DebugPlaneEnabled: 0
-  DebugPlaneSize: {x: 2, y: 1}
-  DebugPlaneResolution:
-    x: 15
-    y: 5
-  ScrollSpeed: 1
-  ScrollDirection: {x: 1, y: 0, z: 0}
-  SpiralScalar: 1
-  CurlScalar: 1
+  FocalPoint: {fileID: 1782417879}
+  SpiralAxis: {x: 0, y: 0, z: 1}
+  VortexStrength: 25
+  SinkStrength: 250
+  MinRadius: 10
+  SpiralScalar: 3
   UsedCurlMethod: 0
+  CurlScalar: 1
+  NoiseScale: 0.01
   Epsilon: 0.001
-  NoiseScale: 0.05
   PotentialOffsets:
     X: {x: 1, y: 0, z: 0}
     Y: {x: 0, y: 1, z: 0}
     Z: {x: 0, y: 0, z: 1}
   PotentialOffsetScalar: 1000
-  FocalPoint: {fileID: 1782417879}
-  SpiralAxis: {x: 0, y: 0, z: 1}
-  VortexStrength: -10
-  SinkStrength: 250
-  MinRadius: 0.001
+  ScrollSpeed: 1
+  ScrollDirection: {x: 1, y: 0, z: 0}
+  DebugParticleEnabled: 0
+  DebugParticleLifeTime: 15
+  DebugParticleStepSize: 1
+  DebugStrandEnabled: 0
+  DebugStrandIterations: 150
+  DebugStrandStepSize: 0.25
+  DebugPlaneEnabled: 0
+  DebugPlaneSize: {x: 2, y: 1}
+  DebugPlaneResolution:
+    x: 15
+    y: 5
 --- !u!4 &343450604
 Transform:
   m_ObjectHideFlags: 0
@@ -432,7 +435,7 @@ Transform:
   m_GameObject: {fileID: 343450602}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.49, y: 0.16, z: -12.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -547,6 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa616a9f8ae55a40f942285fae1e405d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClothSim
+  AmbientForce: {fileID: 343450603}
   OriginPoints:
   - Transform: {fileID: 333999721}
     PointsDistance: 0.1
@@ -558,10 +562,10 @@ MonoBehaviour:
     PointsDistance: 0.1
     PointsAmount: 10
   MainIndex: 0
-  GravityVector: {x: 0, y: 0, z: 0}
-  WindVector: {x: 15, y: 0, z: 0}
+  GravityVector: {x: 0, y: -9.81, z: 0}
+  WindVector: {x: 5, y: 0, z: 0}
   MainPullFactor: 5
-  Damping: 0.99
+  DragCoefficient: 5
   SubSteps: 1
   Iterations: 5
   SimRatePerSecond: 60
@@ -592,7 +596,7 @@ Transform:
   m_GameObject: {fileID: 1782417878}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 300}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -12,6 +12,9 @@ public class ClothSim : MonoBehaviour
         public int PointsAmount;
     }
 
+    [Header("Wind Field")] 
+    public AmbientForce AmbientForce;
+
     [Header("Geometry")] 
     public EditorOriginPoint[] OriginPoints;
     public int MainIndex = 0;
@@ -20,7 +23,7 @@ public class ClothSim : MonoBehaviour
     public Vector3 GravityVector;
     public Vector3 WindVector;
     public float MainPullFactor = 1f;
-    public float Damping = 1f;
+    public float DragCoefficient = 5f;
 
     [Header("Solver")]
     public int SubSteps = 1;
@@ -149,16 +152,8 @@ public class ClothSim : MonoBehaviour
                 for (int k = 0; k < points[j].Length; k++)
                 {
                     var point = points[j][k];
-                    var acceleration = WindVector + GravityVector;
-
-                    if (j < points.Length - 1)
-                    {
-                        var endPoint = points[j + 1][^1];
-                        var t = (float)k / (points[j].Length - 1);
-                        acceleration = Vector3.Lerp((endPoint.Pos - point.Pos) * MainPullFactor, acceleration, t);
-                    }
                     
-                    Integrate(point, acceleration, dt);
+                    Integrate(point, dt);
                 }
             }
 
@@ -197,12 +192,20 @@ public class ClothSim : MonoBehaviour
         }
     }
 
-    private void Integrate(Point point, Vector3 acceleration, float dt)
+    private void Integrate(Point point, float dt)
     {
         if (point.IsPinned) return;
+
+        var windVelocity = AmbientForce.SampleAmbient(point.Pos);
+        var acceleration = WindVector + GravityVector;
         
-        var velocity = (point.Pos - point.PreviousPos) * Damping;
-        var newPos = point.Pos + velocity + acceleration * (dt * dt);
+        var displacement = point.Pos - point.PreviousPos;
+        var windDisplacement = windVelocity * dt;
+        
+        var drag = Mathf.Exp(-DragCoefficient * dt);
+        var newDisplacement = windDisplacement + (displacement - windDisplacement) * drag;
+        
+        var newPos = point.Pos + newDisplacement + acceleration * (dt * dt);
         point.PreviousPos = point.Pos;
         point.Pos = newPos;
     }
