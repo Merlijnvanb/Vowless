@@ -218,6 +218,35 @@ circumference. Fix by mapping `u → θ` and sampling noise on a circle, `(sin �
 - Caching the analytic ambient into a `Texture3D` is **cosmetically free** — exact particle
   trajectories drift versus the analytic field, but the *character* of the motion is preserved.
 
+### Considered: which side owns the reactive sim (authority direction)
+
+The "CPU-authoritative" call above is provisional. Note first what it is *not*: neither option
+runs the sim twice. There is always **one** simulation and **one** authoritative grid; a copy is
+handed to the other side each frame so the field stays samplable from both CPU and GPU. The only
+question is which side is the writer, and therefore which way the per-frame copy flows.
+
+| | Sim runs (once) | Per-frame copy | Cost |
+|---|---|---|---|
+| **CPU-authoritative** (current) | CPU Burst job | CPU→GPU upload into `Texture3D` | no latency; but advection runs on the CPU, where it's slow |
+| **GPU-authoritative** | GPU compute shader | GPU→CPU `AsyncGPUReadback` into the `NativeArray` | ~2–3 frame latency; advection runs where it's fast |
+
+The advection is **GPU-shaped work** — per-cell-independent trilinear gathers — so computing it
+on the GPU and reading a copy back is very likely *cheaper overall* than computing it on the CPU.
+The full-grid transfer is roughly symmetric (the CPU-authoritative path also moves the whole grid
+across the bus every frame, as the upload), so GPU-authoritative isn't adding a copy — just
+reversing its direction and eating a couple frames of staleness, which is **invisible for a
+cosmetic field**. Bonus: the reactive grid advects along `grid + ambient`, and ambient is a pure
+function, so a GPU compute shader recomputes its guide field inline with zero transfer.
+
+**The assumption the current call rests on:** the dominant consumer is CPU-side and wants a
+zero-latency direct read. That is true *today* — the lone consumer is `ClothSim`, a CPU Verlet
+solver doing synchronous scattered gathers. It stops being true the moment the heavy reactive
+consumers are GPU-side (VFX-graph particles, shader grass/banners/hair/dust — i.e. §1's own intro
+list). When that flips, **GPU-authoritative + readback becomes the better shape**, and if CPU
+consumers stay sparse you can read back only the band they occupy rather than the whole volume.
+Either way "one writer, ever" holds: whoever runs the sim owns the grid; the other side only reads
+its copy, and injection reaches a GPU writer as a small impulse buffer, not by writing cells.
+
 ---
 
 ## 7. Build ladder
